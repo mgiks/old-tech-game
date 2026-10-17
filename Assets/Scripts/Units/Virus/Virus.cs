@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Virus : MonoBehaviour
 {
-    [SerializeField] private float scaleMultplicator = 3;
+    [SerializeField] private float scaleMultplicator = 1.1f;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
