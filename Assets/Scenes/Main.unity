@@ -790,6 +790,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopIconManager
   icon: {fileID: 2351835393461066282, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
+  padding: 0.01
+  distanceFromCamera: 10
+  coolDownDurationInSeconds: 3
+  spawnCountPerWave: 6
 --- !u!1 &1371695319
 GameObject:
   m_ObjectHideFlags: 0
