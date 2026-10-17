@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 2250587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.48406, y: -7.1783204, z: 0}
+  m_LocalPosition: {x: -12.34, y: -7.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -203,7 +203,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3143343886470222596, guid: b72cbbe90b90ad146851db2af917f5e1, type: 3}
+  m_Sprite: {fileID: 1314772070176871389, guid: b72cbbe90b90ad146851db2af917f5e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00152637c3ee26440936d6fb666b2693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  scaleMultplicator: 3
 --- !u!50 &2250592
 Rigidbody2D:
   serializedVersion: 5
@@ -746,11 +747,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7009218252235663798, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.04
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7009218252235663798, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.152
+      value: -0.81
       objectReference: {fileID: 0}
     - target: {fileID: 7009218252235663798, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
       propertyPath: m_LocalPosition.z
