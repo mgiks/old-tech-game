@@ -4,16 +4,6 @@ public class Virus : MonoBehaviour
 {
     [SerializeField] private float scaleMultplicator = 3;
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.gameObject.CompareTag("Desktop Icon"))
