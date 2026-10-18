@@ -1,10 +1,12 @@
-using System;
 using UnityEngine;
 
 public class Virus : MonoBehaviour
 {
-    [SerializeField] private float scaleMultplicator = 1.1f;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private float scaleMultplicator = 1.1f;
+    [SerializeField] private bool destroyDesktopIcons = true;
+    [SerializeField] private bool scale = true;
+    [SerializeField] private bool increaseScore = true;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,15 +15,28 @@ public class Virus : MonoBehaviour
             return;
         }
 
-        Destroy(collision.gameObject);
+        if (scale)
+        {
+            Scale(scaleMultplicator);
+        }
 
-        scoreManager.IncrementScore();
+        if (destroyDesktopIcons)
+        {
+            Destroy(collision.gameObject);
+        }
+
+        if (increaseScore)
+        {
+            scoreManager.IncrementScore();
+        }
+    }
+
+    private void Scale(float multiplier)
+    {
         Vector3 scale = gameObject.transform.lossyScale;
-
         float xScale = scale.x;
         float yScale = scale.y;
         float zScale = scale.z;
-
-        // transform.localScale = new Vector3(xScale * scaleMultplicator, yScale * scaleMultplicator, zScale);
+        transform.localScale = new Vector3(xScale * multiplier, yScale * multiplier, zScale);
     }
 }

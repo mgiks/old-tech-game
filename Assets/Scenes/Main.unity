@@ -271,8 +271,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00152637c3ee26440936d6fb666b2693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Virus
-  scaleMultplicator: 1.1
   scoreManager: {fileID: 294910318}
+  scaleMultplicator: 1.1
+  destroyDesktopIcons: 0
+  scale: 0
+  increaseScore: 0
 --- !u!50 &2250592
 Rigidbody2D:
   serializedVersion: 5
