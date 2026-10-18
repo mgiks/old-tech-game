@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Virus : MonoBehaviour
 {
     [SerializeField] private float scaleMultplicator = 1.1f;
+    [SerializeField] private ScoreManager scoreManager;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -11,6 +13,7 @@ public class Virus : MonoBehaviour
             return;
         }
 
+        scoreManager.AddScore(1);
         Vector3 scale = gameObject.transform.lossyScale;
 
         float xScale = scale.x;

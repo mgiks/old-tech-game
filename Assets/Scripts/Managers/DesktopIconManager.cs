@@ -4,6 +4,7 @@ using UnityEngine;
 public class DesktopIconManager : MonoBehaviour
 {
     [SerializeField] private GameObject icon;
+    [SerializeField] private GameObject virus;
     [SerializeField] private float padding = 0.01f;
     [SerializeField] private float coolDownDurationInSeconds = 1f;
     [SerializeField] private uint spawnCountPerWave = 6;
@@ -35,12 +36,34 @@ public class DesktopIconManager : MonoBehaviour
         }
     }
 
+    [ContextMenu("Spawn Desktop Icons")]
     public void SpawnDesktopIcon(uint count)
     {
         for (int i = 0; i < count; i++)
         {
-            float randomX = Random.Range(padding, 1f - padding);
-            float randomY = Random.Range(padding, 1f - padding);
+            BoxCollider2D virusBoxCollider = virus.GetComponent<BoxCollider2D>();
+            Vector2 virusCenter = virusBoxCollider.transform.TransformPoint(virusBoxCollider.offset);
+
+            float virusWidth = virusBoxCollider.size.x;
+            float virusHeight = virusBoxCollider.size.y;
+
+            float virusXLeft = virusCenter.x - virusWidth;
+            float virusXRight = virusCenter.x + virusWidth;
+            float virusYBottom = virusCenter.y - virusHeight;
+            float virusYTop = virusCenter.y + virusHeight;
+
+            Vector2 virusXLeftCoor = new(virusXLeft, virusCenter.y);
+            Vector2 virusXRightCoor = new(virusXRight, virusCenter.y);
+            Vector2 virusYTopCoor = new(virusCenter.x, virusYTop);
+            Vector2 virusYBottomCoor = new(virusCenter.x, virusYBottom);
+
+            virusXLeftCoor = cam.WorldToViewportPoint(virusXLeftCoor);
+            virusXRightCoor = cam.WorldToViewportPoint(virusXRightCoor);
+            virusYTopCoor = cam.WorldToViewportPoint(virusYTopCoor);
+            virusYBottomCoor = cam.WorldToViewportPoint(virusYBottomCoor);
+
+            float randomX = RandomRange(padding, 1f - padding, virusXLeftCoor.x, virusXRightCoor.x);
+            float randomY = RandomRange(padding, 1f - padding, virusYBottomCoor.y, virusYTopCoor.y);
 
             Vector3 randomPosition = new(randomX, randomY, distanceFromCamera);
             Vector3 worldRandomPosition = cam.ViewportToWorldPoint(randomPosition);
@@ -49,4 +72,12 @@ public class DesktopIconManager : MonoBehaviour
         }
     }
 
+    private float RandomRange(float rangeToIncludeMin, float rangeToIncludeMax, float rangeNotToIncludeMin, float rangeNotToIncludeMax)
+    {
+        float randLeftSideVal = Random.Range(rangeToIncludeMin, rangeNotToIncludeMin);
+        float randRightSideVal = Random.Range(rangeNotToIncludeMax, rangeToIncludeMax);
+
+        float randVal = Random.Range(randLeftSideVal, randRightSideVal);
+        return randVal;
+    }
 }
