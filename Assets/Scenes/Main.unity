@@ -942,7 +942,7 @@ MonoBehaviour:
   icon: {fileID: 2351835393461066282, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
   virus: {fileID: 2250587}
   padding: 0.01
-  coolDownDurationInSeconds: 3
+  coolDownDurationInSeconds: 0.1
   spawnCountPerWave: 6
 --- !u!1 &1371695319
 GameObject:

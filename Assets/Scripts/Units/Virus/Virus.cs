@@ -13,6 +13,8 @@ public class Virus : MonoBehaviour
             return;
         }
 
+        Destroy(collision.gameObject);
+
         scoreManager.IncrementScore();
         Vector3 scale = gameObject.transform.lossyScale;
 
@@ -20,6 +22,6 @@ public class Virus : MonoBehaviour
         float yScale = scale.y;
         float zScale = scale.z;
 
-        transform.localScale = new Vector3(xScale * scaleMultplicator, yScale * scaleMultplicator, zScale);
+        // transform.localScale = new Vector3(xScale * scaleMultplicator, yScale * scaleMultplicator, zScale);
     }
 }

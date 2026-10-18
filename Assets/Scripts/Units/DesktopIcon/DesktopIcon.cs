@@ -36,8 +36,6 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         {
             return;
         }
-
-        Destroy(gameObject);
     }
 
     private Vector3 GetPointerWorldPos()
