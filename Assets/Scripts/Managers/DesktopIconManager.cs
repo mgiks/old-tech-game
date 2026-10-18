@@ -6,12 +6,11 @@ public class DesktopIconManager : MonoBehaviour
 {
     [SerializeField] private GameObject icon;
     [SerializeField] private Virus virus;
-    [SerializeField] private SkillManager skillManager;
+    [SerializeField] private SkillTreeDefinition skillTree;
     [SerializeField] private float padding = 0.01f;
     [SerializeField] private uint initialIconCount = 3;
     [SerializeField] private int maxIconsOnScreen = 15;
     [SerializeField] private float baseSpawnIntervalInSeconds = 3f;
-    [SerializeField] private float spawnSpeedBonusPerSpeedLevel = 0.25f;
     [SerializeField] private float haloDiameterInVirusHeights = 2f;
     [SerializeField] private int maxSpawnAttempts = 30;
     [SerializeField] private RectTransform[] spawnBlockers;
@@ -23,7 +22,7 @@ public class DesktopIconManager : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        SpawnDesktopIcons(initialIconCount);
+        SpawnStartingIcons();
         StartCoroutine(SpawnDesktopIconsRoutine());
     }
 
@@ -33,7 +32,7 @@ public class DesktopIconManager : MonoBehaviour
         {
             yield return new WaitForSeconds(GetSpawnInterval());
 
-            if (DesktopIcon.Active.Count < maxIconsOnScreen)
+            if (DesktopIcon.Active.Count < GetMaxIconsOnScreen())
             {
                 SpawnDesktopIcons(1);
             }
@@ -42,8 +41,25 @@ public class DesktopIconManager : MonoBehaviour
 
     private float GetSpawnInterval()
     {
-        int speedLevel = skillManager.GetLevel(SkillType.Speed);
-        return baseSpawnIntervalInSeconds / (1f + spawnSpeedBonusPerSpeedLevel * speedLevel);
+        return baseSpawnIntervalInSeconds / (1f + skillTree.GetStat(SkillStat.SpawnRate));
+    }
+
+    private int GetMaxIconsOnScreen()
+    {
+        return maxIconsOnScreen + Mathf.RoundToInt(skillTree.GetStat(SkillStat.MaxFiles));
+    }
+
+    public void ClearDesktop()
+    {
+        for (int i = DesktopIcon.Active.Count - 1; i >= 0; i--)
+        {
+            Destroy(DesktopIcon.Active[i].gameObject);
+        }
+    }
+
+    public void SpawnStartingIcons()
+    {
+        SpawnDesktopIcons(initialIconCount + (uint)Mathf.RoundToInt(skillTree.GetStat(SkillStat.StartFiles)));
     }
 
     [ContextMenu("Spawn 6 Desktop Icons")]

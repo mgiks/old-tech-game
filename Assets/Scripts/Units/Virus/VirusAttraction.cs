@@ -4,15 +4,10 @@ using UnityEngine;
 public class VirusAttraction : MonoBehaviour
 {
     [SerializeField] private Virus virus;
-    [SerializeField] private SkillManager skillManager;
-
-    [Header("Radius")]
-    [SerializeField] private float baseRadius = 1.5f;
-    [SerializeField] private float radiusPerLevel = 0.5f;
-    [SerializeField] private float pullSpeed = 3f;
+    [SerializeField] private SkillTreeDefinition skillTree;
+    [SerializeField] private float basePullSpeed = 3f;
 
     [Header("Screen-wide eating")]
-    [SerializeField] private int screenWideFromLevel = 5;
     [SerializeField] private float baseScreenWideIntervalInSeconds = 3f;
     [SerializeField] private float screenWideIntervalReductionPerLevel = 0.4f;
     [SerializeField] private float minScreenWideIntervalInSeconds = 0.5f;
@@ -24,19 +19,13 @@ public class VirusAttraction : MonoBehaviour
     {
         targeted.RemoveWhere(icon => icon == null);
 
-        int level = skillManager.GetLevel(SkillType.Autonomy);
-        if (level <= 0)
-        {
-            return;
-        }
-
-        UpdateScreenWideTargeting(level);
-        PullIcons(level);
+        UpdateScreenWideTargeting(Mathf.RoundToInt(skillTree.GetStat(SkillStat.ScreenWideEating)));
+        PullIcons(skillTree.GetStat(SkillStat.AttractionRadius));
     }
 
     private void UpdateScreenWideTargeting(int level)
     {
-        if (level < screenWideFromLevel)
+        if (level <= 0)
         {
             return;
         }
@@ -44,7 +33,7 @@ public class VirusAttraction : MonoBehaviour
         screenWideTimer += Time.deltaTime;
         float interval = Mathf.Max(
             minScreenWideIntervalInSeconds,
-            baseScreenWideIntervalInSeconds - screenWideIntervalReductionPerLevel * (level - screenWideFromLevel));
+            baseScreenWideIntervalInSeconds - screenWideIntervalReductionPerLevel * (level - 1));
 
         if (screenWideTimer < interval)
         {
@@ -68,11 +57,16 @@ public class VirusAttraction : MonoBehaviour
         }
     }
 
-    private void PullIcons(int level)
+    private void PullIcons(float radius)
     {
+        if (radius <= 0f && targeted.Count == 0)
+        {
+            return;
+        }
+
         Vector2 target = virus.GetAbsorbPoint();
-        float radius = baseRadius + radiusPerLevel * (level - 1);
         float sqrRadius = radius * radius;
+        float pullSpeed = basePullSpeed + skillTree.GetStat(SkillStat.PullSpeed);
 
         for (int i = DesktopIcon.Active.Count - 1; i >= 0; i--)
         {

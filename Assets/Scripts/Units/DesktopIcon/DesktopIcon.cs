@@ -59,6 +59,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         }
 
         IsConsumed = true;
+        RunStats.AddFile();
         return true;
     }
 

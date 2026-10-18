@@ -13,6 +13,21 @@ public class Virus : MonoBehaviour
     [SerializeField] private bool increaseScore = true;
 
     private int iconsSinceGrowth;
+    private Vector3 initialScale;
+    private float initialExponent;
+
+    void Awake()
+    {
+        initialScale = transform.localScale;
+        initialExponent = exponent;
+    }
+
+    public void ResetGrowth()
+    {
+        transform.localScale = initialScale;
+        exponent = initialExponent;
+        iconsSinceGrowth = 0;
+    }
 
     public void Absorb(DesktopIcon icon)
     {
