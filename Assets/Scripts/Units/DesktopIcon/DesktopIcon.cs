@@ -15,7 +15,6 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         offset = transform.position - GetPointerWorldPos();
-        Debug.Log("Something pointer down");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -38,7 +37,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
             return;
         }
 
-        // Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private Vector3 GetPointerWorldPos()

@@ -247,7 +247,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.005634129, y: 0.035478532}
+  m_Offset: {x: -0.007721916, y: -0.06890935}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4954949, y: 0.43482792}
@@ -257,7 +257,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8464873, y: 0.8573952}
+  m_Size: {x: 0.64188707, y: 0.6486194}
   m_EdgeRadius: 0
 --- !u!114 &2250591
 MonoBehaviour:
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 294910317}
   - component: {fileID: 294910318}
   m_Layer: 0
-  m_Name: ScoreManager
+  m_Name: Score Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -906,7 +906,7 @@ GameObject:
   - component: {fileID: 1089878546}
   - component: {fileID: 1089878547}
   m_Layer: 0
-  m_Name: DesktopIconManager
+  m_Name: Desktop Icon Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -942,7 +942,7 @@ MonoBehaviour:
   icon: {fileID: 2351835393461066282, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
   virus: {fileID: 2250587}
   padding: 0.01
-  coolDownDurationInSeconds: 0.5
+  coolDownDurationInSeconds: 3
   spawnCountPerWave: 6
 --- !u!1 &1371695319
 GameObject:
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 MBs
+  m_text: 'MBs: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -32,12 +32,17 @@ public class DesktopIconManager : MonoBehaviour
                 spawnedFirstWave = true;
             }
 
-            SpawnDesktopIcon(spawnCountPerWave);
+            SpawnDesktopIcons(spawnCountPerWave);
         }
     }
 
-    [ContextMenu("Spawn Desktop Icons")]
-    public void SpawnDesktopIcon(uint count)
+    [ContextMenu("Spawn 6 Desktop Icons")]
+    public void Spawn6DesktopIcons()
+    {
+        SpawnDesktopIcons(6);
+    }
+
+    public void SpawnDesktopIcons(uint count)
     {
         for (int i = 0; i < count; i++)
         {

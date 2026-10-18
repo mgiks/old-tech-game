@@ -13,7 +13,7 @@ public class Virus : MonoBehaviour
             return;
         }
 
-        scoreManager.AddScore(1);
+        scoreManager.IncrementScore();
         Vector3 scale = gameObject.transform.lossyScale;
 
         float xScale = scale.x;
