@@ -46,6 +46,16 @@ public class SkillTooltip : MonoBehaviour
             status = $"Уровень {level}/{node.maxLevel}\nЦена: <color={costColor}>{cost} MB</color>";
         }
 
+        if (!node.comingSoon && node.stat != SkillStat.None)
+        {
+            float current = skillTree.GetStat(node.stat);
+            string now = SkillTreeDefinition.FormatStat(node.stat, current);
+            string preview = skillTree.IsMaxed(node)
+                ? $"<color=#FFD24D>{now}</color>"
+                : $"<color=#8A93B8>{now}</color>  →  <color=#7CFFE0><b>{SkillTreeDefinition.FormatStat(node.stat, current + node.valuePerLevel)}</b></color>";
+            status = $"{preview}\n{status}";
+        }
+
         text.text = string.IsNullOrEmpty(status)
             ? $"<b>{node.displayName}</b>\n{node.description}"
             : $"<b>{node.displayName}</b>\n{node.description}\n\n{status}";

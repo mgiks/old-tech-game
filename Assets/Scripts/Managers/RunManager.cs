@@ -10,20 +10,22 @@ public class RunManager : MonoBehaviour
     [SerializeField] private Virus virus;
     [SerializeField] private DesktopIconManager iconManager;
     [SerializeField] private RunEndScreen endScreen;
+    [SerializeField] private GameIntro intro;
+    [SerializeField] private EatFeedback feedback;
     [SerializeField] private string skillTreeSceneName = "Skill Tree";
 
     [Header("Timer")]
-    [SerializeField] private float baseRunDurationInSeconds = 30f;
+    [SerializeField] private float baseRunDurationInSeconds = 8f;
     [SerializeField] private Image timerFill;
     [SerializeField] private TextMeshProUGUI timerDisplay;
     [SerializeField] private Color timerFullColor = new(0.3f, 1f, 0.5f, 1f);
     [SerializeField] private Color timerEmptyColor = new(1f, 0.25f, 0.25f, 1f);
-    [SerializeField] private float timerWarningSeconds = 5f;
+    [SerializeField] private float timerWarningSeconds = 3f;
 
     [Header("Computers")]
     [SerializeField, Min(1)] private int totalComputers = 11;
-    [SerializeField, Min(1)] private int baseFilesPerComputer = 10;
-    [SerializeField, Min(1f)] private float filesPerComputerGrowth = 1.4f;
+    [SerializeField, Min(1)] private int baseFilesPerComputer = 8;
+    [SerializeField, Min(1f)] private float filesPerComputerGrowth = 1.35f;
     [SerializeField] private TextMeshProUGUI computerDisplay;
 
     [Header("Jump to next computer")]
@@ -35,6 +37,7 @@ public class RunManager : MonoBehaviour
     private float timeLeft;
     private int filesAtComputerStart;
     private bool jumping;
+    private bool started;
     private bool finished;
 
     void Start()
@@ -50,6 +53,21 @@ public class RunManager : MonoBehaviour
         }
 
         UpdateDisplay();
+
+        if (intro != null && intro.ShouldPlay)
+        {
+            intro.Play(BeginRun);
+        }
+        else
+        {
+            BeginRun();
+        }
+    }
+
+    private void BeginRun()
+    {
+        started = true;
+        iconManager.StartSpawning();
     }
 
     void OnDestroy()
@@ -59,7 +77,7 @@ public class RunManager : MonoBehaviour
 
     void Update()
     {
-        if (finished)
+        if (finished || !started)
         {
             return;
         }
@@ -119,6 +137,14 @@ public class RunManager : MonoBehaviour
         }
 
         RunStats.AddComputer();
+        if (feedback != null)
+        {
+            Vector2 center = virus.GetAbsorbPoint();
+            feedback.Burst(center, new Color(0.45f, 1f, 0.55f, 1f), 50, 12f);
+            feedback.Ring(center, Color.white, 14f);
+            feedback.Shake(0.4f);
+        }
+
         if (RunStats.ComputersInfected >= totalComputers)
         {
             SetFlash(0f);
@@ -151,6 +177,7 @@ public class RunManager : MonoBehaviour
     private void Finish()
     {
         finished = true;
+        RunStats.Complete();
         UpdateDisplay();
         Time.timeScale = 0f;
         endScreen.Show(GoToSkillTree, StartNextRun);

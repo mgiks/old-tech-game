@@ -54,7 +54,7 @@ public class Virus : MonoBehaviour
 
         if (increaseScore)
         {
-            scoreManager.IncrementScore();
+            scoreManager.AddFile(icon);
         }
     }
 

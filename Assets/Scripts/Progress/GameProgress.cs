@@ -7,6 +7,7 @@ public static class GameProgress
     private static readonly Dictionary<string, int> skillLevels = new();
 
     public static uint MB { get; private set; }
+    public static bool IntroDone { get; set; }
 
     public static event Action Changed;
 
@@ -15,6 +16,7 @@ public static class GameProgress
     {
         skillLevels.Clear();
         MB = 0;
+        IntroDone = false;
         Changed = null;
     }
 

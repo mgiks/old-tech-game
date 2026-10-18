@@ -6,25 +6,33 @@ using UnityEngine.UI;
 
 public class RunEndScreen : MonoBehaviour
 {
+    [SerializeField] private SkillTreeDefinition skillTree;
     [SerializeField] private CanvasGroup group;
     [SerializeField] private RectTransform monitor;
     [SerializeField] private RectTransform virusDecor;
     [SerializeField] private Image computersFill;
     [SerializeField] private TextMeshProUGUI computersCount;
     [SerializeField] private TextMeshProUGUI totalValue;
+    [SerializeField] private TextMeshProUGUI comparison;
+    [SerializeField] private RectTransform recordStamp;
     [SerializeField] private TextMeshProUGUI filesValue;
     [SerializeField] private TextMeshProUGUI clicksValue;
     [SerializeField] private TextMeshProUGUI gbValue;
     [SerializeField] private Button upgradeButton;
+    [SerializeField] private TextMeshProUGUI upgradeLabel;
     [SerializeField] private Button continueButton;
 
     [SerializeField] private float zoomOutDuration = 0.45f;
     [SerializeField] private float startMonitorScale = 1.3f;
     [SerializeField] private float countDuration = 1.2f;
     [SerializeField] private float virusSpinSpeed = 12f;
+    [SerializeField] private Color betterColor = new(0.45f, 1f, 0.55f, 1f);
+    [SerializeField] private Color worseColor = new(1f, 0.45f, 0.45f, 1f);
 
     private Action onUpgrade;
     private Action onContinue;
+    private int affordableUpgrades;
+    private bool revealed;
 
     void Awake()
     {
@@ -35,9 +43,21 @@ public class RunEndScreen : MonoBehaviour
 
     void Update()
     {
+        float now = Time.unscaledTime;
+
         if (virusDecor != null)
         {
             virusDecor.Rotate(0f, 0f, virusSpinSpeed * Time.unscaledDeltaTime);
+        }
+
+        if (revealed && RunStats.IsNewRecord)
+        {
+            recordStamp.localScale = Vector3.one * (1f + 0.08f * Mathf.Sin(now * 6f));
+        }
+
+        if (revealed && affordableUpgrades > 0)
+        {
+            upgradeButton.transform.localScale = Vector3.one * (1f + 0.04f * Mathf.Sin(now * 5f));
         }
     }
 
@@ -60,10 +80,17 @@ public class RunEndScreen : MonoBehaviour
 
     private IEnumerator PlayIn()
     {
+        revealed = false;
         int total = Mathf.Max(RunStats.TotalComputers, 1);
         computersCount.text = $"{RunStats.ComputersInfected}/{total}";
         SetValues(0f);
         computersFill.fillAmount = 0f;
+        comparison.text = string.Empty;
+        recordStamp.gameObject.SetActive(false);
+        upgradeButton.transform.localScale = Vector3.one;
+
+        affordableUpgrades = CountAffordableUpgrades();
+        upgradeLabel.text = affordableUpgrades > 0 ? $"апгрейд  <color=#2E9E4F>(доступно: {affordableUpgrades})</color>" : "апгрейд";
 
         for (float t = 0f; t < zoomOutDuration; t += Time.unscaledDeltaTime)
         {
@@ -87,6 +114,38 @@ public class RunEndScreen : MonoBehaviour
 
         SetValues(1f);
         computersFill.fillAmount = computersTarget;
+        ShowComparison();
+        recordStamp.gameObject.SetActive(RunStats.IsNewRecord);
+        revealed = true;
+    }
+
+    private void ShowComparison()
+    {
+        if (!RunStats.HasPreviousRun)
+        {
+            return;
+        }
+
+        long delta = (long)RunStats.MBEarned - RunStats.PreviousRunMB;
+        float percent = delta * 100f / Mathf.Max(RunStats.PreviousRunMB, 1u);
+        bool better = delta >= 0;
+        string arrow = better ? "▲" : "▼";
+        comparison.color = better ? betterColor : worseColor;
+        comparison.text = $"{arrow} {(better ? "+" : "")}{percent:0}% к прошлому рану ({RunStats.PreviousRunMB} MB)";
+    }
+
+    private int CountAffordableUpgrades()
+    {
+        int count = 0;
+        foreach (SkillTreeDefinition.Node node in skillTree.Nodes)
+        {
+            if (skillTree.CanBuy(node))
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private void SetValues(float k)

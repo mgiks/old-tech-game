@@ -11,13 +11,51 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public bool IsDragged { get; private set; }
     public bool IsConsumed { get; private set; }
+    public bool IsGolden { get; private set; }
+
+    [SerializeField] private float popInDuration = 0.25f;
+    [SerializeField] private Color goldenColor = new(1f, 0.82f, 0.25f, 1f);
 
     private Vector3 offset;
     private Camera cam;
+    private SpriteRenderer spriteRenderer;
+    private Vector3 baseScale;
+    private float age;
 
     void Awake()
     {
         cam = Camera.main;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        baseScale = transform.localScale;
+        transform.localScale = Vector3.zero;
+    }
+
+    void Update()
+    {
+        age += Time.deltaTime;
+
+        if (age < popInDuration)
+        {
+            float t = age / popInDuration;
+            float overshoot = 1f + Mathf.Sin(t * Mathf.PI) * 0.35f;
+            transform.localScale = baseScale * (t * overshoot);
+        }
+        else if (transform.localScale != baseScale)
+        {
+            transform.localScale = baseScale;
+        }
+
+        if (IsGolden)
+        {
+            float shimmer = 0.5f + 0.5f * Mathf.Sin(age * 8f);
+            spriteRenderer.color = Color.Lerp(goldenColor, Color.white, shimmer * 0.45f);
+        }
+    }
+
+    public void MakeGolden()
+    {
+        IsGolden = true;
+        baseScale *= 1.15f;
     }
 
     void OnEnable()

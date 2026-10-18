@@ -31,12 +31,12 @@ MonoBehaviour:
     displayName: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C"
     description: "\u0424\u0430\u0439\u043B\u044B \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
       \u043D\u0430 \u0440\u0430\u0431\u043E\u0447\u0435\u043C \u0441\u0442\u043E\u043B\u0435
-      \u043D\u0430 25% \u0447\u0430\u0449\u0435 \u0437\u0430 \u0443\u0440\u043E\u0432\u0435\u043D\u044C."
+      \u0447\u0430\u0449\u0435."
     stat: 1
-    valuePerLevel: 0.25
+    valuePerLevel: 0.4
     maxLevel: 5
-    baseCost: 5
-    costMultiplier: 1.5
+    baseCost: 4
+    costMultiplier: 1.55
     startsOwned: 0
     comingSoon: 0
     position: {x: -300, y: 0}
@@ -45,13 +45,13 @@ MonoBehaviour:
   - id: max_files
     displayName: "\u0417\u0430\u0445\u043B\u0430\u043C\u043B\u0451\u043D\u043D\u044B\u0439
       \u0441\u0442\u043E\u043B"
-    description: "+3 \u043A \u043B\u0438\u043C\u0438\u0442\u0443 \u0444\u0430\u0439\u043B\u043E\u0432
-      \u043D\u0430 \u044D\u043A\u0440\u0430\u043D\u0435 \u0437\u0430 \u0443\u0440\u043E\u0432\u0435\u043D\u044C."
+    description: "\u041D\u0430 \u044D\u043A\u0440\u0430\u043D\u0435 \u043F\u043E\u043C\u0435\u0449\u0430\u0435\u0442\u0441\u044F
+      \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0430\u0439\u043B\u043E\u0432."
     stat: 2
-    valuePerLevel: 3
-    maxLevel: 5
-    baseCost: 12
-    costMultiplier: 1.5
+    valuePerLevel: 5
+    maxLevel: 4
+    baseCost: 10
+    costMultiplier: 1.6
     startsOwned: 0
     comingSoon: 0
     position: {x: -560, y: 140}
@@ -59,43 +59,74 @@ MonoBehaviour:
     - spawn_rate_1
   - id: start_files
     displayName: "\u0410\u0432\u0442\u043E\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430"
-    description: "+2 \u0444\u0430\u0439\u043B\u0430 \u043D\u0430 \u0441\u0442\u0430\u0440\u0442\u0435
-      \u0437\u0430\u0431\u0435\u0433\u0430 \u0437\u0430 \u0443\u0440\u043E\u0432\u0435\u043D\u044C."
+    description: "\u0417\u0430\u0431\u0435\u0433 \u043D\u0430\u0447\u0438\u043D\u0430\u0435\u0442\u0441\u044F
+      \u0441 \u043A\u0443\u0447\u0435\u0439 \u0444\u0430\u0439\u043B\u043E\u0432
+      \u043D\u0430 \u0441\u0442\u043E\u043B\u0435."
     stat: 3
-    valuePerLevel: 2
-    maxLevel: 3
-    baseCost: 15
-    costMultiplier: 1.7
+    valuePerLevel: 3
+    maxLevel: 4
+    baseCost: 8
+    costMultiplier: 1.6
     startsOwned: 0
     comingSoon: 0
     position: {x: -560, y: -140}
     requires:
     - spawn_rate_1
-  - id: spawn_rate_2
+  - id: spawn_burst
     displayName: "\u0420\u0430\u0437\u0433\u043E\u043D"
-    description: "\u0415\u0449\u0451 +25% \u043A \u0447\u0430\u0441\u0442\u043E\u0442\u0435
-      \u043F\u043E\u044F\u0432\u043B\u0435\u043D\u0438\u044F \u0444\u0430\u0439\u043B\u043E\u0432
-      \u0437\u0430 \u0443\u0440\u043E\u0432\u0435\u043D\u044C."
-    stat: 1
-    valuePerLevel: 0.25
-    maxLevel: 5
-    baseCost: 40
-    costMultiplier: 1.6
+    description: "\u0424\u0430\u0439\u043B\u044B \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
+      \u043F\u0430\u0447\u043A\u0430\u043C\u0438: +1 \u0444\u0430\u0439\u043B \u0432
+      \u043A\u0430\u0436\u0434\u043E\u0439 \u043F\u0430\u0447\u043A\u0435."
+    stat: 9
+    valuePerLevel: 1
+    maxLevel: 3
+    baseCost: 35
+    costMultiplier: 1.9
     startsOwned: 0
     comingSoon: 0
     position: {x: -820, y: 140}
     requires:
     - max_files
+  - id: file_value
+    displayName: "\u0421\u0436\u0430\u0442\u0438\u0435"
+    description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0441\u044A\u0435\u0434\u0435\u043D\u043D\u044B\u0439
+      \u0444\u0430\u0439\u043B \u043F\u0440\u0438\u043D\u043E\u0441\u0438\u0442 \u0431\u043E\u043B\u044C\u0448\u0435
+      MB."
+    stat: 8
+    valuePerLevel: 1
+    maxLevel: 6
+    baseCost: 6
+    costMultiplier: 1.7
+    startsOwned: 0
+    comingSoon: 0
+    position: {x: -300, y: -300}
+    requires:
+    - core
+  - id: golden
+    displayName: "\u0426\u0435\u043D\u043D\u044B\u0435 \u0444\u0430\u0439\u043B\u044B"
+    description: "\u0418\u043D\u043E\u0433\u0434\u0430 \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
+      \u0437\u043E\u043B\u043E\u0442\u044B\u0435 \u0444\u0430\u0439\u043B\u044B:
+      \u043E\u043D\u0438 \u0441\u0442\u043E\u044F\u0442 \u0432 5 \u0440\u0430\u0437
+      \u0431\u043E\u043B\u044C\u0448\u0435."
+    stat: 10
+    valuePerLevel: 0.06
+    maxLevel: 5
+    baseCost: 25
+    costMultiplier: 1.7
+    startsOwned: 0
+    comingSoon: 0
+    position: {x: -560, y: -400}
+    requires:
+    - file_value
   - id: attraction
     displayName: "\u0410\u0432\u0442\u043E\u043D\u043E\u043C\u043D\u043E\u0441\u0442\u044C"
     description: "\u0412\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
       \u0438 \u0441\u044A\u0435\u0434\u0430\u0435\u0442 \u0444\u0430\u0439\u043B\u044B
-      \u0432 \u0440\u0430\u0434\u0438\u0443\u0441\u0435 1.5 \u0432\u043E\u043A\u0440\u0443\u0433
-      \u0441\u0435\u0431\u044F."
+      \u0432\u043E\u043A\u0440\u0443\u0433 \u0441\u0435\u0431\u044F."
     stat: 4
     valuePerLevel: 1.5
     maxLevel: 1
-    baseCost: 10
+    baseCost: 12
     costMultiplier: 1.5
     startsOwned: 0
     comingSoon: 0
@@ -104,13 +135,14 @@ MonoBehaviour:
     - core
   - id: attraction_radius
     displayName: "\u0428\u0438\u0440\u043E\u043A\u0438\u0439 \u043E\u0445\u0432\u0430\u0442"
-    description: "+0.5 \u043A \u0440\u0430\u0434\u0438\u0443\u0441\u0443 \u043F\u0440\u0438\u0442\u044F\u0436\u0435\u043D\u0438\u044F
-      \u0437\u0430 \u0443\u0440\u043E\u0432\u0435\u043D\u044C."
+    description: "\u0412\u0438\u0440\u0443\u0441 \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
+      \u0444\u0430\u0439\u043B\u044B \u0441 \u0431\u043E\u043B\u044C\u0448\u0435\u0433\u043E
+      \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u044F."
     stat: 4
-    valuePerLevel: 0.5
+    valuePerLevel: 0.6
     maxLevel: 5
     baseCost: 15
-    costMultiplier: 1.5
+    costMultiplier: 1.55
     startsOwned: 0
     comingSoon: 0
     position: {x: 560, y: 140}
@@ -118,14 +150,13 @@ MonoBehaviour:
     - attraction
   - id: pull_speed
     displayName: "\u0421\u0438\u043B\u044C\u043D\u0430\u044F \u0433\u0440\u0430\u0432\u0438\u0442\u0430\u0446\u0438\u044F"
-    description: "\u0424\u0430\u0439\u043B\u044B \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u044E\u0442\u0441\u044F
-      \u043D\u0430 1 \u0435\u0434./\u0441 \u0431\u044B\u0441\u0442\u0440\u0435\u0435
-      \u0437\u0430 \u0443\u0440\u043E\u0432\u0435\u043D\u044C."
+    description: "\u0424\u0430\u0439\u043B\u044B \u043B\u0435\u0442\u044F\u0442 \u043A
+      \u0432\u0438\u0440\u0443\u0441\u0443 \u0431\u044B\u0441\u0442\u0440\u0435\u0435."
     stat: 5
-    valuePerLevel: 1
-    maxLevel: 5
+    valuePerLevel: 1.5
+    maxLevel: 4
     baseCost: 15
-    costMultiplier: 1.5
+    costMultiplier: 1.55
     startsOwned: 0
     comingSoon: 0
     position: {x: 560, y: -140}
@@ -137,13 +168,12 @@ MonoBehaviour:
       \u0444\u0430\u0439\u043B\u044B \u043F\u043E \u0432\u0441\u0435\u043C\u0443
       \u044D\u043A\u0440\u0430\u043D\u0443 \u0438 \u0437\u0430\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
       \u0438\u0445. \u041A\u0430\u0436\u0434\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C
-      \u0441\u043E\u043A\u0440\u0430\u0449\u0430\u0435\u0442 \u043F\u0430\u0443\u0437\u0443
-      \u043C\u0435\u0436\u0434\u0443 \u043E\u0445\u043E\u0442\u0430\u043C\u0438."
+      \u043E\u0445\u043E\u0442\u0438\u0442\u0441\u044F \u0447\u0430\u0449\u0435."
     stat: 6
     valuePerLevel: 1
     maxLevel: 5
-    baseCost: 60
-    costMultiplier: 1.7
+    baseCost: 50
+    costMultiplier: 1.8
     startsOwned: 0
     comingSoon: 0
     position: {x: 820, y: 140}
@@ -151,18 +181,32 @@ MonoBehaviour:
     - attraction_radius
   - id: run_time
     displayName: "\u041E\u0442\u0441\u0440\u043E\u0447\u043A\u0430 \u0443\u0432\u043E\u043B\u044C\u043D\u0435\u043D\u0438\u044F"
-    description: "+5 \u0441\u0435\u043A\u0443\u043D\u0434 \u043A \u0434\u043B\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u0438
-      \u0437\u0430\u0431\u0435\u0433\u0430 \u0437\u0430 \u0443\u0440\u043E\u0432\u0435\u043D\u044C."
+    description: "\u0417\u0430\u0431\u0435\u0433 \u0434\u043B\u0438\u0442\u0441\u044F
+      \u0434\u043E\u043B\u044C\u0448\u0435."
     stat: 7
-    valuePerLevel: 5
-    maxLevel: 5
-    baseCost: 8
-    costMultiplier: 1.6
+    valuePerLevel: 2
+    maxLevel: 6
+    baseCost: 5
+    costMultiplier: 1.5
     startsOwned: 0
     comingSoon: 0
     position: {x: 0, y: -220}
     requires:
     - core
+  - id: run_time_2
+    displayName: "\u0411\u043E\u043B\u044C\u043D\u0438\u0447\u043D\u044B\u0439"
+    description: "\u0417\u0430\u0431\u0435\u0433 \u0434\u043B\u0438\u0442\u0441\u044F
+      \u043D\u0430\u043C\u043D\u043E\u0433\u043E \u0434\u043E\u043B\u044C\u0448\u0435."
+    stat: 7
+    valuePerLevel: 4
+    maxLevel: 3
+    baseCost: 60
+    costMultiplier: 1.8
+    startsOwned: 0
+    comingSoon: 0
+    position: {x: 0, y: -440}
+    requires:
+    - run_time
   - id: mutation
     displayName: "\u041C\u0443\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435"
     description: "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u043D\u043E\u0432\u044B\u0435

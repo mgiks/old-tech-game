@@ -8,9 +8,9 @@ public class DesktopIconManager : MonoBehaviour
     [SerializeField] private Virus virus;
     [SerializeField] private SkillTreeDefinition skillTree;
     [SerializeField] private float padding = 0.01f;
-    [SerializeField] private uint initialIconCount = 3;
-    [SerializeField] private int maxIconsOnScreen = 15;
-    [SerializeField] private float baseSpawnIntervalInSeconds = 3f;
+    [SerializeField] private uint initialIconCount = 5;
+    [SerializeField] private int maxIconsOnScreen = 12;
+    [SerializeField] private float baseSpawnIntervalInSeconds = 0.9f;
     [SerializeField] private float haloDiameterInVirusHeights = 2f;
     [SerializeField] private int maxSpawnAttempts = 30;
     [SerializeField] private RectTransform[] spawnBlockers;
@@ -19,9 +19,13 @@ public class DesktopIconManager : MonoBehaviour
     private readonly float distanceFromCamera = 10f;
     private readonly Vector3[] blockerCorners = new Vector3[4];
 
-    void Start()
+    void Awake()
     {
         cam = Camera.main;
+    }
+
+    public void StartSpawning()
+    {
         SpawnStartingIcons();
         StartCoroutine(SpawnDesktopIconsRoutine());
     }
@@ -32,9 +36,11 @@ public class DesktopIconManager : MonoBehaviour
         {
             yield return new WaitForSeconds(GetSpawnInterval());
 
-            if (DesktopIcon.Active.Count < GetMaxIconsOnScreen())
+            int free = GetMaxIconsOnScreen() - DesktopIcon.Active.Count;
+            int burst = 1 + Mathf.RoundToInt(skillTree.GetStat(SkillStat.SpawnBurst));
+            if (free > 0)
             {
-                SpawnDesktopIcons(1);
+                SpawnDesktopIcons((uint)Mathf.Min(free, burst));
             }
         }
     }
@@ -74,7 +80,11 @@ public class DesktopIconManager : MonoBehaviour
         {
             if (TryGetPositionOutsideHalo(out Vector2 coords))
             {
-                Instantiate(icon, new Vector3(coords.x, coords.y, 0f), Quaternion.identity);
+                GameObject spawned = Instantiate(icon, new Vector3(coords.x, coords.y, 0f), Quaternion.identity);
+                if (Random.value < skillTree.GetStat(SkillStat.GoldenChance))
+                {
+                    spawned.GetComponent<DesktopIcon>().MakeGolden();
+                }
             }
         }
     }
