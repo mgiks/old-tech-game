@@ -12,6 +12,8 @@ public static class RunStats
     public static uint PreviousRunMB { get; private set; }
     public static bool HasPreviousRun { get; private set; }
     public static bool IsNewRecord { get; private set; }
+    public static int TotalFiles { get; private set; }
+    public static int TotalClicks { get; private set; }
 
     private static uint bestRunMB;
     private static uint lastRunMB;
@@ -19,13 +21,15 @@ public static class RunStats
     public static float GBEarned => MBEarned / 1024f;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    private static void ResetSession()
+    public static void ResetSession()
     {
         ResetRun();
         RunNumber = 0;
         PreviousRunMB = 0;
         HasPreviousRun = false;
         IsNewRecord = false;
+        TotalFiles = 0;
+        TotalClicks = 0;
         bestRunMB = 0;
         lastRunMB = 0;
     }
@@ -53,6 +57,8 @@ public static class RunStats
         IsNewRecord = HasPreviousRun && MBEarned > bestRunMB;
         lastRunMB = MBEarned;
         bestRunMB = (uint)Mathf.Max(bestRunMB, MBEarned);
+        TotalFiles += FilesInfected;
+        TotalClicks += Clicks;
     }
 
     public static void AddMB(uint amount) => MBEarned += amount;

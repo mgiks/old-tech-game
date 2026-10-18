@@ -187,7 +187,10 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (node.comingSoon || skillTree.IsMaxed(node) || !skillTree.CanBuy(node))
         {
             denyTime = Time.unscaledTime;
-            fx.PlayDenied(rect, node.comingSoon ? "Скоро" : skillTree.IsMaxed(node) ? "Максимум" : "Мало MB");
+            fx.PlayDenied(rect, node.comingSoon ? "Скоро"
+                : skillTree.IsMaxed(node) ? "Максимум"
+                : node.requiresAllMaxed && !skillTree.IsEverythingElseMaxed() ? "Нужно всё дерево"
+                : "Мало MB");
             return;
         }
 

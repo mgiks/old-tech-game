@@ -14,7 +14,14 @@ public enum SkillStat
     RunTime,
     FileValue,
     SpawnBurst,
-    GoldenChance
+    GoldenChance,
+    CursorRadius,
+    HoverFeed,
+    Combo,
+    ChainChance,
+    Satellites,
+    TimePerComputer,
+    ServerAccess
 }
 
 [CreateAssetMenu(menuName = "Old Tech/Skill Tree", fileName = "Skill Tree")]
@@ -33,6 +40,7 @@ public class SkillTreeDefinition : ScriptableObject
         public float costMultiplier = 1.5f;
         public bool startsOwned;
         public bool comingSoon;
+        public bool requiresAllMaxed;
         public Vector2 position;
         public string[] requires = Array.Empty<string>();
     }
@@ -114,7 +122,7 @@ public class SkillTreeDefinition : ScriptableObject
         new()
         {
             id = "screen_wide", displayName = "Охота",
-            description = "Вирус сам выбирает файлы по всему экрану и затягивает их. Каждый уровень охотится чаще.",
+            description = "Вирус сам выбирает файлы по всему экрану и затягивает их. Каждый уровень охотится чаще, с 3-го — по несколько файлов сразу.",
             stat = SkillStat.ScreenWideEating, valuePerLevel = 1f, maxLevel = 5, baseCost = 50, costMultiplier = 1.8f,
             position = new Vector2(820f, 140f), requires = new[] { "attraction_radius" }
         },
@@ -136,9 +144,61 @@ public class SkillTreeDefinition : ScriptableObject
 
         new()
         {
+            id = "server_access", displayName = "Сетевой червь",
+            description = "Последний, 11-й компьютер — сервер фирмы. Он защищён, пока вирус не освоит всё. Прокачай всё дерево до максимума.",
+            stat = SkillStat.ServerAccess, valuePerLevel = 1f, maxLevel = 1, baseCost = 1500, requiresAllMaxed = true,
+            position = new Vector2(0f, -680f), requires = new[] { "run_time_2" }
+        },
+
+        new()
+        {
+            id = "cursor_radius", displayName = "Цепкий курсор",
+            description = "Тащишь один файл — курсор прихватывает и все файлы рядом.",
+            stat = SkillStat.CursorRadius, valuePerLevel = 0.45f, maxLevel = 5, baseCost = 8, costMultiplier = 1.6f,
+            position = new Vector2(-300f, 260f), requires = new[] { "core" }
+        },
+        new()
+        {
+            id = "hover_feed", displayName = "Без рук",
+            description = "Кнопку зажимать больше не нужно: просто води мышкой, файлы липнут к курсору. Заведи их в глича.",
+            stat = SkillStat.HoverFeed, valuePerLevel = 1f, maxLevel = 1, baseCost = 40,
+            position = new Vector2(-560f, 380f), requires = new[] { "cursor_radius" }
+        },
+
+        new()
+        {
             id = "mutation", displayName = "Мутирование",
-            description = "Открывает новые формы и улучшения вируса. В разработке.",
-            comingSoon = true, position = new Vector2(0f, 220f), requires = new[] { "core" }
+            description = "Вирус мутирует. Ешь файлы без пауз — растёт комбо, и каждый файл в серии стоит больше.",
+            stat = SkillStat.Combo, valuePerLevel = 0.1f, maxLevel = 1, baseCost = 25,
+            position = new Vector2(0f, 240f), requires = new[] { "core" }
+        },
+        new()
+        {
+            id = "gluttony", displayName = "Ненасытность",
+            description = "Каждый шаг комбо даёт ещё больше MB.",
+            stat = SkillStat.Combo, valuePerLevel = 0.05f, maxLevel = 4, baseCost = 40, costMultiplier = 1.7f,
+            position = new Vector2(0f, 470f), requires = new[] { "mutation" }
+        },
+        new()
+        {
+            id = "chain", displayName = "Цепная реакция",
+            description = "Съеденный файл может заразить другой файл — тот сам летит в глича.",
+            stat = SkillStat.ChainChance, valuePerLevel = 0.1f, maxLevel = 5, baseCost = 35, costMultiplier = 1.6f,
+            position = new Vector2(280f, 360f), requires = new[] { "mutation" }
+        },
+        new()
+        {
+            id = "expansion", displayName = "Экспансия",
+            description = "Каждый заражённый компьютер добавляет время к забегу.",
+            stat = SkillStat.TimePerComputer, valuePerLevel = 1f, maxLevel = 3, baseCost = 60, costMultiplier = 1.8f,
+            position = new Vector2(-280f, 560f), requires = new[] { "gluttony" }
+        },
+        new()
+        {
+            id = "satellites", displayName = "Отпочкование",
+            description = "Вокруг глича кружат его маленькие копии и съедают всё, к чему прикоснутся.",
+            stat = SkillStat.Satellites, valuePerLevel = 1f, maxLevel = 3, baseCost = 70, costMultiplier = 1.9f,
+            position = new Vector2(0f, 700f), requires = new[] { "gluttony" }
         },
     };
 
@@ -212,7 +272,30 @@ public class SkillTreeDefinition : ScriptableObject
             && !node.comingSoon
             && !node.startsOwned
             && !IsMaxed(node)
+            && (!node.requiresAllMaxed || IsEverythingElseMaxed())
             && GameProgress.MB >= GetCost(node);
+    }
+
+    public bool IsEverythingElseMaxed()
+    {
+        GetMasteryProgress(out int done, out int total);
+        return done >= total;
+    }
+
+    public void GetMasteryProgress(out int done, out int total)
+    {
+        done = 0;
+        total = 0;
+        foreach (Node node in nodes)
+        {
+            if (node.startsOwned || node.comingSoon || node.requiresAllMaxed)
+            {
+                continue;
+            }
+
+            done += Mathf.Min(GetLevel(node), node.maxLevel);
+            total += node.maxLevel;
+        }
     }
 
     public bool TryBuy(Node node)
@@ -240,6 +323,13 @@ public class SkillTreeDefinition : ScriptableObject
             SkillStat.FileValue => $"{1f + total:0} MB за файл",
             SkillStat.SpawnBurst => $"{1f + total:0} файла в пачке",
             SkillStat.GoldenChance => $"{total * 100f:0}% золотых файлов",
+            SkillStat.CursorRadius => $"радиус курсора {total:0.##}",
+            SkillStat.HoverFeed => total > 0f ? "кормление наведением" : "только перетаскивание",
+            SkillStat.Combo => $"+{total * 100f:0}% MB за шаг комбо",
+            SkillStat.ChainChance => $"{total * 100f:0}% шанс цепной реакции",
+            SkillStat.Satellites => $"{total:0} копий вокруг глича",
+            SkillStat.TimePerComputer => $"+{total:0} с за каждый ПК",
+            SkillStat.ServerAccess => total > 0f ? "сервер открыт" : "сервер закрыт",
             _ => string.Empty
         };
     }

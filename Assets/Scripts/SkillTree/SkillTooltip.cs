@@ -46,6 +46,13 @@ public class SkillTooltip : MonoBehaviour
             status = $"Уровень {level}/{node.maxLevel}\nЦена: <color={costColor}>{cost} MB</color>";
         }
 
+        if (node.requiresAllMaxed && !skillTree.IsMaxed(node))
+        {
+            skillTree.GetMasteryProgress(out int done, out int total);
+            string progressColor = done >= total ? "#7CFF9A" : "#FF7C7C";
+            status = $"Прокачано дерево: <color={progressColor}>{done}/{total}</color>\n{status}";
+        }
+
         if (!node.comingSoon && node.stat != SkillStat.None)
         {
             float current = skillTree.GetStat(node.stat);

@@ -33,8 +33,11 @@ public class EatFeedback : MonoBehaviour
     [SerializeField] private int sortingOrder = 50;
     [SerializeField] private Color normalColor = new(0.45f, 1f, 0.55f, 1f);
     [SerializeField] private Color goldenColor = new(1f, 0.82f, 0.25f, 1f);
+    [SerializeField] private Color comboColor = new(0.85f, 0.35f, 1f, 1f);
     [SerializeField] private float popupLife = 0.8f;
     [SerializeField] private float goldenShake = 0.12f;
+
+    public Sprite ParticleSprite => particleSprite;
 
     private readonly List<Particle> particles = new();
     private readonly List<Popup> popups = new();
@@ -63,7 +66,7 @@ public class EatFeedback : MonoBehaviour
             RectTransform rect = (RectTransform)go.transform;
             rect.SetParent(popupRoot, false);
             rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.sizeDelta = new Vector2(300f, 80f);
+            rect.sizeDelta = new Vector2(900f, 80f);
             TextMeshProUGUI text = go.GetComponent<TextMeshProUGUI>();
             text.alignment = TextAlignmentOptions.Center;
             text.fontStyle = FontStyles.Bold;
@@ -118,6 +121,14 @@ public class EatFeedback : MonoBehaviour
         if (golden)
         {
             Shake(goldenShake);
+        }
+
+        int combo = scoreManager.Combo;
+        if (scoreManager.ComboUnlocked && combo >= 5 && combo % 5 == 0)
+        {
+            ShowPopup(center + Vector2.up * (virusSize * 0.9f), $"КОМБО ×{combo}!", comboColor, 1.3f + Mathf.Min(combo, 30) * 0.02f);
+            Ring(center, comboColor, virusSize * 2.8f);
+            Shake(0.08f);
         }
     }
 
@@ -194,7 +205,7 @@ public class EatFeedback : MonoBehaviour
         p.renderer.gameObject.SetActive(true);
     }
 
-    private void ShowPopup(Vector2 worldPosition, string message, Color color, float scale)
+    public void ShowPopup(Vector2 worldPosition, string message, Color color, float scale)
     {
         Popup popup = popups.Find(x => !x.active) ?? popups[0];
         RectTransformUtility.ScreenPointToLocalPointInRectangle(popupRoot, cam.WorldToScreenPoint(worldPosition), null, out Vector2 local);

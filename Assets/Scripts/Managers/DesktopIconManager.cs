@@ -30,6 +30,11 @@ public class DesktopIconManager : MonoBehaviour
         StartCoroutine(SpawnDesktopIconsRoutine());
     }
 
+    public void StopSpawning()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator SpawnDesktopIconsRoutine()
     {
         while (true)

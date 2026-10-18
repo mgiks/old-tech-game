@@ -5,6 +5,7 @@ public class VirusAttraction : MonoBehaviour
 {
     [SerializeField] private Virus virus;
     [SerializeField] private SkillTreeDefinition skillTree;
+    [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private float basePullSpeed = 3f;
 
     [Header("Screen-wide eating")]
@@ -12,15 +13,68 @@ public class VirusAttraction : MonoBehaviour
     [SerializeField] private float screenWideIntervalReductionPerLevel = 0.4f;
     [SerializeField] private float minScreenWideIntervalInSeconds = 0.5f;
 
+    [Header("Chain reaction")]
+    [SerializeField] private float chainPullSpeed = 14f;
+
     private readonly HashSet<DesktopIcon> targeted = new();
+    private readonly HashSet<DesktopIcon> chained = new();
     private float screenWideTimer;
+
+    void OnEnable()
+    {
+        if (scoreManager != null)
+        {
+            scoreManager.FileScored += OnFileScored;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (scoreManager != null)
+        {
+            scoreManager.FileScored -= OnFileScored;
+        }
+    }
 
     void Update()
     {
         targeted.RemoveWhere(icon => icon == null);
+        chained.RemoveWhere(icon => icon == null);
 
         UpdateScreenWideTargeting(Mathf.RoundToInt(skillTree.GetStat(SkillStat.ScreenWideEating)));
         PullIcons(skillTree.GetStat(SkillStat.AttractionRadius));
+    }
+
+    private void OnFileScored(Vector3 position, uint value, bool golden)
+    {
+        if (Random.value >= skillTree.GetStat(SkillStat.ChainChance))
+        {
+            return;
+        }
+
+        Vector2 center = virus.GetAbsorbPoint();
+        DesktopIcon nearest = null;
+        float best = float.MaxValue;
+        foreach (DesktopIcon icon in DesktopIcon.Active)
+        {
+            if (!icon.IsFree || chained.Contains(icon))
+            {
+                continue;
+            }
+
+            float distance = ((Vector2)icon.transform.position - center).sqrMagnitude;
+            if (distance < best)
+            {
+                best = distance;
+                nearest = icon;
+            }
+        }
+
+        if (nearest != null)
+        {
+            nearest.MarkChained();
+            chained.Add(nearest);
+        }
     }
 
     private void UpdateScreenWideTargeting(int level)
@@ -45,21 +99,24 @@ public class VirusAttraction : MonoBehaviour
         List<DesktopIcon> candidates = new();
         foreach (DesktopIcon icon in DesktopIcon.Active)
         {
-            if (!icon.IsDragged && !icon.IsConsumed && !targeted.Contains(icon))
+            if (icon.IsFree && !targeted.Contains(icon))
             {
                 candidates.Add(icon);
             }
         }
 
-        if (candidates.Count > 0)
+        int targets = 1 + (level - 1) / 2;
+        for (int i = 0; i < targets && candidates.Count > 0; i++)
         {
-            targeted.Add(candidates[Random.Range(0, candidates.Count)]);
+            int index = Random.Range(0, candidates.Count);
+            targeted.Add(candidates[index]);
+            candidates.RemoveAt(index);
         }
     }
 
     private void PullIcons(float radius)
     {
-        if (radius <= 0f && targeted.Count == 0)
+        if (radius <= 0f && targeted.Count == 0 && chained.Count == 0)
         {
             return;
         }
@@ -71,23 +128,26 @@ public class VirusAttraction : MonoBehaviour
         for (int i = DesktopIcon.Active.Count - 1; i >= 0; i--)
         {
             DesktopIcon icon = DesktopIcon.Active[i];
-            if (icon.IsDragged || icon.IsConsumed)
+            if (!icon.IsFree)
             {
                 continue;
             }
 
+            bool isChained = chained.Contains(icon);
             Vector2 position = icon.transform.position;
-            if ((position - target).sqrMagnitude > sqrRadius && !targeted.Contains(icon))
+            if ((position - target).sqrMagnitude > sqrRadius && !targeted.Contains(icon) && !isChained)
             {
                 continue;
             }
 
-            Vector2 next = Vector2.MoveTowards(position, target, pullSpeed * Time.deltaTime);
+            float speed = isChained ? Mathf.Max(chainPullSpeed, pullSpeed) : pullSpeed;
+            Vector2 next = Vector2.MoveTowards(position, target, speed * Time.deltaTime);
             icon.transform.position = new Vector3(next.x, next.y, icon.transform.position.z);
 
             if (virus.ContainsPoint(next))
             {
                 targeted.Remove(icon);
+                chained.Remove(icon);
                 virus.Absorb(icon);
             }
         }

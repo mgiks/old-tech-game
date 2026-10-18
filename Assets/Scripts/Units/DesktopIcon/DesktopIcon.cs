@@ -12,9 +12,12 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public bool IsDragged { get; private set; }
     public bool IsConsumed { get; private set; }
     public bool IsGolden { get; private set; }
+    public bool IsCarried { get; set; }
+    public bool IsFree => !IsDragged && !IsCarried && !IsConsumed;
 
     [SerializeField] private float popInDuration = 0.25f;
     [SerializeField] private Color goldenColor = new(1f, 0.82f, 0.25f, 1f);
+    [SerializeField] private Color chainedColor = new(0.85f, 0.35f, 1f, 1f);
 
     private Vector3 offset;
     private Camera cam;
@@ -56,6 +59,14 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         IsGolden = true;
         baseScale *= 1.15f;
+    }
+
+    public void MarkChained()
+    {
+        if (!IsGolden)
+        {
+            spriteRenderer.color = chainedColor;
+        }
     }
 
     void OnEnable()

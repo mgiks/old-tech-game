@@ -12,6 +12,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] private RunEndScreen endScreen;
     [SerializeField] private GameIntro intro;
     [SerializeField] private EatFeedback feedback;
+    [SerializeField] private GameEnding ending;
     [SerializeField] private string skillTreeSceneName = "Skill Tree";
 
     [Header("Timer")]
@@ -25,8 +26,9 @@ public class RunManager : MonoBehaviour
     [Header("Computers")]
     [SerializeField, Min(1)] private int totalComputers = 11;
     [SerializeField, Min(1)] private int baseFilesPerComputer = 8;
-    [SerializeField, Min(1f)] private float filesPerComputerGrowth = 1.35f;
+    [SerializeField, Min(1f)] private float filesPerComputerGrowth = 1.25f;
     [SerializeField] private TextMeshProUGUI computerDisplay;
+    [SerializeField] private Color serverDeniedColor = new(1f, 0.15f, 0.2f, 1f);
 
     [Header("Jump to next computer")]
     [SerializeField] private float jumpDuration = 0.8f;
@@ -137,9 +139,9 @@ public class RunManager : MonoBehaviour
         }
 
         RunStats.AddComputer();
+        Vector2 center = virus.GetAbsorbPoint();
         if (feedback != null)
         {
-            Vector2 center = virus.GetAbsorbPoint();
             feedback.Burst(center, new Color(0.45f, 1f, 0.55f, 1f), 50, 12f);
             feedback.Ring(center, Color.white, 14f);
             feedback.Shake(0.4f);
@@ -148,8 +150,38 @@ public class RunManager : MonoBehaviour
         if (RunStats.ComputersInfected >= totalComputers)
         {
             SetFlash(0f);
+            if (ending != null)
+            {
+                finished = true;
+                iconManager.StopSpawning();
+                RunStats.Complete();
+                GameProgress.GameCompleted = true;
+                ending.Play();
+            }
+            else
+            {
+                Finish();
+            }
+
+            yield break;
+        }
+
+        if (IsServerNext() && skillTree.GetStat(SkillStat.ServerAccess) <= 0f)
+        {
+            yield return ServerDenied(startScale);
             Finish();
             yield break;
+        }
+
+        float bonusTime = skillTree.GetStat(SkillStat.TimePerComputer);
+        if (bonusTime > 0f)
+        {
+            timeLeft += bonusTime;
+            runDuration = Mathf.Max(runDuration, timeLeft);
+            if (feedback != null)
+            {
+                feedback.ShowPopup(center + Vector2.down * 1.5f, $"+{bonusTime:0} с", new Color(0.45f, 0.9f, 1f, 1f), 1.4f);
+            }
         }
 
         virus.ResetGrowth();
@@ -164,6 +196,43 @@ public class RunManager : MonoBehaviour
 
         SetFlash(0f);
         jumping = false;
+    }
+
+    private bool IsServerNext()
+    {
+        return RunStats.ComputersInfected == totalComputers - 1;
+    }
+
+    private IEnumerator ServerDenied(Vector3 virusScale)
+    {
+        if (feedback != null)
+        {
+            Vector2 center = virus.GetAbsorbPoint();
+            feedback.ShowPopup(center, "СЕРВЕР ЗАЩИЩЁН", serverDeniedColor, 1.8f);
+            feedback.ShowPopup(center + Vector2.down * 1.2f, "нужен «Сетевой червь»", Color.white, 1f);
+            feedback.Burst(center, serverDeniedColor, 40, 10f);
+            feedback.Shake(0.5f);
+        }
+
+        Vector3 bigScale = virus.transform.localScale;
+        float duration = 1.4f;
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            float k = t / duration;
+            float bounce = Mathf.Abs(Mathf.Sin(k * Mathf.PI * 4f)) * (1f - k) * 0.25f;
+            virus.transform.localScale = Vector3.Lerp(bigScale, virusScale, 1f - Mathf.Pow(1f - Mathf.Min(1f, k * 3f), 3f)) * (1f + bounce);
+            if (jumpFlash != null)
+            {
+                Color c = serverDeniedColor;
+                c.a = (1f - k) * (0.5f + 0.5f * Mathf.Sin(k * 40f));
+                jumpFlash.color = c;
+            }
+
+            yield return null;
+        }
+
+        virus.transform.localScale = virusScale;
+        SetFlash(0f);
     }
 
     private void SetFlash(float alpha)
@@ -217,7 +286,8 @@ public class RunManager : MonoBehaviour
         {
             int current = Mathf.Min(RunStats.ComputersInfected + 1, totalComputers);
             int eaten = Mathf.Min(RunStats.FilesInfected - filesAtComputerStart, GetFilesForCurrentComputer());
-            computerDisplay.text = $"ПК {current}/{totalComputers} · заражено файлов {eaten}/{GetFilesForCurrentComputer()}";
+            string pc = current == totalComputers ? "СЕРВЕР" : "ПК";
+            computerDisplay.text = $"{pc} {current}/{totalComputers} · заражено файлов {eaten}/{GetFilesForCurrentComputer()}";
         }
     }
 }

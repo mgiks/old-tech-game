@@ -273,8 +273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Virus
   scoreManager: {fileID: 294910318}
-  scaleMultplicator: 1.3
-  iconsPerGrowth: 10
+  scaleMultplicator: 2
+  iconsPerGrowth: 4
   exponent: 1.1
   destroyDesktopIcons: 1
   scale: 1
@@ -320,10 +320,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VirusAttraction
   virus: {fileID: 2250591}
   skillTree: {fileID: 11400000, guid: b4055a78ea16993478cbfc8213374828, type: 2}
+  scoreManager: {fileID: 294910318}
   basePullSpeed: 3
   baseScreenWideIntervalInSeconds: 3
   screenWideIntervalReductionPerLevel: 0.4
   minScreenWideIntervalInSeconds: 0.5
+  chainPullSpeed: 14
 --- !u!1 &85068739
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +730,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4279900698
   m_fontColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -741,7 +743,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -954,7 +956,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1062,6 +1064,8 @@ MonoBehaviour:
   goldenMultiplier: 5
   punchScale: 1.4
   punchColor: {r: 0.45, g: 1, b: 0.55, a: 1}
+  comboWindowInSeconds: 1.2
+  comboCap: 10
 --- !u!1 &323989221
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,6 +2336,9 @@ Transform:
   - {fileID: 2059989614}
   - {fileID: 1511314528}
   - {fileID: 984513176}
+  - {fileID: 1745572308}
+  - {fileID: 1605308020}
+  - {fileID: 1818624825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
@@ -3495,6 +3502,7 @@ MonoBehaviour:
   sortingOrder: 50
   normalColor: {r: 0.45, g: 1, b: 0.55, a: 1}
   goldenColor: {r: 1, g: 0.82, b: 0.25, a: 1}
+  comboColor: {r: 0.85, g: 0.35, b: 1, a: 1}
   popupLife: 0.8
   goldenShake: 0.12
 --- !u!4 &984513176
@@ -3591,7 +3599,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -4730,7 +4738,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -5289,6 +5297,7 @@ MonoBehaviour:
   endScreen: {fileID: 1205710859}
   intro: {fileID: 406899004}
   feedback: {fileID: 984513175}
+  ending: {fileID: 1818624826}
   skillTreeSceneName: Skill Tree
   baseRunDurationInSeconds: 8
   timerFill: {fileID: 764613690}
@@ -5298,8 +5307,9 @@ MonoBehaviour:
   timerWarningSeconds: 3
   totalComputers: 11
   baseFilesPerComputer: 8
-  filesPerComputerGrowth: 1.35
+  filesPerComputerGrowth: 1.25
   computerDisplay: {fileID: 1320754181}
+  serverDeniedColor: {r: 1, g: 0.15, b: 0.2, a: 1}
   jumpDuration: 0.8
   jumpScaleMultiplier: 6
   jumpFlash: {fileID: 1327160967}
@@ -5670,6 +5680,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603061300}
   m_CullTransparentMesh: 1
+--- !u!1 &1605308019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1605308020}
+  - component: {fileID: 1605308021}
+  m_Layer: 0
+  m_Name: Virus Satellites
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1605308020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605308019}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 609946496}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1605308021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605308019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a0f6c776ec1774c9987fba41757c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VirusSatellites
+  virus: {fileID: 2250591}
+  skillTree: {fileID: 11400000, guid: b4055a78ea16993478cbfc8213374828, type: 2}
+  feedback: {fileID: 984513175}
+  sizeInVirusHeights: 0.3
+  orbitInVirusHeights: 0.95
+  orbitPadding: 0.5
+  angularSpeed: 2.2
+  catchRadiusInSatelliteSizes: 0.6
+  tint: {r: 0.85, g: 0.55, b: 1, a: 1}
 --- !u!1 &1614872146
 GameObject:
   m_ObjectHideFlags: 0
@@ -5886,7 +5949,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -6104,6 +6167,60 @@ Material:
     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!1 &1745572307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1745572308}
+  - component: {fileID: 1745572309}
+  m_Layer: 0
+  m_Name: Cursor Feeder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1745572308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745572307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 609946496}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1745572309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745572307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1316e4cb701bda640b61e35e876ec949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CursorFeeder
+  virus: {fileID: 2250591}
+  skillTree: {fileID: 11400000, guid: b4055a78ea16993478cbfc8213374828, type: 2}
+  ringSprite: {fileID: 21300000, guid: f09ea99da58fcf24aae84e6b81bfb333, type: 3}
+  sortingOrder: 40
+  hoverBaseRadius: 0.45
+  clumpRadius: 0.35
+  followSharpness: 20
+  contactPadding: 0.3
+  ringColor: {r: 0.45, g: 1, b: 0.55, a: 0.18}
+  ringActiveColor: {r: 0.45, g: 1, b: 0.55, a: 0.45}
 --- !u!1 &1780544885
 GameObject:
   m_ObjectHideFlags: 0
@@ -6185,6 +6302,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780544885}
   m_CullTransparentMesh: 1
+--- !u!1 &1818624824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1818624825}
+  - component: {fileID: 1818624826}
+  m_Layer: 0
+  m_Name: Game Ending
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1818624825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818624824}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 609946496}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1818624826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818624824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63de19b54d0fd8840bf4795736ed000a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameEnding
+  virus: {fileID: 2250591}
+  iconManager: {fileID: 1089878547}
+  feedback: {fileID: 984513175}
+  font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  skillTreeSceneName: Skill Tree
+  overloadDuration: 3.2
+  overloadIconCount: 40
+  finalVirusScreenHeights: 2.5
+  typeDuration: 3.5
+  blueScreenHoldMax: 4
+  infectColor: {r: 0.45, g: 1, b: 0.55, a: 1}
+  dangerColor: {r: 1, g: 0.2, b: 0.25, a: 1}
+  mutationColor: {r: 0.85, g: 0.35, b: 1, a: 1}
+  blueScreenColor: {r: 0, g: 0, b: 0.67, a: 1}
 --- !u!1 &1884419332
 GameObject:
   m_ObjectHideFlags: 0
@@ -6551,7 +6726,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
