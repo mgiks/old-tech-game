@@ -10,11 +10,29 @@ public class DesktopIconManager : MonoBehaviour
     [SerializeField] private uint spawnCountPerWave = 6;
 
     private Camera cam;
+    private bool spawnedFirstWave = false;
 
     void Start()
     {
         cam = Camera.main;
         StartCoroutine(SpawnDesktopIconsRoutine());
+    }
+
+    private IEnumerator SpawnDesktopIconsRoutine()
+    {
+        while (true)
+        {
+            if (spawnedFirstWave)
+            {
+                yield return new WaitForSeconds(coolDownDurationInSeconds);
+            }
+            else
+            {
+                spawnedFirstWave = true;
+            }
+
+            SpawnDesktopIcon(spawnCountPerWave);
+        }
     }
 
     public void SpawnDesktopIcon(uint count)
@@ -31,12 +49,4 @@ public class DesktopIconManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnDesktopIconsRoutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(coolDownDurationInSeconds);
-            SpawnDesktopIcon(spawnCountPerWave);
-        }
-    }
 }
