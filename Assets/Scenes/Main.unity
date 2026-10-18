@@ -273,8 +273,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Virus
   scoreManager: {fileID: 294910318}
-  scaleMultplicator: 1.1
+  scaleMultplicator: 1.3
   iconsPerGrowth: 10
+  exponent: 1.1
   destroyDesktopIcons: 1
   scale: 1
   increaseScore: 1
@@ -735,7 +736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mutation
+  m_text: Mutations
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1625,7 +1626,7 @@ MonoBehaviour:
   skillManager: {fileID: 1914711112}
   padding: 0.0001
   initialIconCount: 3
-  maxIconsOnScreen: 15
+  maxIconsOnScreen: 5
   baseSpawnIntervalInSeconds: 3
   spawnSpeedBonusPerSpeedLevel: 0.25
   haloDiameterInVirusHeights: 2

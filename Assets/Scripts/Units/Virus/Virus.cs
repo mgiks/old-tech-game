@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Virus : MonoBehaviour
@@ -6,6 +7,7 @@ public class Virus : MonoBehaviour
 
     [SerializeField] private float scaleMultplicator = 1.1f;
     [SerializeField, Min(1)] private int iconsPerGrowth = 3;
+    [SerializeField] private float exponent = 1.1f;
     [SerializeField] private bool destroyDesktopIcons = true;
     [SerializeField] private bool scale = true;
     [SerializeField] private bool increaseScore = true;
@@ -22,10 +24,11 @@ public class Virus : MonoBehaviour
         if (scale)
         {
             iconsSinceGrowth++;
-            if (iconsSinceGrowth >= iconsPerGrowth)
+            if (iconsSinceGrowth >= Math.Pow(iconsPerGrowth, exponent))
             {
                 iconsSinceGrowth = 0;
                 Scale(scaleMultplicator);
+                exponent += 2f;
             }
         }
 
