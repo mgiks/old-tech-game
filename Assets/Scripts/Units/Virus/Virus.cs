@@ -5,25 +5,33 @@ public class Virus : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
 
     [SerializeField] private float scaleMultplicator = 1.1f;
+    [SerializeField, Min(1)] private int iconsPerGrowth = 3;
     [SerializeField] private bool destroyDesktopIcons = true;
     [SerializeField] private bool scale = true;
     [SerializeField] private bool increaseScore = true;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private int iconsSinceGrowth;
+
+    public void Absorb(DesktopIcon icon)
     {
-        if (!collision.gameObject.CompareTag("Desktop Icon"))
+        if (!icon.TryConsume())
         {
             return;
         }
 
         if (scale)
         {
-            Scale(scaleMultplicator);
+            iconsSinceGrowth++;
+            if (iconsSinceGrowth >= iconsPerGrowth)
+            {
+                iconsSinceGrowth = 0;
+                Scale(scaleMultplicator);
+            }
         }
 
         if (destroyDesktopIcons)
         {
-            Destroy(collision.gameObject);
+            Destroy(icon.gameObject);
         }
 
         if (increaseScore)
@@ -35,6 +43,16 @@ public class Virus : MonoBehaviour
     public Bounds GetVisualBounds()
     {
         return GetComponent<SpriteRenderer>().bounds;
+    }
+
+    public Vector2 GetAbsorbPoint()
+    {
+        return GetComponent<Collider2D>().bounds.center;
+    }
+
+    public bool ContainsPoint(Vector2 point)
+    {
+        return GetComponent<Collider2D>().OverlapPoint(point);
     }
 
     private void Scale(float multiplier)

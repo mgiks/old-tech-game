@@ -1,23 +1,29 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DesktopIconManager : MonoBehaviour
 {
     [SerializeField] private GameObject icon;
     [SerializeField] private Virus virus;
+    [SerializeField] private SkillManager skillManager;
     [SerializeField] private float padding = 0.01f;
-    [SerializeField] private float coolDownDurationInSeconds = 1f;
-    [SerializeField] private uint spawnCountPerWave = 6;
+    [SerializeField] private uint initialIconCount = 3;
+    [SerializeField] private int maxIconsOnScreen = 15;
+    [SerializeField] private float baseSpawnIntervalInSeconds = 3f;
+    [SerializeField] private float spawnSpeedBonusPerSpeedLevel = 0.25f;
     [SerializeField] private float haloDiameterInVirusHeights = 2f;
     [SerializeField] private int maxSpawnAttempts = 30;
+    [SerializeField] private RectTransform[] spawnBlockers;
 
     private Camera cam;
     private readonly float distanceFromCamera = 10f;
-    private bool spawnedFirstWave = false;
+    private readonly Vector3[] blockerCorners = new Vector3[4];
 
     void Start()
     {
         cam = Camera.main;
+        SpawnDesktopIcons(initialIconCount);
         StartCoroutine(SpawnDesktopIconsRoutine());
     }
 
@@ -25,17 +31,19 @@ public class DesktopIconManager : MonoBehaviour
     {
         while (true)
         {
-            if (spawnedFirstWave)
-            {
-                yield return new WaitForSeconds(coolDownDurationInSeconds);
-            }
-            else
-            {
-                spawnedFirstWave = true;
-            }
+            yield return new WaitForSeconds(GetSpawnInterval());
 
-            SpawnDesktopIcons(spawnCountPerWave);
+            if (DesktopIcon.Active.Count < maxIconsOnScreen)
+            {
+                SpawnDesktopIcons(1);
+            }
         }
+    }
+
+    private float GetSpawnInterval()
+    {
+        int speedLevel = skillManager.GetLevel(SkillType.Speed);
+        return baseSpawnIntervalInSeconds / (1f + spawnSpeedBonusPerSpeedLevel * speedLevel);
     }
 
     [ContextMenu("Spawn 6 Desktop Icons")]
@@ -71,10 +79,12 @@ public class DesktopIconManager : MonoBehaviour
         float minY = bottomLeft.y + iconHalfExtents.y + padding;
         float maxY = topRight.y - iconHalfExtents.y - padding;
 
+        List<Rect> blockedRects = GetBlockedWorldRects(iconHalfExtents);
+
         for (int attempt = 0; attempt < maxSpawnAttempts; attempt++)
         {
             Vector2 candidate = new(Random.Range(minX, maxX), Random.Range(minY, maxY));
-            if ((candidate - haloCenter).sqrMagnitude >= minDistance * minDistance)
+            if ((candidate - haloCenter).sqrMagnitude >= minDistance * minDistance && !IsInsideAny(candidate, blockedRects))
             {
                 position = candidate;
                 return true;
@@ -82,6 +92,55 @@ public class DesktopIconManager : MonoBehaviour
         }
 
         position = default;
+        return false;
+    }
+
+    private List<Rect> GetBlockedWorldRects(Vector2 iconHalfExtents)
+    {
+        List<Rect> rects = new();
+
+        foreach (RectTransform blocker in spawnBlockers)
+        {
+            if (blocker == null || !blocker.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            Canvas canvas = blocker.GetComponentInParent<Canvas>();
+            Camera uiCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+
+            blocker.GetWorldCorners(blockerCorners);
+
+            Vector2 min = new(float.MaxValue, float.MaxValue);
+            Vector2 max = new(float.MinValue, float.MinValue);
+            foreach (Vector3 corner in blockerCorners)
+            {
+                Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(uiCamera, corner);
+                Vector2 worldPoint = cam.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, distanceFromCamera));
+                min = Vector2.Min(min, worldPoint);
+                max = Vector2.Max(max, worldPoint);
+            }
+
+            rects.Add(Rect.MinMaxRect(
+                min.x - iconHalfExtents.x - padding,
+                min.y - iconHalfExtents.y - padding,
+                max.x + iconHalfExtents.x + padding,
+                max.y + iconHalfExtents.y + padding));
+        }
+
+        return rects;
+    }
+
+    private static bool IsInsideAny(Vector2 point, List<Rect> rects)
+    {
+        foreach (Rect rect in rects)
+        {
+            if (rect.Contains(point))
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 
