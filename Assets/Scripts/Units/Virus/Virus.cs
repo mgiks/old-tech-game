@@ -3,6 +3,7 @@ using UnityEngine;
 public class Virus : MonoBehaviour
 {
     [SerializeField] private ScoreManager scoreManager;
+
     [SerializeField] private float scaleMultplicator = 1.1f;
     [SerializeField] private bool destroyDesktopIcons = true;
     [SerializeField] private bool scale = true;
@@ -29,6 +30,11 @@ public class Virus : MonoBehaviour
         {
             scoreManager.IncrementScore();
         }
+    }
+
+    public Bounds GetVisualBounds()
+    {
+        return GetComponent<SpriteRenderer>().bounds;
     }
 
     private void Scale(float multiplier)

@@ -130,8 +130,8 @@ GameObject:
   - component: {fileID: 2250588}
   - component: {fileID: 2250589}
   - component: {fileID: 2250590}
-  - component: {fileID: 2250591}
   - component: {fileID: 2250592}
+  - component: {fileID: 2250591}
   m_Layer: 0
   m_Name: Virus
   m_TagString: Virus
@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 2250587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.47, y: -6.35, z: 0}
+  m_LocalPosition: {x: -12.46, y: -6.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -273,9 +273,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Virus
   scoreManager: {fileID: 294910318}
   scaleMultplicator: 1.1
-  destroyDesktopIcons: 0
-  scale: 0
-  increaseScore: 0
+  destroyDesktopIcons: 1
+  scale: 1
+  increaseScore: 1
 --- !u!50 &2250592
 Rigidbody2D:
   serializedVersion: 5
@@ -943,10 +943,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DesktopIconManager
   icon: {fileID: 2351835393461066282, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
-  virus: {fileID: 2250587}
-  padding: 0.01
+  virus: {fileID: 2250591}
+  padding: 0.0001
   coolDownDurationInSeconds: 0.1
-  spawnCountPerWave: 6
+  spawnCountPerWave: 60
+  haloDiameterInVirusHeights: 2
+  maxSpawnAttempts: 30
 --- !u!1 &1371695319
 GameObject:
   m_ObjectHideFlags: 0
