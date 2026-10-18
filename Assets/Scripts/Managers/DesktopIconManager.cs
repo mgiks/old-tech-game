@@ -5,11 +5,11 @@ public class DesktopIconManager : MonoBehaviour
 {
     [SerializeField] private GameObject icon;
     [SerializeField] private float padding = 0.01f;
-    [SerializeField] private float distanceFromCamera = 10f;
     [SerializeField] private float coolDownDurationInSeconds = 1f;
     [SerializeField] private uint spawnCountPerWave = 6;
 
     private Camera cam;
+    private readonly float distanceFromCamera = 10f;
     private bool spawnedFirstWave = false;
 
     void Start()

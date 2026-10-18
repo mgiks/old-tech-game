@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 2250587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.52, y: -7.24, z: 0}
+  m_LocalPosition: {x: -12.476, y: -6.372, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -247,17 +247,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.005634129, y: 0.8109147}
+  m_Offset: {x: -0.005634129, y: 0.035478532}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: -0.6}
+    pivot: {x: 0.4954949, y: 0.43482792}
     oldSize: {x: 0.7, y: 0.75}
     newSize: {x: 0.7, y: 0.75}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8464873, y: 0.868317}
+  m_Size: {x: 0.8464873, y: 0.8573952}
   m_EdgeRadius: 0
 --- !u!114 &2250591
 MonoBehaviour:
@@ -739,7 +739,7 @@ Transform:
   m_GameObject: {fileID: 707392926}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.56406, y: -6.3383203, z: 0}
+  m_LocalPosition: {x: -12.509, y: -6.3383203, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -791,7 +791,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DesktopIconManager
   icon: {fileID: 2351835393461066282, guid: b541d0e80a25f0b438ba4e76b4c6de6a, type: 3}
   padding: 0.01
-  distanceFromCamera: 10
   coolDownDurationInSeconds: 3
   spawnCountPerWave: 6
 --- !u!1 &1371695319
