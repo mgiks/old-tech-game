@@ -127,6 +127,11 @@ public class RunManager : MonoBehaviour
             return;
         }
 
+        if (MonitorScreen.Active && !MonitorScreen.OnGlass)
+        {
+            return;
+        }
+
         if (mouse.leftButton.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame || mouse.middleButton.wasPressedThisFrame)
         {
             RunStats.AddClick();

@@ -90,7 +90,7 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        content.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        content.anchoredPosition += eventData.delta * MonitorScreen.DragScale / canvas.scaleFactor;
     }
 
     public void OnScroll(PointerEventData eventData)
@@ -101,13 +101,14 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
         }
 
         Camera uiCamera = GetUiCamera();
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(content, eventData.position, uiCamera, out Vector2 before);
+        Vector2 pointer = MonitorScreen.Active ? MonitorScreen.Pointer : eventData.position;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(content, pointer, uiCamera, out Vector2 before);
 
         float zoom = content.localScale.x * (1f + zoomStep * Mathf.Sign(eventData.scrollDelta.y));
         zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
         content.localScale = new Vector3(zoom, zoom, 1f);
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(content, eventData.position, uiCamera, out Vector2 after);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(content, pointer, uiCamera, out Vector2 after);
         content.anchoredPosition += (after - before) * zoom;
     }
 

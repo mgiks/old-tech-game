@@ -82,9 +82,10 @@ public class SkillTooltip : MonoBehaviour
             return;
         }
 
-        Vector2 mouse = Mouse.current.position.ReadValue();
-        bool flipX = mouse.x > Screen.width * 0.7f;
-        bool flipY = mouse.y < Screen.height * 0.3f;
+        Vector2 mouse = MonitorScreen.Active ? MonitorScreen.Pointer : Mouse.current.position.ReadValue();
+        Vector2Int pixels = MonitorScreen.Active ? MonitorScreen.PixelSize : new Vector2Int(Screen.width, Screen.height);
+        bool flipX = mouse.x > pixels.x * 0.7f;
+        bool flipY = mouse.y < pixels.y * 0.3f;
 
         rect.pivot = new Vector2(flipX ? 1f : 0f, flipY ? 0f : 1f);
 

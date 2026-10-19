@@ -395,7 +395,7 @@ public class GameEnding : MonoBehaviour
     private bool AnyInputPressed()
     {
         bool key = Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame;
-        bool click = Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
+        bool click = Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && (!MonitorScreen.Active || MonitorScreen.OnGlass);
         return key || click;
     }
 

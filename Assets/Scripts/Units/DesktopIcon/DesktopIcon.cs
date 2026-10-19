@@ -151,9 +151,6 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     private Vector3 GetPointerWorldPos()
     {
-        Vector3 mousePoint = Mouse.current.position.ReadValue();
-        Vector3 worldPoint = cam.ScreenToWorldPoint(mousePoint);
-
-        return worldPoint;
+        return MonitorScreen.ToWorld(cam);
     }
 }

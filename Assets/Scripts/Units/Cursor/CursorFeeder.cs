@@ -54,7 +54,7 @@ public class CursorFeeder : MonoBehaviour
 
         RemoveDestroyed();
 
-        Vector2 cursor = cam.ScreenToWorldPoint(mouse.position.ReadValue());
+        Vector2 cursor = MonitorScreen.ToWorld(cam);
         bool hoverFeed = skillTree.GetStat(SkillStat.HoverFeed) > 0f;
         float grabRadius = skillTree.GetStat(SkillStat.CursorRadius);
         float radius = hoverFeed ? hoverBaseRadius + grabRadius : grabRadius;

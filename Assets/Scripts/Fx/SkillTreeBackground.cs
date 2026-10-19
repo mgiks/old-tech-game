@@ -53,7 +53,9 @@ public class SkillTreeBackground : MonoBehaviour
 
     private static Vector2 ScreenToShaderSpace(Vector2 screenPoint)
     {
-        float aspect = Screen.width / (float)Screen.height;
-        return new Vector2((screenPoint.x / Screen.width - 0.5f) * aspect, screenPoint.y / Screen.height - 0.5f);
+        float width = MonitorScreen.Active ? MonitorScreen.PixelSize.x : Screen.width;
+        float height = MonitorScreen.Active ? MonitorScreen.PixelSize.y : Screen.height;
+        float aspect = width / Mathf.Max(1f, height);
+        return new Vector2((screenPoint.x / width - 0.5f) * aspect, screenPoint.y / height - 0.5f);
     }
 }

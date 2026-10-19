@@ -37,9 +37,21 @@ public class Taskbar : MonoBehaviour
 
     public static bool IsOpen => instance != null && instance.state != State.Closed;
 
-    public static float ScreenFraction => instance != null && instance.canvas != null && Screen.height > 0
-        ? Height * instance.canvas.scaleFactor / Screen.height
-        : 0f;
+    public static float ScreenFraction
+    {
+        get
+        {
+            if (instance == null || instance.canvas == null)
+            {
+                return 0f;
+            }
+
+            float pixelHeight = instance.canvas.renderMode == RenderMode.ScreenSpaceCamera && instance.canvas.worldCamera != null
+                ? instance.canvas.worldCamera.pixelHeight
+                : Screen.height;
+            return pixelHeight > 0f ? Height * instance.canvas.scaleFactor / pixelHeight : 0f;
+        }
+    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetSession()
