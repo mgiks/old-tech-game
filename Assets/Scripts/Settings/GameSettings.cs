@@ -19,7 +19,7 @@ public static class GameSettings
     private const string HeightKey = "settings.height";
 
     public static float MasterVolume { get; private set; } = 1f;
-    public static GameLanguage Language { get; private set; } = GameLanguage.Ru;
+    public static GameLanguage Language { get; private set; } = GameLanguage.En;
     public static bool ScreenEffects { get; private set; } = true;
     public static bool ScreenShake { get; private set; } = true;
 
@@ -38,7 +38,7 @@ public static class GameSettings
     private static void Load()
     {
         MasterVolume = PlayerPrefs.GetFloat(VolumeKey, 1f);
-        Language = (GameLanguage)PlayerPrefs.GetInt(LanguageKey, (int)GameLanguage.Ru);
+        Language = (GameLanguage)PlayerPrefs.GetInt(LanguageKey, (int)GameLanguage.En);
         ScreenEffects = PlayerPrefs.GetInt(EffectsKey, 1) == 1;
         ScreenShake = PlayerPrefs.GetInt(ShakeKey, 1) == 1;
 
