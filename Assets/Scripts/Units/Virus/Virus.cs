@@ -36,6 +36,8 @@ public class Virus : MonoBehaviour
             return;
         }
 
+        GameAudio.Play(GameSfx.VirusEating);
+
         if (scale)
         {
             iconsSinceGrowth++;

@@ -166,6 +166,8 @@ public class GameEnding : MonoBehaviour
 
     private IEnumerator BlueScreen()
     {
+        GameAudio.Stop(GameSfx.VirusElectric);
+        GameAudio.Play(GameSfx.CriticalError);
         Image panel = CreateImage("Blue Screen", root, blueScreenColor);
         Stretch(panel.rectTransform);
         whiteFlash.transform.SetAsLastSibling();
@@ -186,6 +188,7 @@ public class GameEnding : MonoBehaviour
 
         whiteFlash.color = new Color(1f, 1f, 1f, 0f);
 
+        GameAudio.Play(GameSfx.Keyboard);
         text.ForceMeshUpdate();
         int total = text.textInfo.characterCount;
         for (float t = 0f; t < typeDuration; t += Time.unscaledDeltaTime)
@@ -396,11 +399,17 @@ public class GameEnding : MonoBehaviour
     {
         bool key = Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame;
         bool click = Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && (!MonitorScreen.Active || MonitorScreen.OnGlass);
+        if (click)
+        {
+            GameAudio.PlayMouseClick();
+        }
+
         return key || click;
     }
 
     private void StartOver()
     {
+        GameAudio.PlayMouseClick();
         GameProgress.StartOver();
         RunStats.ResetSession();
         Time.timeScale = 1f;
@@ -409,6 +418,7 @@ public class GameEnding : MonoBehaviour
 
     private void KeepEating()
     {
+        GameAudio.PlayMouseClick();
         Time.timeScale = 1f;
         ViewManager.Switch(gameObject.scene.name, skillTreeSceneName);
     }

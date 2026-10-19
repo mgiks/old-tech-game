@@ -1,0 +1,563 @@
+{
+  "SharedUI/window_frame_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      5,
+      5,
+      5,
+      5
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "SharedUI/panel_raised_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "SharedUI/panel_sunken_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "SharedUI/titlebar_active_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      5,
+      2,
+      5,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "SharedUI/titlebar_inactive_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      5,
+      2,
+      5,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_newgame_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_newgame_hover.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_newgame_pressed.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_newgame_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_settings_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_settings_hover.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_settings_pressed.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_settings_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_exit_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_exit_hover.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_exit_pressed.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "MainMenu/Buttons/ui_button_exit_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_button_back_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/ui_button_send_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_button_back_hover.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/ui_button_send_hover.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_button_back_pressed.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/ui_button_send_pressed.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_button_back_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/ui_button_send_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_tab_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_tab_selected.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_tab_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_volume_track_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_volume_track_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_volume_fill_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_volume_fill_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_sensitivity_track_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_sensitivity_track_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_sensitivity_fill_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/ui_sensitivity_fill_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      2,
+      3,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Settings/settings_background_tile.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/contact_row_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      3,
+      4,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/contact_row_hover.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      3,
+      4,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/contact_row_selected.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      3,
+      4,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/contact_row_offline.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      3,
+      4,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/message_input_normal.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/message_input_focused.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/message_input_disabled.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/chat_bubble_incoming_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      5
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/chat_bubble_outgoing_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      5
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/UI/chat_bubble_system_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      5
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/Windows/messenger_window_frame_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      5,
+      5,
+      5,
+      5
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "Messenger/Windows/messenger_titlebar_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      5,
+      2,
+      5,
+      2
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "SharedUI/taskbar_9slice.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      5,
+      3,
+      5,
+      3
+    ],
+    "filter": "Point",
+    "compression": "None"
+  },
+  "SharedUI/start_button_blank.png": {
+    "unity_sprite_mode": "Single",
+    "border_lbrt": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "filter": "Point",
+    "compression": "None"
+  }
+}

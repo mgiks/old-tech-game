@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9113b2982b5594ca7b6ff5d0a4a96f, type: 3}
+  m_Name: GameAudioLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::GameAudioLibrary
+  mouseClick: {fileID: 8300000, guid: edda9380fbb63434ab517108cf927bab, type: 3}
+  keyboard: {fileID: 8300000, guid: c36a3463a5c4a35448a88244ef057af1, type: 3}
+  startup: {fileID: 8300000, guid: 5fa9845f45a401c48aaf897164b344bc, type: 3}
+  criticalError: {fileID: 8300000, guid: 6272d519e6966004fbb494b7ebacc1da, type: 3}
+  virusElectric: {fileID: 8300000, guid: beddc2b9ce7008c46882c17026c85466, type: 3}
+  icq: {fileID: 8300000, guid: 874184a83939c954fac3834196d11b7d, type: 3}
+  virusEating: {fileID: 8300000, guid: 72a4676c0d89ee24fb8367eaae316a16, type: 3}
+  levelUp: {fileID: 8300000, guid: 907b8d04c1b8e104fa66cc797edbc281, type: 3}
+  hardwareInsert: {fileID: 8300000, guid: e2e7c7923de74664a8de6bc0d6b119d9, type: 3}

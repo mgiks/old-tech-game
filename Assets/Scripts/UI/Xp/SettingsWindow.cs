@@ -46,12 +46,22 @@ public class SettingsWindow : MonoBehaviour
 
     private void Build(RectTransform frame)
     {
+        ArtBindings art = ArtBindings.Load();
+        if (art != null)
+        {
+            ArtBindings.ApplySlice(frame.GetComponent<Image>(), art.windowFrame);
+        }
+
         Image title = XpUi.Image("Title Bar", frame, XpUi.Panel("xpTitle", 32, 36, 8, XpCorners.Top,
             XpUi.Hex("#3D95FF"), XpUi.Hex("#0A5FEA"), XpUi.Hex("#0758E0"), XpUi.Hex("#0653D8"), XpUi.Hex("#0447C9")), Color.white);
         XpUi.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), Vector2.zero, Vector2.zero);
         title.rectTransform.anchorMin = new Vector2(0f, 1f);
         title.rectTransform.anchorMax = new Vector2(1f, 1f);
         title.rectTransform.sizeDelta = new Vector2(0f, TitleHeight);
+        if (art != null)
+        {
+            ArtBindings.ApplySlice(title, art.titlebarActive);
+        }
 
         RectTransform titleTextRoot = XpUi.Rect("Title Text", title.transform);
         XpUi.Stretch(titleTextRoot, 14f, 0f, 50f, 0f);
@@ -66,8 +76,28 @@ public class SettingsWindow : MonoBehaviour
         Button closeButton = close.gameObject.AddComponent<Button>();
         closeButton.targetGraphic = closeFace;
         closeButton.onClick.AddListener(Close);
+        if (art != null && art.closeNormal != null)
+        {
+            close.sprite = art.closeNormal;
+            close.type = Image.Type.Simple;
+            close.preserveAspect = true;
+            close.color = Color.white;
+            closeFace.gameObject.SetActive(false);
+            cross.gameObject.SetActive(false);
+            closeButton.targetGraphic = close;
+            closeButton.transition = Selectable.Transition.SpriteSwap;
+            SpriteState spriteState = closeButton.spriteState;
+            spriteState.highlightedSprite = art.closeHover;
+            spriteState.pressedSprite = art.closePressed;
+            spriteState.disabledSprite = art.closeDisabled;
+            closeButton.spriteState = spriteState;
+        }
 
         Image body = XpUi.Image("Body", frame, null, XpUi.WindowBody);
+        if (art != null)
+        {
+            ArtBindings.ApplySlice(body, art.settingsBody);
+        }
         XpUi.Stretch(body.rectTransform, 4f, 4f, 4f, TitleHeight);
 
         float y = -24f;
@@ -85,11 +115,19 @@ public class SettingsWindow : MonoBehaviour
         ruButton = XpUi.XpButton("RU", row, null, new Vector2(100f, 38f));
         XpUi.Place((RectTransform)ruButton.transform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(ControlX, 0f), new Vector2(100f, 38f));
         ruButton.GetComponentInChildren<TMP_Text>().text = "RU";
-        ruButton.onClick.AddListener(() => GameSettings.SetLanguage(GameLanguage.Ru));
+        ruButton.onClick.AddListener(() =>
+        {
+            GameAudio.PlayMouseClick();
+            GameSettings.SetLanguage(GameLanguage.Ru);
+        });
         enButton = XpUi.XpButton("EN", row, null, new Vector2(100f, 38f));
         XpUi.Place((RectTransform)enButton.transform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(ControlX + 110f, 0f), new Vector2(100f, 38f));
         enButton.GetComponentInChildren<TMP_Text>().text = "EN";
-        enButton.onClick.AddListener(() => GameSettings.SetLanguage(GameLanguage.En));
+        enButton.onClick.AddListener(() =>
+        {
+            GameAudio.PlayMouseClick();
+            GameSettings.SetLanguage(GameLanguage.En);
+        });
 
         row = Row(body.transform, "settings.effects", ref y);
         effects = CreateSwitch(row, out effectsLabel);
@@ -111,6 +149,7 @@ public class SettingsWindow : MonoBehaviour
 
     public void Close()
     {
+        GameAudio.PlayMouseClick();
         onClose?.Invoke();
     }
 
@@ -171,6 +210,7 @@ public class SettingsWindow : MonoBehaviour
 
     private void OnResolutionPicked(int index)
     {
+        GameAudio.PlayMouseClick();
         if (index >= 0 && index < resolutions.Count)
         {
             GameSettings.SetResolution(resolutions[index].x, resolutions[index].y);
@@ -226,6 +266,19 @@ public class SettingsWindow : MonoBehaviour
         slider.fillRect.GetComponent<Image>().color = XpUi.Hex("#3AA845");
         Image handle = slider.handleRect.GetComponent<Image>();
         handle.color = XpUi.Hex("#2F6FD8");
+        ArtBindings art = ArtBindings.Load();
+        if (art != null)
+        {
+            ArtBindings.ApplySlice(background, art.volumeTrack);
+            ArtBindings.ApplySlice(slider.fillRect.GetComponent<Image>(), art.volumeFill);
+            if (art.volumeHandle != null)
+            {
+                handle.sprite = art.volumeHandle;
+                handle.type = Image.Type.Simple;
+                handle.color = Color.white;
+                handle.preserveAspect = true;
+            }
+        }
         slider.handleRect.sizeDelta = new Vector2(26f, 0f);
         ((RectTransform)slider.handleRect.parent).offsetMin = new Vector2(13f, -5f);
         ((RectTransform)slider.handleRect.parent).offsetMax = new Vector2(-13f, 5f);

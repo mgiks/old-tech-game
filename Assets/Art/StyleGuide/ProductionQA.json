@@ -1,0 +1,11 @@
+{
+  "individual_png_count": 154,
+  "skill_icon_count": 21,
+  "full_scene_native_px": [
+    320,
+    180
+  ],
+  "individual_file_issues": [],
+  "all_checks_passed": true,
+  "unity_runtime_test": "not run; target Unity project not supplied"
+}

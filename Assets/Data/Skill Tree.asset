@@ -28,6 +28,7 @@ MonoBehaviour:
     requiresAllMaxed: 0
     position: {x: 0, y: 0}
     requires: []
+    icon: {fileID: 21300000, guid: c69dfca65d320a04797fc04e9dcb96d0, type: 3}
   - id: spawn_rate_1
     displayName: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C"
     description: "\u0424\u0430\u0439\u043B\u044B \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
@@ -44,6 +45,7 @@ MonoBehaviour:
     position: {x: -300, y: 0}
     requires:
     - core
+    icon: {fileID: 21300000, guid: 31861b633d49d624da96b761ef46c15e, type: 3}
   - id: max_files
     displayName: "\u0417\u0430\u0445\u043B\u0430\u043C\u043B\u0451\u043D\u043D\u044B\u0439
       \u0441\u0442\u043E\u043B"
@@ -60,6 +62,7 @@ MonoBehaviour:
     position: {x: -560, y: 140}
     requires:
     - spawn_rate_1
+    icon: {fileID: 21300000, guid: eac538487641bde439ace93e8675677f, type: 3}
   - id: start_files
     displayName: "\u0410\u0432\u0442\u043E\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430"
     description: "\u0417\u0430\u0431\u0435\u0433 \u043D\u0430\u0447\u0438\u043D\u0430\u0435\u0442\u0441\u044F
@@ -76,6 +79,7 @@ MonoBehaviour:
     position: {x: -560, y: -140}
     requires:
     - spawn_rate_1
+    icon: {fileID: 21300000, guid: 1efd38ca25afa9e4c9e645a01d935693, type: 3}
   - id: spawn_burst
     displayName: "\u0420\u0430\u0437\u0433\u043E\u043D"
     description: "\u0424\u0430\u0439\u043B\u044B \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
@@ -92,6 +96,7 @@ MonoBehaviour:
     position: {x: -820, y: 140}
     requires:
     - max_files
+    icon: {fileID: 21300000, guid: 86ef65bda75cef24ca31f7485fc0e21b, type: 3}
   - id: file_value
     displayName: "\u0421\u0436\u0430\u0442\u0438\u0435"
     description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0441\u044A\u0435\u0434\u0435\u043D\u043D\u044B\u0439
@@ -108,6 +113,7 @@ MonoBehaviour:
     position: {x: -300, y: -300}
     requires:
     - core
+    icon: {fileID: 21300000, guid: 9e6ac86b410c2f64fbe345e68ba9a466, type: 3}
   - id: golden
     displayName: "\u0426\u0435\u043D\u043D\u044B\u0435 \u0444\u0430\u0439\u043B\u044B"
     description: "\u0418\u043D\u043E\u0433\u0434\u0430 \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
@@ -125,6 +131,7 @@ MonoBehaviour:
     position: {x: -560, y: -400}
     requires:
     - file_value
+    icon: {fileID: 21300000, guid: 1e2276b017068e64f9c52ccefaa75d71, type: 3}
   - id: attraction
     displayName: "\u0410\u0432\u0442\u043E\u043D\u043E\u043C\u043D\u043E\u0441\u0442\u044C"
     description: "\u0412\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
@@ -141,6 +148,7 @@ MonoBehaviour:
     position: {x: 300, y: 0}
     requires:
     - core
+    icon: {fileID: 21300000, guid: 07c140b58bc741146823447daf25d6a2, type: 3}
   - id: attraction_radius
     displayName: "\u0428\u0438\u0440\u043E\u043A\u0438\u0439 \u043E\u0445\u0432\u0430\u0442"
     description: "\u0412\u0438\u0440\u0443\u0441 \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
@@ -157,6 +165,7 @@ MonoBehaviour:
     position: {x: 560, y: 140}
     requires:
     - attraction
+    icon: {fileID: 21300000, guid: a4330d22c5d2c2a4fa921934575f690e, type: 3}
   - id: pull_speed
     displayName: "\u0421\u0438\u043B\u044C\u043D\u0430\u044F \u0433\u0440\u0430\u0432\u0438\u0442\u0430\u0446\u0438\u044F"
     description: "\u0424\u0430\u0439\u043B\u044B \u043B\u0435\u0442\u044F\u0442 \u043A
@@ -172,6 +181,7 @@ MonoBehaviour:
     position: {x: 560, y: -140}
     requires:
     - attraction
+    icon: {fileID: 21300000, guid: cf6e57fe284288e44b29d910207b6e08, type: 3}
   - id: screen_wide
     displayName: "\u041E\u0445\u043E\u0442\u0430"
     description: "\u0412\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u0442
@@ -192,6 +202,7 @@ MonoBehaviour:
     position: {x: 820, y: 140}
     requires:
     - attraction_radius
+    icon: {fileID: 21300000, guid: 9df792ccdb8634341a8becd09dbbe577, type: 3}
   - id: run_time
     displayName: "\u041E\u0442\u0441\u0440\u043E\u0447\u043A\u0430 \u0443\u0432\u043E\u043B\u044C\u043D\u0435\u043D\u0438\u044F"
     description: "\u0417\u0430\u0431\u0435\u0433 \u0434\u043B\u0438\u0442\u0441\u044F
@@ -207,6 +218,7 @@ MonoBehaviour:
     position: {x: 0, y: -220}
     requires:
     - core
+    icon: {fileID: 21300000, guid: a6e07c0cadabdbc4e99590f0721eff99, type: 3}
   - id: run_time_2
     displayName: "\u0411\u043E\u043B\u044C\u043D\u0438\u0447\u043D\u044B\u0439"
     description: "\u0417\u0430\u0431\u0435\u0433 \u0434\u043B\u0438\u0442\u0441\u044F
@@ -222,6 +234,7 @@ MonoBehaviour:
     position: {x: 0, y: -440}
     requires:
     - run_time
+    icon: {fileID: 21300000, guid: 6e2f482753bb3c94d9c9757e710d1604, type: 3}
   - id: server_access
     displayName: "\u0421\u0435\u0442\u0435\u0432\u043E\u0439 \u0447\u0435\u0440\u0432\u044C"
     description: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439, 11-\u0439
@@ -241,6 +254,7 @@ MonoBehaviour:
     position: {x: 0, y: -680}
     requires:
     - run_time_2
+    icon: {fileID: 21300000, guid: 2d55943cf5fa1f64097073cbd0769ceb, type: 3}
   - id: cursor_radius
     displayName: "\u0426\u0435\u043F\u043A\u0438\u0439 \u043A\u0443\u0440\u0441\u043E\u0440"
     description: "\u0422\u0430\u0449\u0438\u0448\u044C \u043E\u0434\u0438\u043D \u0444\u0430\u0439\u043B
@@ -257,6 +271,7 @@ MonoBehaviour:
     position: {x: -300, y: 260}
     requires:
     - core
+    icon: {fileID: 21300000, guid: 694272c1d91c000439f17c8a5500bf58, type: 3}
   - id: hover_feed
     displayName: "\u0411\u0435\u0437 \u0440\u0443\u043A"
     description: "\u041A\u043D\u043E\u043F\u043A\u0443 \u0437\u0430\u0436\u0438\u043C\u0430\u0442\u044C
@@ -276,6 +291,7 @@ MonoBehaviour:
     position: {x: -560, y: 380}
     requires:
     - cursor_radius
+    icon: {fileID: 21300000, guid: 014bccda00a932842b8e25df57b8cb88, type: 3}
   - id: mutation
     displayName: "\u041C\u0443\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435"
     description: "\u0412\u0438\u0440\u0443\u0441 \u043C\u0443\u0442\u0438\u0440\u0443\u0435\u0442.
@@ -294,6 +310,7 @@ MonoBehaviour:
     position: {x: 0, y: 240}
     requires:
     - core
+    icon: {fileID: 21300000, guid: 2dd99624c0eb4e145acba875764c9fd7, type: 3}
   - id: gluttony
     displayName: "\u041D\u0435\u043D\u0430\u0441\u044B\u0442\u043D\u043E\u0441\u0442\u044C"
     description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0448\u0430\u0433 \u043A\u043E\u043C\u0431\u043E
@@ -310,6 +327,7 @@ MonoBehaviour:
     position: {x: 0, y: 470}
     requires:
     - mutation
+    icon: {fileID: 21300000, guid: 5947ab353f2ac49489580b4c82608463, type: 3}
   - id: chain
     displayName: "\u0426\u0435\u043F\u043D\u0430\u044F \u0440\u0435\u0430\u043A\u0446\u0438\u044F"
     description: "\u0421\u044A\u0435\u0434\u0435\u043D\u043D\u044B\u0439 \u0444\u0430\u0439\u043B
@@ -327,6 +345,7 @@ MonoBehaviour:
     position: {x: 280, y: 360}
     requires:
     - mutation
+    icon: {fileID: 21300000, guid: 508536513c0465242b8b1a227ba93c0c, type: 3}
   - id: expansion
     displayName: "\u042D\u043A\u0441\u043F\u0430\u043D\u0441\u0438\u044F"
     description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0437\u0430\u0440\u0430\u0436\u0451\u043D\u043D\u044B\u0439
@@ -343,6 +362,7 @@ MonoBehaviour:
     position: {x: -280, y: 560}
     requires:
     - gluttony
+    icon: {fileID: 21300000, guid: aebea0fbb87bc6646b5fbfd2d73f416d, type: 3}
   - id: satellites
     displayName: "\u041E\u0442\u043F\u043E\u0447\u043A\u043E\u0432\u0430\u043D\u0438\u0435"
     description: "\u0412\u043E\u043A\u0440\u0443\u0433 \u0433\u043B\u0438\u0447\u0430
@@ -360,3 +380,4 @@ MonoBehaviour:
     position: {x: 0, y: 700}
     requires:
     - gluttony
+    icon: {fileID: 21300000, guid: c6807d2a6c6fe974d97ae0ae3ab4a26a, type: 3}

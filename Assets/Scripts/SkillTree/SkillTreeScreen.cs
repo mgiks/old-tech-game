@@ -51,6 +51,7 @@ public class SkillTreeScreen : MonoBehaviour
 
     private void StartRun()
     {
+        GameAudio.PlayMouseClick();
         startRunButton.interactable = false;
 
         if (crt != null)

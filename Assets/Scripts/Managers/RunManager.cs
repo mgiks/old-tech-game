@@ -65,6 +65,7 @@ public class RunManager : MonoBehaviour
         }
 
         UpdateDisplay();
+        GameAudio.Play(GameSfx.Startup);
 
         if (intro != null && intro.ShouldPlay)
         {
@@ -80,11 +81,13 @@ public class RunManager : MonoBehaviour
     {
         started = true;
         iconManager.StartSpawning();
+        GameAudio.StartLoop(GameSfx.VirusElectric);
     }
 
     void OnDestroy()
     {
         Time.timeScale = 1f;
+        GameAudio.Stop(GameSfx.VirusElectric);
     }
 
     void Update()
@@ -135,6 +138,7 @@ public class RunManager : MonoBehaviour
         if (mouse.leftButton.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame || mouse.middleButton.wasPressedThisFrame)
         {
             RunStats.AddClick();
+            GameAudio.PlayMouseClick();
         }
     }
 
@@ -202,6 +206,7 @@ public class RunManager : MonoBehaviour
         virus.ResetGrowth();
         iconManager.SpawnStartingIcons();
         filesAtComputerStart = RunStats.FilesInfected;
+        GameAudio.Play(GameSfx.HardwareInsert);
 
         for (float t = 0f; t < jumpDuration * 0.5f; t += Time.deltaTime)
         {
@@ -261,6 +266,7 @@ public class RunManager : MonoBehaviour
     private void Finish()
     {
         finished = true;
+        GameAudio.Stop(GameSfx.VirusElectric);
         RunStats.Complete();
         UpdateDisplay();
         Time.timeScale = 0f;

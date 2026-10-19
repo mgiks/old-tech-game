@@ -1,0 +1,3512 @@
+[
+  {
+    "path": "Cursors/cursor_busy.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "hotspot_px": [
+      16,
+      16
+    ]
+  },
+  {
+    "path": "Cursors/cursor_default.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "hotspot_px": [
+      1,
+      1
+    ]
+  },
+  {
+    "path": "Cursors/cursor_grab.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "hotspot_px": [
+      10,
+      8
+    ]
+  },
+  {
+    "path": "Cursors/cursor_invisible.png",
+    "size_px": [
+      1,
+      1
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0
+    ],
+    "hotspot_px": [
+      0,
+      0
+    ]
+  },
+  {
+    "path": "Cursors/cursor_loading.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "hotspot_px": [
+      1,
+      1
+    ]
+  },
+  {
+    "path": "Desktop/AppIcons/icon_internet.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/AppIcons/icon_office_messenger.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/AppIcons/icon_the_internet.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Folders/icon_folder_empty.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Folders/icon_folder_full.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Folders/icon_my_documents.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Folders/icon_my_music.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Folders/icon_my_pictures.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Folders/icon_my_videos.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_cd_dvd_drive.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_control_panel.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_critical_error.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_help.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_information.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_my_computer.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_network_places.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_recycle_bin.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_security.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_user_account.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_warning.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/SystemIcons/icon_window_application.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Virus/virus_idle.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Desktop/Wallpapers/wallpaper_bliss.png",
+    "size_px": [
+      320,
+      180
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0,
+      1
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "MainMenu/Backgrounds/main_menu_oldtech_320x180.png",
+    "size_px": [
+      320,
+      180
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0,
+      1
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_exit_disabled.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_exit_hover.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_exit_normal.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_exit_pressed.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_newgame_disabled.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_newgame_hover.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_newgame_normal.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_newgame_pressed.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_settings_disabled.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_settings_hover.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_settings_normal.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Buttons/ui_button_settings_pressed.png",
+    "size_px": [
+      76,
+      13
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "MainMenu/Computer/icon_my_computer.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "MainMenu/Computer/icon_network_places.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "MainMenu/Computer/icon_office_messenger.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "MainMenu/Logo/boot_splash_blank.png",
+    "size_px": [
+      320,
+      180
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "MainMenu/Logo/logo_virus_xp.png",
+    "size_px": [
+      192,
+      64
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "MainMenu/Logo/logo_virus_xp_compact.png",
+    "size_px": [
+      100,
+      17
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_katie.png",
+    "size_px": [
+      64,
+      64
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_katie_small.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_martin.png",
+    "size_px": [
+      64,
+      64
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_martin_small.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_sema.png",
+    "size_px": [
+      64,
+      64
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_sema_small.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_vitas.png",
+    "size_px": [
+      64,
+      64
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_vitas_small.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_xavier.png",
+    "size_px": [
+      64,
+      64
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Contacts/avatar_xavier_small.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/UI/chat_bubble_incoming_9slice.png",
+    "size_px": [
+      24,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      5
+    ]
+  },
+  {
+    "path": "Messenger/UI/chat_bubble_outgoing_9slice.png",
+    "size_px": [
+      24,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      5
+    ]
+  },
+  {
+    "path": "Messenger/UI/chat_bubble_system_9slice.png",
+    "size_px": [
+      24,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      5
+    ]
+  },
+  {
+    "path": "Messenger/UI/contact_row_hover.png",
+    "size_px": [
+      128,
+      40
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      3,
+      4,
+      3
+    ]
+  },
+  {
+    "path": "Messenger/UI/contact_row_normal.png",
+    "size_px": [
+      128,
+      40
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      3,
+      4,
+      3
+    ]
+  },
+  {
+    "path": "Messenger/UI/contact_row_offline.png",
+    "size_px": [
+      128,
+      40
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      3,
+      4,
+      3
+    ]
+  },
+  {
+    "path": "Messenger/UI/contact_row_selected.png",
+    "size_px": [
+      128,
+      40
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      3,
+      4,
+      3
+    ]
+  },
+  {
+    "path": "Messenger/UI/message_input_disabled.png",
+    "size_px": [
+      96,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "path": "Messenger/UI/message_input_focused.png",
+    "size_px": [
+      96,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "path": "Messenger/UI/message_input_normal.png",
+    "size_px": [
+      96,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "path": "Messenger/UI/notification_indicator.png",
+    "size_px": [
+      20,
+      20
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/UI/status_offline.png",
+    "size_px": [
+      12,
+      12
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/UI/status_online.png",
+    "size_px": [
+      12,
+      12
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Messenger/UI/ui_button_send_disabled.png",
+    "size_px": [
+      56,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Messenger/UI/ui_button_send_hover.png",
+    "size_px": [
+      56,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Messenger/UI/ui_button_send_normal.png",
+    "size_px": [
+      56,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Messenger/UI/ui_button_send_pressed.png",
+    "size_px": [
+      56,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Messenger/Windows/messenger_chat_window_blank.png",
+    "size_px": [
+      320,
+      224
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Windows/messenger_contact_window_blank.png",
+    "size_px": [
+      256,
+      232
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "Messenger/Windows/messenger_titlebar_9slice.png",
+    "size_px": [
+      32,
+      20
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      5,
+      2,
+      5,
+      2
+    ]
+  },
+  {
+    "path": "Messenger/Windows/messenger_window_frame_9slice.png",
+    "size_px": [
+      24,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "path": "Settings/settings_background_tile.png",
+    "size_px": [
+      16,
+      16
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "path": "Settings/settings_window_panel_blank.png",
+    "size_px": [
+      288,
+      192
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_button_back_disabled.png",
+    "size_px": [
+      76,
+      26
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Settings/ui_button_back_hover.png",
+    "size_px": [
+      76,
+      26
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Settings/ui_button_back_normal.png",
+    "size_px": [
+      76,
+      26
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Settings/ui_button_back_pressed.png",
+    "size_px": [
+      76,
+      26
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Settings/ui_fullscreen_checked.png",
+    "size_px": [
+      16,
+      16
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_fullscreen_disabled.png",
+    "size_px": [
+      16,
+      16
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_fullscreen_hover.png",
+    "size_px": [
+      16,
+      16
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_fullscreen_unchecked.png",
+    "size_px": [
+      16,
+      16
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_fill_disabled.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_fill_normal.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_handle_disabled.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_handle_hover.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_handle_normal.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_handle_pressed.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_track_disabled.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "Settings/ui_sensitivity_track_normal.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "Settings/ui_tab_disabled.png",
+    "size_px": [
+      64,
+      22
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Settings/ui_tab_normal.png",
+    "size_px": [
+      64,
+      22
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Settings/ui_tab_selected.png",
+    "size_px": [
+      64,
+      22
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_fill_disabled.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_fill_normal.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_handle_disabled.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_handle_hover.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_handle_normal.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_handle_pressed.png",
+    "size_px": [
+      12,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_track_disabled.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "Settings/ui_volume_track_normal.png",
+    "size_px": [
+      80,
+      8
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      2,
+      3,
+      2
+    ]
+  },
+  {
+    "path": "SharedUI/dialog_window_blank.png",
+    "size_px": [
+      224,
+      112
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/icon_pause.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/icon_settings.png",
+    "size_px": [
+      32,
+      32
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/panel_raised_9slice.png",
+    "size_px": [
+      16,
+      16
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "path": "SharedUI/panel_sunken_9slice.png",
+    "size_px": [
+      16,
+      16
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      3,
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "path": "SharedUI/start_button_blank.png",
+    "size_px": [
+      56,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "path": "SharedUI/taskbar_9slice.png",
+    "size_px": [
+      32,
+      28
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      5,
+      3,
+      5,
+      3
+    ]
+  },
+  {
+    "path": "SharedUI/titlebar_active_9slice.png",
+    "size_px": [
+      32,
+      20
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      5,
+      2,
+      5,
+      2
+    ]
+  },
+  {
+    "path": "SharedUI/titlebar_inactive_9slice.png",
+    "size_px": [
+      32,
+      20
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      5,
+      2,
+      5,
+      2
+    ]
+  },
+  {
+    "path": "SharedUI/window_close_disabled.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_close_hover.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_close_normal.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_close_pressed.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_frame_9slice.png",
+    "size_px": [
+      24,
+      24
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ],
+    "border_lbrt_px": [
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  {
+    "path": "SharedUI/window_maximize_disabled.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_maximize_hover.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_maximize_normal.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_maximize_pressed.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_minimize_disabled.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_minimize_hover.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_minimize_normal.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "SharedUI/window_minimize_pressed.png",
+    "size_px": [
+      18,
+      18
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_attraction.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_attraction_radius.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_chain.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_core.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_cursor_radius.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_expansion.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_file_value.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_gluttony.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_golden.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_hover_feed.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_max_files.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_mutation.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_pull_speed.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_run_time.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_run_time_2.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_satellites.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_screen_wide.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_server_access.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_spawn_burst.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_spawn_rate_1.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/icon_start_files.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  {
+    "path": "Skills/ui_skill_slot_hover.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "Skills/ui_skill_slot_locked.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "Skills/ui_skill_slot_normal.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "path": "Skills/ui_skill_slot_selected.png",
+    "size_px": [
+      48,
+      48
+    ],
+    "texture_type": "Sprite (2D and UI)",
+    "filter_mode": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "wrap_mode": "Clamp",
+    "pixels_per_unit": 32,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "alpha_values": [
+      255
+    ]
+  }
+]

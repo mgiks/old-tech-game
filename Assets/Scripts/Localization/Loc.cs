@@ -30,10 +30,10 @@ public static class Loc
         ["settings.off"] = new[] { "выкл", "off" },
         ["settings.ok"] = new[] { "OK", "OK" },
 
-        // Test main menu scene
+        // Main menu
         ["mainmenu.title"] = new[] { "Главное меню", "Main menu" },
-        ["mainmenu.subtitle"] = new[] { "Тестовая сцена. Настоящее главное меню будет позже.", "Test scene. The real main menu is coming later." },
-        ["mainmenu.back"] = new[] { "Назад", "Back" },
+        ["mainmenu.new_game"] = new[] { "Новая игра", "New game" },
+        ["mainmenu.exit"] = new[] { "Выход", "Exit" },
 
         // Run HUD and popups
         ["hud.pc"] = new[] { "ПК {0}/{1} · заражено файлов {2}/{3}", "PC {0}/{1} · files infected {2}/{3}" },

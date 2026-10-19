@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.70345, y: -0.9805, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 0.71999997, y: 0.71999997, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -4928937983269292340, guid: 729afb577f5141f4490bd93c8e7ac335, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d13b53503f73828439f2ef53a88d1a27, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,6 +107,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DesktopIcon
   popInDuration: 0.25
   goldenColor: {r: 1, g: 0.82, b: 0.25, a: 1}
+  chainedColor: {r: 0.85, g: 0.35, b: 1, a: 1}
+  iconVariants:
+  - {fileID: 21300000, guid: d13b53503f73828439f2ef53a88d1a27, type: 3}
+  - {fileID: 21300000, guid: 6f4250ee5c7c23743a75467bff5a2194, type: 3}
+  - {fileID: 21300000, guid: db67a5a1f3fef1b468701513293f1a6d, type: 3}
+  - {fileID: 21300000, guid: b344b631b9a1fec43a5fa3475154b353, type: 3}
+  - {fileID: 21300000, guid: faf0a7cf601949d4f8c4feef8636fe5e, type: 3}
+  - {fileID: 21300000, guid: 428afeca7821c3647afaa5c067752869, type: 3}
+  - {fileID: 21300000, guid: 3388c88e6d4f3b045ad046bb8bb128d3, type: 3}
+  - {fileID: 21300000, guid: 275a829c444c60643b31a2dfdb3afba8, type: 3}
+  - {fileID: 21300000, guid: f4672e14841a8d74d9ebca9a9eab3c3b, type: 3}
+  - {fileID: 21300000, guid: 11ed443227783a94c8142d0569c8718c, type: 3}
+  - {fileID: 21300000, guid: fa6b01cd4b897aa4b811f55630f8338a, type: 3}
+  - {fileID: 21300000, guid: b69d53e3a805984429b405971b554601, type: 3}
+  - {fileID: 21300000, guid: bcb758c3f5d23ce43a0f3c12433b0fed, type: 3}
+  - {fileID: 21300000, guid: 585763b3e9a838d428c7dd8b39464713, type: 3}
+  - {fileID: 21300000, guid: f1a5352f9bf6f354caeb3f471931f07d, type: 3}
+  - {fileID: 21300000, guid: 129f1aac8d3fb8f4a834d667d960e3f3, type: 3}
+  - {fileID: 21300000, guid: f5f07f7910cfd5c43acf1c406b360fb5, type: 3}
+  - {fileID: 21300000, guid: 52f326ea2cfafb046bc47c08640e6979, type: 3}
+  - {fileID: 21300000, guid: 085794dfc05920c4da277bb920de8eb2, type: 3}
+  - {fileID: 21300000, guid: c403bc560b72a5a449698b58b9f752a1, type: 3}
+  - {fileID: 21300000, guid: 82dd5f4c2b20d584bb59da5f74455971, type: 3}
 --- !u!61 &-5632635870371049661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,15 +164,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0051283836, y: -0.013677031}
+  m_Offset: {x: -0.021368265, y: -0.056987632}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.27, y: 0.24}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.27, y: 0.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.31902266, y: 0.26736563}
+  m_Size: {x: 1.3292611, y: 1.1140236}
   m_EdgeRadius: 0

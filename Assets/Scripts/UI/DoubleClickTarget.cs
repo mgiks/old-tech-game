@@ -19,6 +19,7 @@ public class DoubleClickTarget : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        GameAudio.PlayMouseClick();
         float now = Time.unscaledTime;
         if (now - lastClickTime <= doubleClickTime)
         {

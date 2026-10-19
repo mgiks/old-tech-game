@@ -63,6 +63,7 @@ public class RunEndScreen : MonoBehaviour
 
     public void Show(Action upgrade, Action next)
     {
+        GameAudio.Play(GameSfx.Icq);
         onUpgrade = upgrade;
         onContinue = next;
         upgradeButton.interactable = true;
@@ -73,6 +74,7 @@ public class RunEndScreen : MonoBehaviour
 
     private void Choose(Action action)
     {
+        GameAudio.PlayMouseClick();
         upgradeButton.interactable = false;
         continueButton.interactable = false;
         action?.Invoke();

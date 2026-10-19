@@ -8,6 +8,12 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Image glow;
     [SerializeField] private Image frame;
     [SerializeField] private Image body;
+    [SerializeField] private Image skillSlot;
+    [SerializeField] private Image skillIcon;
+    [SerializeField] private Sprite slotNormal;
+    [SerializeField] private Sprite slotHover;
+    [SerializeField] private Sprite slotSelected;
+    [SerializeField] private Sprite slotLocked;
     [SerializeField] private TextMeshProUGUI nameLabel;
     [SerializeField] private TextMeshProUGUI levelLabel;
     [SerializeField] private Button button;
@@ -54,6 +60,15 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         basePosition = rect.anchoredPosition;
         phase = Random.value * 10f;
         button.onClick.AddListener(OnClick);
+        if (skillIcon != null)
+        {
+            skillIcon.sprite = node.icon;
+            skillIcon.enabled = node.icon != null;
+            skillIcon.color = Color.white;
+            skillIcon.preserveAspect = true;
+            skillIcon.raycastTarget = false;
+        }
+
         Refresh(-1f);
     }
 
@@ -143,7 +158,31 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         glow.color = new Color(stateColor.r, stateColor.g, stateColor.b, glowAlpha);
         glow.rectTransform.localScale = Vector3.one * (1f + flash * 0.5f + pulse * 0.08f);
-        frame.color = Color.Lerp(stateColor, Color.white, flash * 0.8f);
+        if (skillSlot != null && slotNormal != null)
+        {
+            frame.color = Color.white;
+            int ownedLevel = skillTree.GetLevel(node);
+            Sprite slot = slotNormal;
+            if (hovered && slotHover != null)
+            {
+                slot = slotHover;
+            }
+            else if ((ownedLevel > 0 || node.startsOwned) && slotSelected != null)
+            {
+                slot = slotSelected;
+            }
+            else if (!affordable && ownedLevel == 0 && slotLocked != null)
+            {
+                slot = slotLocked;
+            }
+
+            skillSlot.sprite = slot;
+            skillSlot.color = Color.white;
+        }
+        else
+        {
+            frame.color = Color.Lerp(stateColor, Color.white, flash * 0.8f);
+        }
 
         Color dark = new(stateColor.r * bodyBrightness, stateColor.g * bodyBrightness, stateColor.b * bodyBrightness, 1f);
         body.color = Color.Lerp(dark, Color.white, flash * 0.5f);
@@ -178,6 +217,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (node.startsOwned)
         {
+            GameAudio.PlayMouseClick();
             scaleVelocity += purchasePunch * 0.6f;
             flash = 0.6f;
             fx.PlayPoke(rect, stateColor);
@@ -186,6 +226,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         if (node.comingSoon || skillTree.IsMaxed(node) || !skillTree.CanBuy(node))
         {
+            GameAudio.PlayMouseClick();
             denyTime = Time.unscaledTime;
             fx.PlayDenied(rect, Loc.T(node.comingSoon ? "deny.soon"
                 : skillTree.IsMaxed(node) ? "deny.max"
@@ -202,6 +243,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         scaleVelocity += purchasePunch;
         flash = 1f;
+        GameAudio.Play(GameSfx.LevelUp);
         fx.PlayPurchase(rect, stateColor, skillTree.IsMaxed(node), cost);
     }
 

@@ -18,6 +18,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     [SerializeField] private float popInDuration = 0.25f;
     [SerializeField] private Color goldenColor = new(1f, 0.82f, 0.25f, 1f);
     [SerializeField] private Color chainedColor = new(0.85f, 0.35f, 1f, 1f);
+    [SerializeField] private Sprite[] iconVariants;
 
     private Vector3 offset;
     private Camera cam;
@@ -29,6 +30,11 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         cam = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (iconVariants != null && iconVariants.Length > 0)
+        {
+            spriteRenderer.sprite = iconVariants[Random.Range(0, iconVariants.Length)];
+        }
+
         baseScale = transform.localScale;
         transform.localScale = Vector3.zero;
     }
@@ -87,11 +93,22 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         IsDragged = true;
+        ArtBindings art = ArtBindings.Load();
+        if (art != null && art.cursorGrab != null)
+        {
+            Cursor.SetCursor(art.cursorGrab, art.cursorGrabHotspot, CursorMode.Auto);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         IsDragged = false;
+        ArtBindings art = ArtBindings.Load();
+        if (art != null && art.cursorDefault != null)
+        {
+            Cursor.SetCursor(art.cursorDefault, art.cursorDefaultHotspot, CursorMode.Auto);
+        }
+
         if (!GamePause.IsPaused)
         {
             TryFeedVirus();

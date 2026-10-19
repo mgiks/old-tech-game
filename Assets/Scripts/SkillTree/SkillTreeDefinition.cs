@@ -43,6 +43,7 @@ public class SkillTreeDefinition : ScriptableObject
         public bool requiresAllMaxed;
         public Vector2 position;
         public string[] requires = Array.Empty<string>();
+        public Sprite icon;
     }
 
     [SerializeField] private Node[] nodes =

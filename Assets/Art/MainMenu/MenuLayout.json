@@ -1,0 +1,62 @@
+{
+  "canvas_px": [
+    320,
+    180
+  ],
+  "screen_safe_rect_px": {
+    "x": 104,
+    "y": 34,
+    "width": 110,
+    "height": 69
+  },
+  "buttons": [
+    {
+      "label": "New Game",
+      "sprite": "MainMenu/Buttons/ui_button_newgame_{state}.png",
+      "position_top_left_px": [
+        121,
+        51
+      ],
+      "size_px": [
+        76,
+        13
+      ]
+    },
+    {
+      "label": "Settings",
+      "sprite": "MainMenu/Buttons/ui_button_settings_{state}.png",
+      "position_top_left_px": [
+        121,
+        68
+      ],
+      "size_px": [
+        76,
+        13
+      ]
+    },
+    {
+      "label": "Exit",
+      "sprite": "MainMenu/Buttons/ui_button_exit_{state}.png",
+      "position_top_left_px": [
+        121,
+        85
+      ],
+      "size_px": [
+        76,
+        13
+      ]
+    }
+  ],
+  "label_rule": "Place editable text above each blank button. Keep the localized title as separate text above the buttons.",
+  "logo": {
+    "sprite": "MainMenu/Logo/logo_virus_xp_compact.png",
+    "position_top_left_px": [
+      109,
+      30
+    ],
+    "size_px": [
+      100,
+      17
+    ]
+  }
+}

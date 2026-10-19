@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1463097525465768687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8069197041596058928}
+  - component: {fileID: 971303053074660641}
+  m_Layer: 0
+  m_Name: ArtBindings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8069197041596058928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463097525465768687}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &971303053074660641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463097525465768687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53b87f40232f6034592d5f56fbb820a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArtBindings
+  taskbar: {fileID: 21300000, guid: 5e996e9e59387fa4ba35663901337ba5, type: 3}
+  startButton: {fileID: 21300000, guid: 69d96135a1244af4f91d41eff59dea0e, type: 3}
+  windowFrame: {fileID: 21300000, guid: 6f1417682b187d74ba674557f755d0aa, type: 3}
+  titlebarActive: {fileID: 21300000, guid: 353bb5a8da4d03d47834a7ff7193feb8, type: 3}
+  closeNormal: {fileID: 21300000, guid: 07b47da33c6c4b9488556ef526d6bdb5, type: 3}
+  closeHover: {fileID: 21300000, guid: 29ecc5921a34fe9418e51c81299edf38, type: 3}
+  closePressed: {fileID: 21300000, guid: a658fdb8dd97e4e4ca58062958e48401, type: 3}
+  closeDisabled: {fileID: 21300000, guid: 9795494da19dc5a4d863313b6265822a, type: 3}
+  panelRaised: {fileID: 21300000, guid: 98dc5d18c6e5a684d97fc3253d0be8aa, type: 3}
+  panelSunken: {fileID: 21300000, guid: 7bfe125b3256f2941aaf4b8c89a72f52, type: 3}
+  settingsBody: {fileID: 21300000, guid: 46fb82495de7f3e43b0ee3042e1b63ef, type: 3}
+  volumeTrack: {fileID: 21300000, guid: bc34815a60b65aa4fb67d6c69cb51b59, type: 3}
+  volumeFill: {fileID: 21300000, guid: f0be58c9e2dd60f4aa50484cda73657e, type: 3}
+  volumeHandle: {fileID: 21300000, guid: 1045a62028b6cf545a485b5aa0690e8c, type: 3}
+  settingsIcon: {fileID: 21300000, guid: ea92545c45e626848a88be6a48cbaa5b, type: 3}
+  virus: {fileID: 21300000, guid: d40df29b0d5210b4d800a966ff783b1a, type: 3}
+  cursorDefault: {fileID: 2800000, guid: ed1e370d2127da946a7eb8747b260749, type: 3}
+  cursorDefaultHotspot: {x: 1, y: 1}
+  cursorGrab: {fileID: 2800000, guid: e85118df94955e5448f8f1f7a10cae55, type: 3}
+  cursorGrabHotspot: {x: 10, y: 8}

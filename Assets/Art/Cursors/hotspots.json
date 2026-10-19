@@ -1,0 +1,33 @@
+{
+  "cursor_default.png": {
+    "hotspot_px": [
+      1,
+      1
+    ]
+  },
+  "cursor_loading.png": {
+    "hotspot_px": [
+      1,
+      1
+    ]
+  },
+  "cursor_busy.png": {
+    "hotspot_px": [
+      16,
+      16
+    ]
+  },
+  "cursor_grab.png": {
+    "hotspot_px": [
+      10,
+      8
+    ]
+  },
+  "cursor_invisible.png": {
+    "hotspot_px": [
+      0,
+      0
+    ],
+    "preferred_unity_mode": "Cursor.visible = false"
+  }
+}

@@ -45,6 +45,7 @@ public class UiSwitch : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        GameAudio.PlayMouseClick();
         IsOn = !IsOn;
         Toggled?.Invoke(IsOn);
     }

@@ -244,6 +244,11 @@ public class Taskbar : MonoBehaviour
         BuildStartButton(bar.transform);
         BuildTaskButton(bar.transform);
         BuildTray(bar.transform);
+        ArtBindings art = ArtBindings.Load();
+        if (art != null)
+        {
+            ArtBindings.ApplySlice(bar, art.taskbar);
+        }
     }
 
     private void BuildStartButton(Transform bar)
@@ -266,6 +271,11 @@ public class Taskbar : MonoBehaviour
         RectTransform label = XpUi.Rect("Label", startFace.transform);
         XpUi.Stretch(label, 50f, 0f, 8f, 2f);
         XpUi.ShadowText("Text", label, "start.button", 28f, Color.white, TextAlignmentOptions.MidlineLeft, FontStyles.Bold | FontStyles.Italic, new Vector2(1.5f, -1.5f));
+        ArtBindings art = ArtBindings.Load();
+        if (art != null)
+        {
+            ArtBindings.ApplySlice(startFace, art.startButton);
+        }
 
         Button button = startFace.gameObject.AddComponent<Button>();
         button.transition = Selectable.Transition.None;
@@ -286,9 +296,19 @@ public class Taskbar : MonoBehaviour
             XpUi.Hex("#1E4FB5"), XpUi.Hex("#2C63D3"), XpUi.Hex("#2A5FCC")), Color.white);
         XpUi.Stretch(face.rectTransform, 1f, 1f, 1f, 1f);
 
+        ArtBindings art = ArtBindings.Load();
         Image icon = XpUi.Image("Icon", border.transform, XpUi.Circle(), XpUi.Hex("#59E35A"));
         XpUi.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(20f, 0f), new Vector2(20f, 20f));
-        GlitchEyes(icon.transform, 20f);
+        if (art != null && art.virus != null)
+        {
+            icon.sprite = art.virus;
+            icon.color = Color.white;
+            icon.preserveAspect = true;
+        }
+        else
+        {
+            GlitchEyes(icon.transform, 20f);
+        }
 
         TextMeshProUGUI label = XpUi.Text("Label", border.transform, string.Empty, 19f, Color.white);
         XpUi.Stretch(label.rectTransform, 38f, 0f, 8f, 0f);
@@ -308,6 +328,11 @@ public class Taskbar : MonoBehaviour
 
         clock = XpUi.Text("Clock", tray.transform, "00:00", 20f, Color.white, TextAlignmentOptions.Center);
         XpUi.Stretch(clock.rectTransform, 6f, 0f, 0f, 0f);
+        ArtBindings art = ArtBindings.Load();
+        if (art != null)
+        {
+            ArtBindings.ApplySlice(tray, art.panelSunken);
+        }
     }
 
     private void BuildMenu()
@@ -318,6 +343,11 @@ public class Taskbar : MonoBehaviour
 
         Image frame = XpUi.Image("Frame", root, XpUi.Panel("xpMenuFrame", 32, 32, 9, XpCorners.Top, XpUi.Hex("#1C55C7")), Color.white, true);
         XpUi.Stretch(frame.rectTransform);
+        ArtBindings menuArt = ArtBindings.Load();
+        if (menuArt != null)
+        {
+            ArtBindings.ApplySlice(frame, menuArt.panelRaised);
+        }
 
         const float headerHeight = 76f;
         const float footerHeight = 50f;
@@ -327,6 +357,10 @@ public class Taskbar : MonoBehaviour
         header.rectTransform.anchorMin = new Vector2(0f, 1f);
         header.rectTransform.anchorMax = Vector2.one;
         header.rectTransform.pivot = new Vector2(0.5f, 1f);
+        if (menuArt != null)
+        {
+            ArtBindings.ApplySlice(header, menuArt.titlebarActive);
+        }
         header.rectTransform.anchoredPosition = Vector2.zero;
         header.rectTransform.sizeDelta = new Vector2(0f, headerHeight);
 
@@ -336,7 +370,16 @@ public class Taskbar : MonoBehaviour
         XpUi.Stretch(avatarBack.rectTransform, 3f, 3f, 3f, 3f);
         Image virus = XpUi.Image("Virus", avatarFrame.transform, XpUi.Circle(), XpUi.Hex("#59E35A"));
         XpUi.Place(virus.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(36f, 36f));
-        GlitchEyes(virus.transform, 36f);
+        if (menuArt != null && menuArt.virus != null)
+        {
+            virus.sprite = menuArt.virus;
+            virus.color = Color.white;
+            virus.preserveAspect = true;
+        }
+        else
+        {
+            GlitchEyes(virus.transform, 36f);
+        }
 
         RectTransform name = XpUi.Rect("Name", header.transform);
         XpUi.Stretch(name, 82f, 0f, 12f, 0f);
@@ -471,6 +514,15 @@ public class Taskbar : MonoBehaviour
             }
             case Icon.Settings:
             {
+                ArtBindings settingsArt = ArtBindings.Load();
+                if (settingsArt != null && settingsArt.settingsIcon != null)
+                {
+                    Image settingsIcon = XpUi.Image("Icon", root, settingsArt.settingsIcon, Color.white);
+                    XpUi.Stretch(settingsIcon.rectTransform);
+                    settingsIcon.preserveAspect = true;
+                    break;
+                }
+
                 Image tile = XpUi.Image("Tile", root, XpUi.Rounded(6), XpUi.Hex("#5D7FC0"));
                 XpUi.Stretch(tile.rectTransform);
                 for (int i = 0; i < 4; i++)

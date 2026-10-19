@@ -1,0 +1,36 @@
+{
+  "logical_canvas_px": [
+    320,
+    180
+  ],
+  "screen_outer_px": {
+    "x": 100,
+    "y": 28,
+    "width": 118,
+    "height": 81
+  },
+  "screen_safe_rect_logical_px": {
+    "x": 104,
+    "y": 34,
+    "width": 110,
+    "height": 69
+  },
+  "screen_safe_rect_640_px": {
+    "x": 208,
+    "y": 68,
+    "width": 220,
+    "height": 138
+  },
+  "screen_safe_rect_1920_px": {
+    "x": 624,
+    "y": 204,
+    "width": 660,
+    "height": 414
+  },
+  "coordinate_origin": "top-left",
+  "ui_rule": "Keep all interactive menu UI inside the screen safe rectangle. This background contains no baked menu labels.",
+  "unity_filter_mode": "Point (no filter)",
+  "compression": "None",
+  "pixels_per_unit": 100,
+  "display_scaling": "Use 2x at 640x360 and 6x at 1920x1080; use integer scaling for other display sizes."
+}
