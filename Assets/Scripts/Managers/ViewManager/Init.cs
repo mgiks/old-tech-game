@@ -4,7 +4,7 @@ public class Init : MonoBehaviour
 {
     void Start()
     {
-        if (MainMenuBootstrap.Entered)
+        if (!MainMenuBootstrap.TryEnter())
         {
             return;
         }

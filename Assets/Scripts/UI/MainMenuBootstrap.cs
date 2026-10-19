@@ -26,24 +26,37 @@ public static class MainMenuBootstrap
             return;
         }
 
-        Init init = Object.FindAnyObjectByType<Init>(FindObjectsInactive.Include);
-        if (init != null)
+        if (active.name == "ViewManager")
         {
-            init.enabled = false;
+            return;
+        }
+
+        GameObject boot = new GameObject("Main Menu Boot");
+        Object.DontDestroyOnLoad(boot);
+        boot.AddComponent<MainMenuBoot>();
+    }
+
+    public static bool TryEnter()
+    {
+        if (Entered)
+        {
+            return false;
         }
 
         Entered = true;
+        return true;
+    }
+}
 
-        if (active.name == "ViewManager")
+public class MainMenuBoot : MonoBehaviour
+{
+    void Start()
+    {
+        if (MainMenuBootstrap.TryEnter())
         {
-            ViewManager viewManager = Object.FindAnyObjectByType<ViewManager>();
-            if (viewManager != null)
-            {
-                viewManager.LoadScene(Taskbar.MainMenuScene);
-                return;
-            }
+            SceneManager.LoadScene(Taskbar.MainMenuScene);
         }
 
-        SceneManager.LoadScene(Taskbar.MainMenuScene);
+        Destroy(gameObject);
     }
 }

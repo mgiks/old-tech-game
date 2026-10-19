@@ -138,14 +138,20 @@ public class CrtMonitor : MonoBehaviour
         RemapScreen(mesh, screenTransform);
         filter.sharedMesh = mesh;
 
-        Shader shader = Shader.Find("OldTech/CrtScreen");
-        if (shader == null)
+        Material glassTemplate = Resources.Load<Material>("CRT Glass");
+        if (glassTemplate == null)
         {
-            Debug.LogError("CRT shader was not found.");
-            return false;
+            Shader shader = Shader.Find("OldTech/CrtScreen");
+            if (shader == null)
+            {
+                Debug.LogError("CRT shader was not found.");
+                return false;
+            }
+
+            glassTemplate = new Material(shader);
         }
 
-        Material glassMaterial = new Material(shader) { name = "CRT Glass" };
+        Material glassMaterial = new Material(glassTemplate) { name = "CRT Glass" };
         glassMaterial.SetTexture("_MainTex", texture);
         renderer.sharedMaterial = glassMaterial;
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -289,10 +295,27 @@ public class CrtMonitor : MonoBehaviour
 
     private void BuildRoom(int layer)
     {
-        Shader unlit = Shader.Find("Universal Render Pipeline/Unlit");
-        Material deskMaterial = new Material(unlit);
+        Material unlitTemplate = Resources.Load<Material>("Unlit Color");
+        if (unlitTemplate == null)
+        {
+            Shader unlit = Shader.Find("OldTech/UnlitColor");
+            if (unlit == null)
+            {
+                unlit = Shader.Find("Universal Render Pipeline/Unlit");
+            }
+
+            if (unlit == null)
+            {
+                Debug.LogError("Unlit shader was not found.");
+                return;
+            }
+
+            unlitTemplate = new Material(unlit);
+        }
+
+        Material deskMaterial = new Material(unlitTemplate);
         deskMaterial.SetColor("_BaseColor", new Color(0.42f, 0.33f, 0.26f));
-        Material wallMaterial = new Material(unlit);
+        Material wallMaterial = new Material(unlitTemplate);
         wallMaterial.SetColor("_BaseColor", new Color(0.18f, 0.14f, 0.11f));
 
         GameObject desk = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -402,6 +425,11 @@ public class CrtMonitor : MonoBehaviour
 
     private void FitView()
     {
+        if (viewCamera == null)
+        {
+            return;
+        }
+
         float windowAspect = Screen.width / Mathf.Max(1f, (float)Screen.height);
         const float targetAspect = 16f / 9f;
         if (windowAspect > targetAspect)
