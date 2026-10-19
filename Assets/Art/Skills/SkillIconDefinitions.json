@@ -42,28 +42,40 @@
     "path": "Skills/icon_golden.png"
   },
   {
-    "id": "attraction",
-    "label": "Autonomy",
-    "description_ru": "Вирус сам тянет файл к себе.",
+    "id": "confidential",
+    "label": "Confidential Files",
+    "description_ru": "Редкий документ с красной печатью.",
+    "path": "Skills/icon_chain.png"
+  },
+  {
+    "id": "crawler",
+    "label": "Crawler",
+    "description_ru": "Маленький вирус ползёт к файлу.",
     "path": "Skills/icon_attraction.png"
   },
   {
-    "id": "attraction_radius",
-    "label": "Wide Reach",
-    "description_ru": "Большой круг вокруг вируса.",
-    "path": "Skills/icon_attraction_radius.png"
-  },
-  {
-    "id": "pull_speed",
-    "label": "Strong Gravity",
-    "description_ru": "Файл летит в вирус быстро.",
+    "id": "crawler_speed",
+    "label": "Quick Feet",
+    "description_ru": "Ползун быстрее добирается до файла.",
     "path": "Skills/icon_pull_speed.png"
   },
   {
-    "id": "screen_wide",
-    "label": "Hunt",
-    "description_ru": "Вирус хватает файл с другого края экрана.",
+    "id": "crawler_download",
+    "label": "Fast Download",
+    "description_ru": "Ползун быстрее скачивает файл.",
     "path": "Skills/icon_screen_wide.png"
+  },
+  {
+    "id": "colony",
+    "label": "Colony",
+    "description_ru": "Несколько маленьких вирусов.",
+    "path": "Skills/icon_satellites.png"
+  },
+  {
+    "id": "instinct",
+    "label": "Sharp Instinct",
+    "description_ru": "Ползун чует редкий файл.",
+    "path": "Skills/icon_attraction_radius.png"
   },
   {
     "id": "run_time",
@@ -78,9 +90,21 @@
     "path": "Skills/icon_run_time_2.png"
   },
   {
-    "id": "server_access",
-    "label": "Network Worm",
-    "description_ru": "Червь и серверная стойка.",
+    "id": "smoke_break",
+    "label": "Smoke Break",
+    "description_ru": "Секунда за переход на следующий ПК.",
+    "path": "Skills/icon_expansion.png"
+  },
+  {
+    "id": "overtime",
+    "label": "Overtime",
+    "description_ru": "Время за заработанные MB.",
+    "path": "Skills/icon_pull_speed.png"
+  },
+  {
+    "id": "sabotage",
+    "label": "Sabotage",
+    "description_ru": "Таймер восстанавливается на ключевых ПК.",
     "path": "Skills/icon_server_access.png"
   },
   {
@@ -90,39 +114,27 @@
     "path": "Skills/icon_cursor_radius.png"
   },
   {
+    "id": "magnetic",
+    "label": "Magnetic Cursor",
+    "description_ru": "Файлы тянутся к курсору.",
+    "path": "Skills/icon_attraction.png"
+  },
+  {
+    "id": "wide_grip",
+    "label": "Wide Grip",
+    "description_ru": "Курсор держит больше файлов.",
+    "path": "Skills/icon_gluttony.png"
+  },
+  {
     "id": "hover_feed",
     "label": "Hands-Free",
     "description_ru": "Курсор ведёт файлы без зажатой кнопки.",
     "path": "Skills/icon_hover_feed.png"
   },
   {
-    "id": "mutation",
-    "label": "Mutation",
-    "description_ru": "Вирус меняет форму, рядом счётчик комбо.",
-    "path": "Skills/icon_mutation.png"
-  },
-  {
-    "id": "gluttony",
-    "label": "Gluttony",
-    "description_ru": "Вирус с открытой пастью и растущим комбо.",
-    "path": "Skills/icon_gluttony.png"
-  },
-  {
-    "id": "chain",
-    "label": "Chain Reaction",
-    "description_ru": "Один съеденный файл заражает соседний.",
-    "path": "Skills/icon_chain.png"
-  },
-  {
-    "id": "expansion",
-    "label": "Expansion",
-    "description_ru": "Вирус перескакивает на следующий компьютер, таймер растёт.",
-    "path": "Skills/icon_expansion.png"
-  },
-  {
-    "id": "satellites",
-    "label": "Budding",
-    "description_ru": "Маленькие копии вируса кружат вокруг большого.",
-    "path": "Skills/icon_satellites.png"
+    "id": "vacuum",
+    "label": "Vacuum",
+    "description_ru": "Стоящий курсор втягивает файлы вокруг.",
+    "path": "Skills/icon_screen_wide.png"
   }
 ]

@@ -86,9 +86,14 @@ public class DesktopIconManager : MonoBehaviour
             if (TryGetPositionOutsideHalo(out Vector2 coords))
             {
                 GameObject spawned = Instantiate(icon, new Vector3(coords.x, coords.y, 0f), Quaternion.identity);
-                if (Random.value < skillTree.GetStat(SkillStat.GoldenChance))
+                DesktopIcon spawnedIcon = spawned.GetComponent<DesktopIcon>();
+                if (Random.value < skillTree.GetStat(SkillStat.ConfidentialChance))
                 {
-                    spawned.GetComponent<DesktopIcon>().MakeGolden();
+                    spawnedIcon.MakeConfidential();
+                }
+                else if (Random.value < skillTree.GetStat(SkillStat.GoldenChance))
+                {
+                    spawnedIcon.MakeGolden();
                 }
             }
         }

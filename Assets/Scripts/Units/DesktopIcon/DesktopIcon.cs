@@ -12,12 +12,16 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public bool IsDragged { get; private set; }
     public bool IsConsumed { get; private set; }
     public bool IsGolden { get; private set; }
+    public bool IsConfidential { get; private set; }
     public bool IsCarried { get; set; }
-    public bool IsFree => !IsDragged && !IsCarried && !IsConsumed;
+    public bool IsReserved { get; set; }
+    public bool IsCursorInfluenced { get; set; }
+    public bool IsFree => !IsDragged && !IsCarried && !IsConsumed && !IsReserved;
 
     [SerializeField] private float popInDuration = 0.25f;
     [SerializeField] private Color goldenColor = new(1f, 0.82f, 0.25f, 1f);
-    [SerializeField] private Color chainedColor = new(0.85f, 0.35f, 1f, 1f);
+    [SerializeField] private Color confidentialColor = new(0.62f, 0.18f, 0.95f, 1f);
+    [SerializeField] private Color stampColor = new(0.95f, 0.12f, 0.22f, 0.95f);
     [SerializeField] private Sprite[] iconVariants;
 
     private Vector3 offset;
@@ -54,7 +58,12 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
             transform.localScale = baseScale;
         }
 
-        if (IsGolden)
+        if (IsConfidential)
+        {
+            float pulse = 0.5f + 0.5f * Mathf.Sin(age * 6f);
+            spriteRenderer.color = Color.Lerp(confidentialColor, Color.white, pulse * 0.35f);
+        }
+        else if (IsGolden)
         {
             float shimmer = 0.5f + 0.5f * Mathf.Sin(age * 8f);
             spriteRenderer.color = Color.Lerp(goldenColor, Color.white, shimmer * 0.45f);
@@ -67,12 +76,20 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         baseScale *= 1.15f;
     }
 
-    public void MarkChained()
+    public void MakeConfidential()
     {
-        if (!IsGolden)
-        {
-            spriteRenderer.color = chainedColor;
-        }
+        IsConfidential = true;
+        baseScale *= 1.3f;
+        GameObject stamp = new("Classified Stamp", typeof(SpriteRenderer));
+        stamp.transform.SetParent(transform, false);
+        stamp.transform.localPosition = new Vector3(0f, -0.12f, 0f);
+        stamp.transform.localScale = new Vector3(0.55f, 0.18f, 1f);
+        SpriteRenderer mark = stamp.GetComponent<SpriteRenderer>();
+        mark.sprite = spriteRenderer.sprite;
+        mark.color = stampColor;
+        mark.sortingLayerID = spriteRenderer.sortingLayerID;
+        mark.sortingOrder = spriteRenderer.sortingOrder + 1;
+        mark.sharedMaterial = spriteRenderer.sharedMaterial;
     }
 
     void OnEnable()

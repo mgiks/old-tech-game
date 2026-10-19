@@ -132,15 +132,13 @@ MonoBehaviour:
     requires:
     - file_value
     icon: {fileID: 21300000, guid: 1e2276b017068e64f9c52ccefaa75d71, type: 3}
-  - id: attraction
-    displayName: "\u0410\u0432\u0442\u043E\u043D\u043E\u043C\u043D\u043E\u0441\u0442\u044C"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
-      \u0438 \u0441\u044A\u0435\u0434\u0430\u0435\u0442 \u0444\u0430\u0439\u043B\u044B
-      \u0432\u043E\u043A\u0440\u0443\u0433 \u0441\u0435\u0431\u044F."
-    stat: 4
-    valuePerLevel: 1.5
+  - id: crawler
+    displayName: "\u041F\u043E\u043B\u0437\u0443\u043D"
+    description: "\u041C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0439 \u0432\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u043F\u043E\u043B\u0437\u0451\u0442 \u043A \u0441\u0432\u043E\u0431\u043E\u0434\u043D\u043E\u043C\u0443 \u0444\u0430\u0439\u043B\u0443, \u0441\u0430\u0434\u0438\u0442\u0441\u044F \u043D\u0430 \u043D\u0435\u0433\u043E \u0438 \u0441\u043A\u0430\u0447\u0438\u0432\u0430\u0435\u0442. \u0424\u0430\u0439\u043B \u043F\u0440\u0438\u043D\u043E\u0441\u0438\u0442 MB, \u043A\u0430\u043A \u0431\u0443\u0434\u0442\u043E \u0435\u0433\u043E \u0441\u044A\u0435\u043B \u0433\u043B\u0438\u0447."
+    stat: 18
+    valuePerLevel: 1
     maxLevel: 1
-    baseCost: 12
+    baseCost: 30
     costMultiplier: 1.5
     startsOwned: 0
     comingSoon: 0
@@ -149,60 +147,51 @@ MonoBehaviour:
     requires:
     - core
     icon: {fileID: 21300000, guid: 07c140b58bc741146823447daf25d6a2, type: 3}
-  - id: attraction_radius
-    displayName: "\u0428\u0438\u0440\u043E\u043A\u0438\u0439 \u043E\u0445\u0432\u0430\u0442"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
-      \u0444\u0430\u0439\u043B\u044B \u0441 \u0431\u043E\u043B\u044C\u0448\u0435\u0433\u043E
-      \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u044F."
-    stat: 4
-    valuePerLevel: 0.6
+  - id: crawler_speed
+    displayName: "\u0411\u044B\u0441\u0442\u0440\u044B\u0435 \u043B\u0430\u043F\u043A\u0438"
+    description: "\u041F\u043E\u043B\u0437\u0443\u043D \u0431\u044B\u0441\u0442\u0440\u0435\u0435 \u0434\u043E\u0431\u0438\u0440\u0430\u0435\u0442\u0441\u044F \u0434\u043E \u0444\u0430\u0439\u043B\u0430."
+    stat: 19
+    valuePerLevel: 0.7
     maxLevel: 5
-    baseCost: 15
-    costMultiplier: 1.55
+    baseCost: 18
+    costMultiplier: 1.6
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
     position: {x: 560, y: 140}
     requires:
-    - attraction
-    icon: {fileID: 21300000, guid: a4330d22c5d2c2a4fa921934575f690e, type: 3}
-  - id: pull_speed
-    displayName: "\u0421\u0438\u043B\u044C\u043D\u0430\u044F \u0433\u0440\u0430\u0432\u0438\u0442\u0430\u0446\u0438\u044F"
-    description: "\u0424\u0430\u0439\u043B\u044B \u043B\u0435\u0442\u044F\u0442 \u043A
-      \u0432\u0438\u0440\u0443\u0441\u0443 \u0431\u044B\u0441\u0442\u0440\u0435\u0435."
-    stat: 5
-    valuePerLevel: 1.5
-    maxLevel: 4
-    baseCost: 15
-    costMultiplier: 1.55
+    - crawler
+    icon: {fileID: 21300000, guid: cf6e57fe284288e44b29d910207b6e08, type: 3}
+  - id: crawler_download
+    displayName: "\u0411\u044B\u0441\u0442\u0440\u0430\u044F \u0437\u0430\u043A\u0430\u0447\u043A\u0430"
+    description: "\u041F\u043E\u043B\u0437\u0443\u043D \u043C\u0435\u043D\u044C\u0448\u0435 \u0441\u0438\u0434\u0438\u0442 \u043D\u0430 \u0444\u0430\u0439\u043B\u0435. \u0421\u043D\u0430\u0447\u0430\u043B\u0430 \u0437\u0430\u043A\u0430\u0447\u043A\u0430 \u0437\u0430\u043D\u0438\u043C\u0430\u0435\u0442 1,7 \u0441, \u043D\u0430 \u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C\u0435 \u043E\u043A\u043E\u043B\u043E 0,5 \u0441."
+    stat: 20
+    valuePerLevel: 0.24
+    maxLevel: 5
+    baseCost: 18
+    costMultiplier: 1.6
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
     position: {x: 560, y: -140}
     requires:
-    - attraction
-    icon: {fileID: 21300000, guid: cf6e57fe284288e44b29d910207b6e08, type: 3}
-  - id: screen_wide
-    displayName: "\u041E\u0445\u043E\u0442\u0430"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u0442
-      \u0444\u0430\u0439\u043B\u044B \u043F\u043E \u0432\u0441\u0435\u043C\u0443
-      \u044D\u043A\u0440\u0430\u043D\u0443 \u0438 \u0437\u0430\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
-      \u0438\u0445. \u041A\u0430\u0436\u0434\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C
-      \u043E\u0445\u043E\u0442\u0438\u0442\u0441\u044F \u0447\u0430\u0449\u0435,
-      \u0441 3-\u0433\u043E \u2014 \u043F\u043E \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E
-      \u0444\u0430\u0439\u043B\u043E\u0432 \u0441\u0440\u0430\u0437\u0443."
-    stat: 6
+    - crawler
+    icon: {fileID: 21300000, guid: 9df792ccdb8634341a8becd09dbbe577, type: 3}
+  - id: colony
+    displayName: "\u041A\u043E\u043B\u043E\u043D\u0438\u044F"
+    description: "\u0415\u0449\u0451 \u043E\u0434\u0438\u043D \u043F\u043E\u043B\u0437\u0443\u043D. \u0412\u043C\u0435\u0441\u0442\u0435 \u0441 \u043F\u0435\u0440\u0432\u044B\u043C \u0438\u0445 \u043D\u0435 \u0431\u043E\u043B\u044C\u0448\u0435 \u0442\u0440\u0451\u0445, \u0438 \u043E\u043D\u0438 \u043D\u0435 \u0431\u0435\u0433\u0443\u0442 \u043D\u0430 \u043E\u0434\u0438\u043D \u0438 \u0442\u043E\u0442 \u0436\u0435 \u0444\u0430\u0439\u043B."
+    stat: 18
     valuePerLevel: 1
-    maxLevel: 5
-    baseCost: 50
-    costMultiplier: 1.8
+    maxLevel: 2
+    baseCost: 70
+    costMultiplier: 1.9
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: 820, y: 140}
+    position: {x: 820, y: 0}
     requires:
-    - attraction_radius
-    icon: {fileID: 21300000, guid: 9df792ccdb8634341a8becd09dbbe577, type: 3}
+    - crawler
+    icon: {fileID: 21300000, guid: c6807d2a6c6fe974d97ae0ae3ab4a26a, type: 3}
   - id: run_time
     displayName: "\u041E\u0442\u0441\u0440\u043E\u0447\u043A\u0430 \u0443\u0432\u043E\u043B\u044C\u043D\u0435\u043D\u0438\u044F"
     description: "\u0417\u0430\u0431\u0435\u0433 \u0434\u043B\u0438\u0442\u0441\u044F
@@ -235,26 +224,6 @@ MonoBehaviour:
     requires:
     - run_time
     icon: {fileID: 21300000, guid: 6e2f482753bb3c94d9c9757e710d1604, type: 3}
-  - id: server_access
-    displayName: "\u0421\u0435\u0442\u0435\u0432\u043E\u0439 \u0447\u0435\u0440\u0432\u044C"
-    description: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439, 11-\u0439
-      \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440 \u2014 \u0441\u0435\u0440\u0432\u0435\u0440
-      \u0444\u0438\u0440\u043C\u044B. \u041E\u043D \u0437\u0430\u0449\u0438\u0449\u0451\u043D,
-      \u043F\u043E\u043A\u0430 \u0432\u0438\u0440\u0443\u0441 \u043D\u0435 \u043E\u0441\u0432\u043E\u0438\u0442
-      \u0432\u0441\u0451. \u041F\u0440\u043E\u043A\u0430\u0447\u0430\u0439 \u0432\u0441\u0451
-      \u0434\u0435\u0440\u0435\u0432\u043E \u0434\u043E \u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C\u0430."
-    stat: 17
-    valuePerLevel: 1
-    maxLevel: 1
-    baseCost: 1500
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 1
-    position: {x: 0, y: -680}
-    requires:
-    - run_time_2
-    icon: {fileID: 21300000, guid: 2d55943cf5fa1f64097073cbd0769ceb, type: 3}
   - id: cursor_radius
     displayName: "\u0426\u0435\u043F\u043A\u0438\u0439 \u043A\u0443\u0440\u0441\u043E\u0440"
     description: "\u0422\u0430\u0449\u0438\u0448\u044C \u043E\u0434\u0438\u043D \u0444\u0430\u0439\u043B
@@ -283,101 +252,132 @@ MonoBehaviour:
     stat: 12
     valuePerLevel: 1
     maxLevel: 1
-    baseCost: 40
+    baseCost: 250
     costMultiplier: 1.5
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: -560, y: 380}
+    position: {x: -960, y: 500}
+    requires:
+    - wide_grip
+    icon: {fileID: 21300000, guid: 014bccda00a932842b8e25df57b8cb88, type: 3}
+  - id: confidential
+    displayName: "Секретные файлы"
+    description: "Редко появляются секретные документы. Они стоят в 25 раз больше обычного файла."
+    stat: 21
+    valuePerLevel: 0.012
+    maxLevel: 5
+    baseCost: 36
+    costMultiplier: 1.7
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    position: {x: -820, y: -480}
+    requires:
+    - golden
+    icon: {fileID: 21300000, guid: 508536513c0465242b8b1a227ba93c0c, type: 3}
+  - id: instinct
+    displayName: "Острый нюх"
+    description: "Ползуны сначала идут за золотыми и секретными файлами, но не бросают близкий обычный файл ради далёкого."
+    stat: 22
+    valuePerLevel: 1
+    maxLevel: 1
+    baseCost: 100
+    costMultiplier: 1.5
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    position: {x: 1040, y: 140}
+    requires:
+    - crawler
+    icon: {fileID: 21300000, guid: a4330d22c5d2c2a4fa921934575f690e, type: 3}
+  - id: magnetic
+    displayName: "Магнитный курсор"
+    description: "Файлы в небольшом радиусе плавно тянутся к курсору."
+    stat: 23
+    valuePerLevel: 0.4
+    maxLevel: 4
+    baseCost: 22
+    costMultiplier: 1.65
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    position: {x: -520, y: 340}
     requires:
     - cursor_radius
-    icon: {fileID: 21300000, guid: 014bccda00a932842b8e25df57b8cb88, type: 3}
-  - id: mutation
-    displayName: "\u041C\u0443\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u043C\u0443\u0442\u0438\u0440\u0443\u0435\u0442.
-      \u0415\u0448\u044C \u0444\u0430\u0439\u043B\u044B \u0431\u0435\u0437 \u043F\u0430\u0443\u0437
-      \u2014 \u0440\u0430\u0441\u0442\u0451\u0442 \u043A\u043E\u043C\u0431\u043E,
-      \u0438 \u043A\u0430\u0436\u0434\u044B\u0439 \u0444\u0430\u0439\u043B \u0432
-      \u0441\u0435\u0440\u0438\u0438 \u0441\u0442\u043E\u0438\u0442 \u0431\u043E\u043B\u044C\u0448\u0435."
-    stat: 13
-    valuePerLevel: 0.1
+    icon: {fileID: 21300000, guid: 07c140b58bc741146823447daf25d6a2, type: 3}
+  - id: wide_grip
+    displayName: "Широкий хват"
+    description: "Курсор держит больше файлов сразу. Каждый уровень добавляет два места."
+    stat: 24
+    valuePerLevel: 2
+    maxLevel: 3
+    baseCost: 30
+    costMultiplier: 1.65
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    position: {x: -740, y: 420}
+    requires:
+    - magnetic
+    icon: {fileID: 21300000, guid: 5947ab353f2ac49489580b4c82608463, type: 3}
+  - id: vacuum
+    displayName: "Пылесос"
+    description: "Задержи курсор на месте — вокруг него открывается зона, и файлы сами слетаются и съедаются."
+    stat: 25
+    valuePerLevel: 1
     maxLevel: 1
-    baseCost: 25
+    baseCost: 480
     costMultiplier: 1.5
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: 0, y: 240}
+    position: {x: -1180, y: 580}
     requires:
-    - core
-    icon: {fileID: 21300000, guid: 2dd99624c0eb4e145acba875764c9fd7, type: 3}
-  - id: gluttony
-    displayName: "\u041D\u0435\u043D\u0430\u0441\u044B\u0442\u043D\u043E\u0441\u0442\u044C"
-    description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0448\u0430\u0433 \u043A\u043E\u043C\u0431\u043E
-      \u0434\u0430\u0451\u0442 \u0435\u0449\u0451 \u0431\u043E\u043B\u044C\u0448\u0435
-      MB."
-    stat: 13
-    valuePerLevel: 0.05
-    maxLevel: 4
+    - hover_feed
+    icon: {fileID: 21300000, guid: 9df792ccdb8634341a8becd09dbbe577, type: 3}
+  - id: smoke_break
+    displayName: "Перекур"
+    description: "При заражении следующего компьютера к таймеру добавляется секунда. Один раз за переход."
+    stat: 26
+    valuePerLevel: 1
+    maxLevel: 3
     baseCost: 40
     costMultiplier: 1.7
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: 0, y: 470}
+    position: {x: 260, y: -320}
     requires:
-    - mutation
-    icon: {fileID: 21300000, guid: 5947ab353f2ac49489580b4c82608463, type: 3}
-  - id: chain
-    displayName: "\u0426\u0435\u043F\u043D\u0430\u044F \u0440\u0435\u0430\u043A\u0446\u0438\u044F"
-    description: "\u0421\u044A\u0435\u0434\u0435\u043D\u043D\u044B\u0439 \u0444\u0430\u0439\u043B
-      \u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u0440\u0430\u0437\u0438\u0442\u044C
-      \u0434\u0440\u0443\u0433\u043E\u0439 \u0444\u0430\u0439\u043B \u2014 \u0442\u043E\u0442
-      \u0441\u0430\u043C \u043B\u0435\u0442\u0438\u0442 \u0432 \u0433\u043B\u0438\u0447\u0430."
-    stat: 14
-    valuePerLevel: 0.1
-    maxLevel: 5
-    baseCost: 35
-    costMultiplier: 1.6
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 280, y: 360}
-    requires:
-    - mutation
-    icon: {fileID: 21300000, guid: 508536513c0465242b8b1a227ba93c0c, type: 3}
-  - id: expansion
-    displayName: "\u042D\u043A\u0441\u043F\u0430\u043D\u0441\u0438\u044F"
-    description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0437\u0430\u0440\u0430\u0436\u0451\u043D\u043D\u044B\u0439
-      \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440 \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442
-      \u0432\u0440\u0435\u043C\u044F \u043A \u0437\u0430\u0431\u0435\u0433\u0443."
-    stat: 16
-    valuePerLevel: 1
-    maxLevel: 3
-    baseCost: 60
-    costMultiplier: 1.8
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: -280, y: 560}
-    requires:
-    - gluttony
+    - run_time
     icon: {fileID: 21300000, guid: aebea0fbb87bc6646b5fbfd2d73f416d, type: 3}
-  - id: satellites
-    displayName: "\u041E\u0442\u043F\u043E\u0447\u043A\u043E\u0432\u0430\u043D\u0438\u0435"
-    description: "\u0412\u043E\u043A\u0440\u0443\u0433 \u0433\u043B\u0438\u0447\u0430
-      \u043A\u0440\u0443\u0436\u0430\u0442 \u0435\u0433\u043E \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0435
-      \u043A\u043E\u043F\u0438\u0438 \u0438 \u0441\u044A\u0435\u0434\u0430\u044E\u0442
-      \u0432\u0441\u0451, \u043A \u0447\u0435\u043C\u0443 \u043F\u0440\u0438\u043A\u043E\u0441\u043D\u0443\u0442\u0441\u044F."
-    stat: 15
-    valuePerLevel: 1
+  - id: overtime
+    displayName: "Сверхурочные"
+    description: "Каждые 100 MB, заработанные за этот забег, добавляют немного времени. Один и тот же порог не срабатывает дважды."
+    stat: 27
+    valuePerLevel: 0.2
     maxLevel: 3
-    baseCost: 70
-    costMultiplier: 1.9
+    baseCost: 90
+    costMultiplier: 1.85
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: 0, y: 700}
+    position: {x: 260, y: -500}
     requires:
-    - gluttony
-    icon: {fileID: 21300000, guid: c6807d2a6c6fe974d97ae0ae3ab4a26a, type: 3}
+    - smoke_break
+    icon: {fileID: 21300000, guid: cf6e57fe284288e44b29d910207b6e08, type: 3}
+  - id: sabotage
+    displayName: "Саботаж"
+    description: "На 3, 6 и 9 заражённом компьютере таймер получает добавку. Каждый порог срабатывает один раз."
+    stat: 28
+    valuePerLevel: 2
+    maxLevel: 3
+    baseCost: 110
+    costMultiplier: 1.85
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    position: {x: 260, y: -700}
+    requires:
+    - overtime
+    icon: {fileID: 21300000, guid: 2d55943cf5fa1f64097073cbd0769ceb, type: 3}

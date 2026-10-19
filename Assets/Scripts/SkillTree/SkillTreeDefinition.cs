@@ -4,24 +4,27 @@ using UnityEngine;
 
 public enum SkillStat
 {
-    None,
-    SpawnRate,
-    MaxFiles,
-    StartFiles,
-    AttractionRadius,
-    PullSpeed,
-    ScreenWideEating,
-    RunTime,
-    FileValue,
-    SpawnBurst,
-    GoldenChance,
-    CursorRadius,
-    HoverFeed,
-    Combo,
-    ChainChance,
-    Satellites,
-    TimePerComputer,
-    ServerAccess
+    None = 0,
+    SpawnRate = 1,
+    MaxFiles = 2,
+    StartFiles = 3,
+    RunTime = 7,
+    FileValue = 8,
+    SpawnBurst = 9,
+    GoldenChance = 10,
+    CursorRadius = 11,
+    HoverFeed = 12,
+    CrawlerCount = 18,
+    CrawlerSpeed = 19,
+    CrawlerDownload = 20,
+    ConfidentialChance = 21,
+    CrawlerInstinct = 22,
+    MagneticRadius = 23,
+    CursorCapacity = 24,
+    Vacuum = 25,
+    SmokeBreak = 26,
+    Overtime = 27,
+    Sabotage = 28
 }
 
 [CreateAssetMenu(menuName = "Old Tech/Skill Tree", fileName = "Skill Tree")]
@@ -98,34 +101,48 @@ public class SkillTreeDefinition : ScriptableObject
             stat = SkillStat.GoldenChance, valuePerLevel = 0.06f, maxLevel = 5, baseCost = 25, costMultiplier = 1.7f,
             position = new Vector2(-560f, -400f), requires = new[] { "file_value" }
         },
+        new()
+        {
+            id = "confidential", displayName = "Секретные файлы",
+            description = "Редко появляются секретные документы. Они стоят в 25 раз больше обычного файла.",
+            stat = SkillStat.ConfidentialChance, valuePerLevel = SkillTuning.ConfidentialChancePerLevel, maxLevel = 5, baseCost = 36, costMultiplier = 1.7f,
+            position = new Vector2(-820f, -480f), requires = new[] { "golden" }
+        },
 
         new()
         {
-            id = "attraction", displayName = "Автономность",
-            description = "Вирус сам притягивает и съедает файлы вокруг себя.",
-            stat = SkillStat.AttractionRadius, valuePerLevel = 1.5f, maxLevel = 1, baseCost = 12,
+            id = "crawler", displayName = "Ползун",
+            description = "Маленький вирус сам ползёт к свободному файлу, садится на него и скачивает. Файл приносит MB, как будто его съел глич.",
+            stat = SkillStat.CrawlerCount, valuePerLevel = 1f, maxLevel = 1, baseCost = 30,
             position = new Vector2(300f, 0f), requires = new[] { "core" }
         },
         new()
         {
-            id = "attraction_radius", displayName = "Широкий охват",
-            description = "Вирус притягивает файлы с большего расстояния.",
-            stat = SkillStat.AttractionRadius, valuePerLevel = 0.6f, maxLevel = 5, baseCost = 15, costMultiplier = 1.55f,
-            position = new Vector2(560f, 140f), requires = new[] { "attraction" }
+            id = "crawler_speed", displayName = "Быстрые лапки",
+            description = "Ползун быстрее добирается до файла.",
+            stat = SkillStat.CrawlerSpeed, valuePerLevel = 0.7f, maxLevel = 5, baseCost = 18, costMultiplier = 1.6f,
+            position = new Vector2(560f, 140f), requires = new[] { "crawler" }
         },
         new()
         {
-            id = "pull_speed", displayName = "Сильная гравитация",
-            description = "Файлы летят к вирусу быстрее.",
-            stat = SkillStat.PullSpeed, valuePerLevel = 1.5f, maxLevel = 4, baseCost = 15, costMultiplier = 1.55f,
-            position = new Vector2(560f, -140f), requires = new[] { "attraction" }
+            id = "crawler_download", displayName = "Быстрая закачка",
+            description = "Ползун меньше сидит на файле. Сначала закачка занимает 1,7 с, на максимуме около 0,5 с.",
+            stat = SkillStat.CrawlerDownload, valuePerLevel = 0.24f, maxLevel = 5, baseCost = 18, costMultiplier = 1.6f,
+            position = new Vector2(560f, -140f), requires = new[] { "crawler" }
         },
         new()
         {
-            id = "screen_wide", displayName = "Охота",
-            description = "Вирус сам выбирает файлы по всему экрану и затягивает их. Каждый уровень охотится чаще, с 3-го — по несколько файлов сразу.",
-            stat = SkillStat.ScreenWideEating, valuePerLevel = 1f, maxLevel = 5, baseCost = 50, costMultiplier = 1.8f,
-            position = new Vector2(820f, 140f), requires = new[] { "attraction_radius" }
+            id = "colony", displayName = "Колония",
+            description = "Ещё один ползун. Вместе с первым их не больше трёх, и они не бегут на один и тот же файл.",
+            stat = SkillStat.CrawlerCount, valuePerLevel = 1f, maxLevel = 2, baseCost = 70, costMultiplier = 1.9f,
+            position = new Vector2(820f, 0f), requires = new[] { "crawler" }
+        },
+        new()
+        {
+            id = "instinct", displayName = "Острый нюх",
+            description = "Ползуны сначала идут за золотыми и секретными файлами, но не бросают близкий обычный файл ради далёкого.",
+            stat = SkillStat.CrawlerInstinct, valuePerLevel = 1f, maxLevel = 1, baseCost = 100,
+            position = new Vector2(1040f, 140f), requires = new[] { "crawler" }
         },
 
         new()
@@ -142,13 +159,26 @@ public class SkillTreeDefinition : ScriptableObject
             stat = SkillStat.RunTime, valuePerLevel = 4f, maxLevel = 3, baseCost = 60, costMultiplier = 1.8f,
             position = new Vector2(0f, -440f), requires = new[] { "run_time" }
         },
-
         new()
         {
-            id = "server_access", displayName = "Сетевой червь",
-            description = "Последний, 11-й компьютер — сервер фирмы. Он защищён, пока вирус не освоит всё. Прокачай всё дерево до максимума.",
-            stat = SkillStat.ServerAccess, valuePerLevel = 1f, maxLevel = 1, baseCost = 1500, requiresAllMaxed = true,
-            position = new Vector2(0f, -680f), requires = new[] { "run_time_2" }
+            id = "smoke_break", displayName = "Перекур",
+            description = "При заражении следующего компьютера к таймеру добавляется секунда. Один раз за переход.",
+            stat = SkillStat.SmokeBreak, valuePerLevel = 1f, maxLevel = 3, baseCost = 40, costMultiplier = 1.7f,
+            position = new Vector2(260f, -320f), requires = new[] { "run_time" }
+        },
+        new()
+        {
+            id = "overtime", displayName = "Сверхурочные",
+            description = "Каждые 100 MB, заработанные за этот забег, добавляют немного времени. Один и тот же порог не срабатывает дважды.",
+            stat = SkillStat.Overtime, valuePerLevel = SkillTuning.OvertimeSecondsPerLevel, maxLevel = 3, baseCost = 90, costMultiplier = 1.85f,
+            position = new Vector2(260f, -500f), requires = new[] { "smoke_break" }
+        },
+        new()
+        {
+            id = "sabotage", displayName = "Саботаж",
+            description = "На 3, 6 и 9 заражённом компьютере таймер получает добавку. Каждый порог срабатывает один раз.",
+            stat = SkillStat.Sabotage, valuePerLevel = SkillTuning.SabotageSecondsPerLevel, maxLevel = 3, baseCost = 110, costMultiplier = 1.85f,
+            position = new Vector2(260f, -700f), requires = new[] { "overtime" }
         },
 
         new()
@@ -160,46 +190,31 @@ public class SkillTreeDefinition : ScriptableObject
         },
         new()
         {
+            id = "magnetic", displayName = "Магнитный курсор",
+            description = "Файлы в небольшом радиусе плавно тянутся к курсору.",
+            stat = SkillStat.MagneticRadius, valuePerLevel = SkillTuning.MagneticRadiusPerLevel, maxLevel = 4, baseCost = 22, costMultiplier = 1.65f,
+            position = new Vector2(-520f, 340f), requires = new[] { "cursor_radius" }
+        },
+        new()
+        {
+            id = "wide_grip", displayName = "Широкий хват",
+            description = "Курсор держит больше файлов сразу. Каждый уровень добавляет два места.",
+            stat = SkillStat.CursorCapacity, valuePerLevel = SkillTuning.WideGripPerLevel, maxLevel = 3, baseCost = 30, costMultiplier = 1.65f,
+            position = new Vector2(-740f, 420f), requires = new[] { "magnetic" }
+        },
+        new()
+        {
             id = "hover_feed", displayName = "Без рук",
             description = "Кнопку зажимать больше не нужно: просто води мышкой, файлы липнут к курсору. Заведи их в глича.",
-            stat = SkillStat.HoverFeed, valuePerLevel = 1f, maxLevel = 1, baseCost = 40,
-            position = new Vector2(-560f, 380f), requires = new[] { "cursor_radius" }
-        },
-
-        new()
-        {
-            id = "mutation", displayName = "Мутирование",
-            description = "Вирус мутирует. Ешь файлы без пауз — растёт комбо, и каждый файл в серии стоит больше.",
-            stat = SkillStat.Combo, valuePerLevel = 0.1f, maxLevel = 1, baseCost = 25,
-            position = new Vector2(0f, 240f), requires = new[] { "core" }
+            stat = SkillStat.HoverFeed, valuePerLevel = 1f, maxLevel = 1, baseCost = 250,
+            position = new Vector2(-960f, 500f), requires = new[] { "wide_grip" }
         },
         new()
         {
-            id = "gluttony", displayName = "Ненасытность",
-            description = "Каждый шаг комбо даёт ещё больше MB.",
-            stat = SkillStat.Combo, valuePerLevel = 0.05f, maxLevel = 4, baseCost = 40, costMultiplier = 1.7f,
-            position = new Vector2(0f, 470f), requires = new[] { "mutation" }
-        },
-        new()
-        {
-            id = "chain", displayName = "Цепная реакция",
-            description = "Съеденный файл может заразить другой файл — тот сам летит в глича.",
-            stat = SkillStat.ChainChance, valuePerLevel = 0.1f, maxLevel = 5, baseCost = 35, costMultiplier = 1.6f,
-            position = new Vector2(280f, 360f), requires = new[] { "mutation" }
-        },
-        new()
-        {
-            id = "expansion", displayName = "Экспансия",
-            description = "Каждый заражённый компьютер добавляет время к забегу.",
-            stat = SkillStat.TimePerComputer, valuePerLevel = 1f, maxLevel = 3, baseCost = 60, costMultiplier = 1.8f,
-            position = new Vector2(-280f, 560f), requires = new[] { "gluttony" }
-        },
-        new()
-        {
-            id = "satellites", displayName = "Отпочкование",
-            description = "Вокруг глича кружат его маленькие копии и съедают всё, к чему прикоснутся.",
-            stat = SkillStat.Satellites, valuePerLevel = 1f, maxLevel = 3, baseCost = 70, costMultiplier = 1.9f,
-            position = new Vector2(0f, 700f), requires = new[] { "gluttony" }
+            id = "vacuum", displayName = "Пылесос",
+            description = "Задержи курсор на месте — вокруг него открывается зона, и файлы сами слетаются и съедаются.",
+            stat = SkillStat.Vacuum, valuePerLevel = 1f, maxLevel = 1, baseCost = 480,
+            position = new Vector2(-1180f, 580f), requires = new[] { "hover_feed" }
         },
     };
 
@@ -248,7 +263,94 @@ public class SkillTreeDefinition : ScriptableObject
         return (uint)Mathf.CeilToInt(node.baseCost * Mathf.Pow(node.costMultiplier, GetLevel(node)));
     }
 
+    private static readonly string[] branchOrder =
+    {
+        "spawn_rate_1",
+        "file_value",
+        "run_time",
+        "cursor_radius",
+        "crawler"
+    };
+
+    public int PurchasedLevels
+    {
+        get
+        {
+            int total = 0;
+            foreach (Node node in nodes)
+            {
+                if (!node.startsOwned)
+                {
+                    total += GetLevel(node);
+                }
+            }
+
+            return total;
+        }
+    }
+
+    public int OpenBranchCount => Mathf.Clamp(1 + PurchasedLevels / SkillTuning.LevelsPerBranch, 1, branchOrder.Length);
+
+    public bool IsBranchOpen(Node node)
+    {
+        int index = BranchIndex(node);
+        return index >= 0 && index < OpenBranchCount;
+    }
+
+    public bool IsPreview(Node node)
+    {
+        return !node.startsOwned && IsRevealed(node) && !IsBranchOpen(node);
+    }
+
     public bool IsRevealed(Node node)
+    {
+        if (node.startsOwned || GameProgress.HasSeen(node.id))
+        {
+            return true;
+        }
+
+        return IsEligible(node);
+    }
+
+    public bool CanBuy(Node node)
+    {
+        return IsBranchOpen(node)
+            && HasOwnedParent(node)
+            && !node.comingSoon
+            && !node.startsOwned
+            && !IsMaxed(node)
+            && (!node.requiresAllMaxed || IsEverythingElseMaxed())
+            && GameProgress.MB >= GetCost(node);
+    }
+
+    private bool IsEligible(Node node)
+    {
+        if (node.startsOwned)
+        {
+            return true;
+        }
+
+        int index = BranchIndex(node);
+        if (index < 0)
+        {
+            return false;
+        }
+
+        bool root = node.id == branchOrder[index];
+        if (root)
+        {
+            return index <= OpenBranchCount;
+        }
+
+        if (index >= OpenBranchCount)
+        {
+            return false;
+        }
+
+        return HasOwnedParent(node);
+    }
+
+    private bool HasOwnedParent(Node node)
     {
         if (node.requires == null || node.requires.Length == 0)
         {
@@ -267,14 +369,35 @@ public class SkillTreeDefinition : ScriptableObject
         return false;
     }
 
-    public bool CanBuy(Node node)
+    private int BranchIndex(Node node)
     {
-        return IsRevealed(node)
-            && !node.comingSoon
-            && !node.startsOwned
-            && !IsMaxed(node)
-            && (!node.requiresAllMaxed || IsEverythingElseMaxed())
-            && GameProgress.MB >= GetCost(node);
+        string root = BranchRootId(node);
+        for (int i = 0; i < branchOrder.Length; i++)
+        {
+            if (branchOrder[i] == root)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private string BranchRootId(Node node)
+    {
+        Node current = node;
+        while (current.requires != null && current.requires.Length > 0)
+        {
+            Node parent = Find(current.requires[0]);
+            if (parent == null || parent.startsOwned)
+            {
+                return current.id;
+            }
+
+            current = parent;
+        }
+
+        return current.id;
     }
 
     public bool IsEverythingElseMaxed()
@@ -327,20 +450,23 @@ public class SkillTreeDefinition : ScriptableObject
             SkillStat.SpawnRate => Loc.F("stat.spawn_rate", 1f + total),
             SkillStat.MaxFiles => Loc.F("stat.max_files", total),
             SkillStat.StartFiles => Loc.F("stat.start_files", total),
-            SkillStat.AttractionRadius => Loc.F("stat.attraction_radius", total),
-            SkillStat.PullSpeed => Loc.F("stat.pull_speed", total),
-            SkillStat.ScreenWideEating => Loc.F("stat.screen_wide", total),
             SkillStat.RunTime => Loc.F("stat.run_time", total),
             SkillStat.FileValue => Loc.F("stat.file_value", 1f + total),
             SkillStat.SpawnBurst => Loc.F("stat.spawn_burst", 1f + total),
             SkillStat.GoldenChance => Loc.F("stat.golden", total * 100f),
             SkillStat.CursorRadius => Loc.F("stat.cursor_radius", total),
             SkillStat.HoverFeed => Loc.T(total > 0f ? "stat.hover_on" : "stat.hover_off"),
-            SkillStat.Combo => Loc.F("stat.combo", total * 100f),
-            SkillStat.ChainChance => Loc.F("stat.chain", total * 100f),
-            SkillStat.Satellites => Loc.F("stat.satellites", total),
-            SkillStat.TimePerComputer => Loc.F("stat.time_per_pc", total),
-            SkillStat.ServerAccess => Loc.T(total > 0f ? "stat.server_open" : "stat.server_closed"),
+            SkillStat.CrawlerCount => Loc.F("stat.crawlers", total),
+            SkillStat.CrawlerSpeed => Loc.F("stat.crawler_speed", VirusCrawlers.MoveSpeed(total)),
+            SkillStat.CrawlerDownload => Loc.F("stat.crawler_download", VirusCrawlers.DownloadDuration(total)),
+            SkillStat.ConfidentialChance => Loc.F("stat.confidential", total * 100f),
+            SkillStat.CrawlerInstinct => Loc.T(total > 0f ? "stat.instinct_on" : "stat.instinct_off"),
+            SkillStat.MagneticRadius => Loc.F("stat.magnetic", total <= 0f ? 0f : SkillTuning.MagneticRadius(total)),
+            SkillStat.CursorCapacity => Loc.F("stat.grip", SkillTuning.CursorHold(total)),
+            SkillStat.Vacuum => Loc.T(total > 0f ? "stat.vacuum_on" : "stat.vacuum_off"),
+            SkillStat.SmokeBreak => Loc.F("stat.smoke", total),
+            SkillStat.Overtime => Loc.F("stat.overtime", total),
+            SkillStat.Sabotage => Loc.F("stat.sabotage", total),
             _ => string.Empty
         };
     }

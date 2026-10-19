@@ -33,7 +33,7 @@ public class EatFeedback : MonoBehaviour
     [SerializeField] private int sortingOrder = 50;
     [SerializeField] private Color normalColor = new(0.45f, 1f, 0.55f, 1f);
     [SerializeField] private Color goldenColor = new(1f, 0.82f, 0.25f, 1f);
-    [SerializeField] private Color comboColor = new(0.85f, 0.35f, 1f, 1f);
+    [SerializeField] private Color confidentialColor = new(0.95f, 0.2f, 0.55f, 1f);
     [SerializeField] private float popupLife = 0.8f;
     [SerializeField] private float goldenShake = 0.12f;
 
@@ -113,27 +113,20 @@ public class EatFeedback : MonoBehaviour
         Emit(ringSprite, position, Vector2.zero, 0.4f, size * 0.3f, size, color);
     }
 
-    private void OnFileScored(Vector3 iconPosition, uint value, bool golden)
+    private void OnFileScored(Vector3 iconPosition, uint value, bool golden, bool confidential)
     {
         Vector2 center = virus.GetAbsorbPoint();
         float virusSize = virus.GetVisualBounds().size.y;
-        Color color = golden ? goldenColor : normalColor;
+        Color color = confidential ? confidentialColor : golden ? goldenColor : normalColor;
+        bool special = golden || confidential;
 
-        Burst(center, color, golden ? 26 : 10, golden ? 7f : 4f);
-        Ring(center, color, virusSize * (golden ? 2.2f : 1.5f));
-        ShowPopup(center + Vector2.up * (virusSize * 0.5f), golden ? $"+{value} MB!" : $"+{value}", color, golden ? 1.5f : 1f);
+        Burst(center, color, confidential ? 34 : golden ? 26 : 10, confidential ? 9f : golden ? 7f : 4f);
+        Ring(center, color, virusSize * (confidential ? 2.8f : golden ? 2.2f : 1.5f));
+        ShowPopup(center + Vector2.up * (virusSize * 0.5f), special ? $"+{value} MB!" : $"+{value}", color, confidential ? 1.7f : golden ? 1.5f : 1f);
 
-        if (golden)
+        if (special)
         {
-            Shake(goldenShake);
-        }
-
-        int combo = scoreManager.Combo;
-        if (scoreManager.ComboUnlocked && combo >= 5 && combo % 5 == 0)
-        {
-            ShowPopup(center + Vector2.up * (virusSize * 0.9f), Loc.F("popup.combo", combo), comboColor, 1.3f + Mathf.Min(combo, 30) * 0.02f);
-            Ring(center, comboColor, virusSize * 2.8f);
-            Shake(0.08f);
+            Shake(confidential ? goldenShake * 1.4f : goldenShake);
         }
     }
 

@@ -191,6 +191,7 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
 
     private void Refresh(bool animate)
     {
+        RememberVisibleNodes();
         float now = Time.unscaledTime;
 
         foreach (SkillNodeView view in nodeViews.Values)
@@ -215,6 +216,20 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
             line.graphic.material = owned ? ownedLineMaterial : lockedLineMaterial;
             line.graphic.color = owned ? ownedLineColor : lockedLineColor;
         }
+    }
+
+    private void RememberVisibleNodes()
+    {
+        List<string> visible = new();
+        foreach (SkillTreeDefinition.Node node in skillTree.Nodes)
+        {
+            if (skillTree.IsRevealed(node))
+            {
+                visible.Add(node.id);
+            }
+        }
+
+        GameProgress.RememberSeen(visible);
     }
 
     private Camera GetUiCamera()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-50)]
 public class CursorFeeder : MonoBehaviour
 {
     [SerializeField] private Virus virus;
@@ -17,10 +18,14 @@ public class CursorFeeder : MonoBehaviour
 
     private readonly Dictionary<DesktopIcon, Vector2> carried = new();
     private readonly List<DesktopIcon> buffer = new();
+    private readonly List<DesktopIcon> nearby = new();
     private Camera cam;
     private SpriteRenderer ring;
+    private SpriteRenderer pullRing;
     private SpriteRenderer virusRenderer;
     private float ringPulse;
+    private float stillTime;
+    private Vector2 lastCursor;
 
     void Awake()
     {
@@ -33,6 +38,13 @@ public class CursorFeeder : MonoBehaviour
         ring.sprite = ringSprite;
         ring.sortingOrder = sortingOrder;
         ring.enabled = false;
+
+        GameObject pull = new("Pull Ring", typeof(SpriteRenderer));
+        pull.transform.SetParent(transform, false);
+        pullRing = pull.GetComponent<SpriteRenderer>();
+        pullRing.sprite = ringSprite;
+        pullRing.sortingOrder = sortingOrder - 1;
+        pullRing.enabled = false;
     }
 
     void OnDisable()
@@ -42,6 +54,13 @@ public class CursorFeeder : MonoBehaviour
         {
             ring.enabled = false;
         }
+
+        if (pullRing != null)
+        {
+            pullRing.enabled = false;
+        }
+
+        ClearInfluence();
     }
 
     void Update()
@@ -58,11 +77,28 @@ public class CursorFeeder : MonoBehaviour
         bool hoverFeed = skillTree.GetStat(SkillStat.HoverFeed) > 0f;
         float grabRadius = skillTree.GetStat(SkillStat.CursorRadius);
         float radius = hoverFeed ? hoverBaseRadius + grabRadius : grabRadius;
+        bool vacuumActive = UpdateVacuum(cursor, hoverFeed);
+        float pullRadius = vacuumActive
+            ? SkillTuning.VacuumRadius
+            : SkillTuning.MagneticRadius(skillTree.GetStat(SkillStat.MagneticRadius));
+        bool magnetOwned = skillTree.GetStat(SkillStat.MagneticRadius) > 0f;
+        if (!vacuumActive && !magnetOwned)
+        {
+            pullRadius = 0f;
+        }
+
         bool virusActive = virusRenderer.enabled;
         bool dragging = IsAnyIconDragged();
         bool collecting = virusActive && radius > 0f && (hoverFeed || dragging);
 
+        ClearInfluence();
+        if (virusActive && pullRadius > 0f)
+        {
+            PullFiles(cursor, pullRadius, vacuumActive ? SkillTuning.VacuumPullSpeed : SkillTuning.MagneticPullSpeed);
+        }
+
         UpdateRing(cursor, radius, virusActive && radius > 0f, collecting);
+        UpdatePullRing(cursor, pullRadius, virusActive && pullRadius > radius);
 
         if (!hoverFeed && carried.Count > 0 && mouse.leftButton.wasReleasedThisFrame)
         {
@@ -82,11 +118,9 @@ public class CursorFeeder : MonoBehaviour
         }
 
         Vector2 virusCenter = virus.GetAbsorbPoint();
-        float attractionRadius = skillTree.GetStat(SkillStat.AttractionRadius);
 
-        Collect(cursor, radius, virusCenter, attractionRadius);
+        Collect(cursor, radius);
         MoveCarried(cursor);
-        HandOverToAttraction(virusCenter, attractionRadius);
 
         if (hoverFeed)
         {
@@ -109,29 +143,6 @@ public class CursorFeeder : MonoBehaviour
         }
     }
 
-    private void HandOverToAttraction(Vector2 virusCenter, float attractionRadius)
-    {
-        if (attractionRadius <= 0f)
-        {
-            return;
-        }
-
-        buffer.Clear();
-        foreach (DesktopIcon icon in carried.Keys)
-        {
-            if (((Vector2)icon.transform.position - virusCenter).sqrMagnitude <= attractionRadius * attractionRadius)
-            {
-                buffer.Add(icon);
-            }
-        }
-
-        foreach (DesktopIcon icon in buffer)
-        {
-            carried.Remove(icon);
-            icon.IsCarried = false;
-        }
-    }
-
     private static bool IsAnyIconDragged()
     {
         foreach (DesktopIcon icon in DesktopIcon.Active)
@@ -145,24 +156,104 @@ public class CursorFeeder : MonoBehaviour
         return false;
     }
 
-    private void Collect(Vector2 cursor, float radius, Vector2 virusCenter, float attractionRadius)
+    private bool UpdateVacuum(Vector2 cursor, bool hoverFeed)
+    {
+        if (skillTree.GetStat(SkillStat.Vacuum) <= 0f || !hoverFeed)
+        {
+            stillTime = 0f;
+            lastCursor = cursor;
+            return false;
+        }
+
+        if ((cursor - lastCursor).sqrMagnitude > SkillTuning.VacuumStillSlack * SkillTuning.VacuumStillSlack)
+        {
+            stillTime = 0f;
+        }
+        else
+        {
+            stillTime += Time.deltaTime;
+        }
+
+        lastCursor = cursor;
+        return stillTime >= SkillTuning.VacuumStillDelay;
+    }
+
+    private void PullFiles(Vector2 cursor, float radius, float speed)
     {
         float sqrRadius = radius * radius;
-        float sqrAttraction = attractionRadius * attractionRadius;
+        float step = speed * Time.deltaTime;
         foreach (DesktopIcon icon in DesktopIcon.Active)
         {
-            if (!icon.IsFree || ((Vector2)icon.transform.position - virusCenter).sqrMagnitude <= sqrAttraction)
+            if (!icon.IsFree)
             {
                 continue;
             }
 
-            Vector2 offset = (Vector2)icon.transform.position - cursor;
-            if (offset.sqrMagnitude <= sqrRadius)
+            Vector2 position = icon.transform.position;
+            Vector2 delta = cursor - position;
+            if (delta.sqrMagnitude > sqrRadius)
             {
-                icon.IsCarried = true;
-                carried[icon] = Vector2.ClampMagnitude(offset, clumpRadius);
-                ringPulse = 1f;
+                continue;
             }
+
+            icon.IsCursorInfluenced = true;
+            if (delta.sqrMagnitude < 0.0004f)
+            {
+                continue;
+            }
+
+            Vector2 next = Vector2.MoveTowards(position, cursor, step);
+            icon.transform.position = new Vector3(next.x, next.y, icon.transform.position.z);
+        }
+    }
+
+    private void ClearInfluence()
+    {
+        foreach (DesktopIcon icon in DesktopIcon.Active)
+        {
+            icon.IsCursorInfluenced = false;
+        }
+    }
+
+    private void Collect(Vector2 cursor, float radius)
+    {
+        int room = SkillTuning.CursorHold(skillTree.GetStat(SkillStat.CursorCapacity)) - carried.Count;
+        if (room <= 0)
+        {
+            return;
+        }
+
+        float sqrRadius = radius * radius;
+        nearby.Clear();
+        foreach (DesktopIcon icon in DesktopIcon.Active)
+        {
+            if (!icon.IsFree)
+            {
+                continue;
+            }
+
+            if (((Vector2)icon.transform.position - cursor).sqrMagnitude <= sqrRadius)
+            {
+                nearby.Add(icon);
+            }
+        }
+
+        nearby.Sort((a, b) =>
+        {
+            float da = ((Vector2)a.transform.position - cursor).sqrMagnitude;
+            float db = ((Vector2)b.transform.position - cursor).sqrMagnitude;
+            return da.CompareTo(db);
+        });
+
+        int take = Mathf.Min(room, nearby.Count);
+        for (int i = 0; i < take; i++)
+        {
+            DesktopIcon icon = nearby[i];
+            Vector2 offset = (Vector2)icon.transform.position - cursor;
+            icon.IsCarried = true;
+            icon.IsCursorInfluenced = false;
+            carried[icon] = Vector2.ClampMagnitude(offset, clumpRadius);
+            ringPulse = 1f;
         }
     }
 
@@ -239,5 +330,21 @@ public class CursorFeeder : MonoBehaviour
         ring.transform.position = new Vector3(cursor.x, cursor.y, 0f);
         ring.transform.localScale = Vector3.one * (diameter / spriteSize);
         ring.color = Color.Lerp(collecting ? ringActiveColor : ringColor, Color.white, ringPulse * 0.5f);
+    }
+
+    private void UpdatePullRing(Vector2 cursor, float radius, bool visible)
+    {
+        pullRing.enabled = visible && ringSprite != null;
+        if (!pullRing.enabled)
+        {
+            return;
+        }
+
+        float spriteSize = Mathf.Max(ringSprite.bounds.size.x, 0.001f);
+        pullRing.transform.position = new Vector3(cursor.x, cursor.y, 0f);
+        pullRing.transform.localScale = Vector3.one * (radius * 2f / spriteSize);
+        Color color = ringColor;
+        color.a *= 0.55f;
+        pullRing.color = color;
     }
 }

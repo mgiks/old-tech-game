@@ -108,19 +108,22 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void Refresh(float revealPopDelay)
     {
         bool revealed = skillTree.IsRevealed(node);
-        bool newlyRevealed = revealed && !wasRevealed;
-        wasRevealed = revealed;
-
-        gameObject.SetActive(true);
         if (!revealed)
         {
-            nameLabel.text = SkillTreeDefinition.GetName(node);
-            levelLabel.text = string.Empty;
-            stateColor = lockedColor;
-            nameLabel.color = new Color(0.35f, 0.38f, 0.42f, 1f);
-            levelLabel.color = nameLabel.color;
+            wasRevealed = false;
+            if (hovered && tooltip != null)
+            {
+                hovered = false;
+                tooltip.Hide();
+            }
+
+            gameObject.SetActive(false);
             return;
         }
+
+        gameObject.SetActive(true);
+        bool newlyRevealed = !wasRevealed;
+        wasRevealed = true;
 
         if (newlyRevealed && revealPopDelay >= 0f)
         {
@@ -132,6 +135,11 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
 
         stateColor = GetStateColor();
+        if (skillIcon != null)
+        {
+            skillIcon.color = skillTree.IsPreview(node) ? new Color(0.62f, 0.64f, 0.7f, 1f) : Color.white;
+        }
+
         nameLabel.color = XpUi.TextDark;
         levelLabel.color = XpUi.TextDark;
 
@@ -244,12 +252,12 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return;
         }
 
-        if (node.comingSoon || skillTree.IsMaxed(node) || !skillTree.CanBuy(node))
+        if (node.comingSoon || skillTree.IsPreview(node) || skillTree.IsMaxed(node) || !skillTree.CanBuy(node))
         {
             GameAudio.PlayMouseClick();
             denyTime = Time.unscaledTime;
             string denyKey = "deny.no_mb";
-            if (!skillTree.IsRevealed(node))
+            if (!skillTree.IsRevealed(node) || skillTree.IsPreview(node))
             {
                 denyKey = "deny.locked";
             }
@@ -284,7 +292,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private Color GetStateColor()
     {
-        if (!skillTree.IsRevealed(node))
+        if (!skillTree.IsRevealed(node) || skillTree.IsPreview(node))
         {
             return lockedColor;
         }

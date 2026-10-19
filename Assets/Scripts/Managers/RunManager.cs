@@ -37,6 +37,7 @@ public class RunManager : MonoBehaviour
 
     private float runDuration;
     private float timeLeft;
+    private int overtimePaid;
     private int filesAtComputerStart;
     private bool jumping;
     private bool started;
@@ -98,6 +99,7 @@ public class RunManager : MonoBehaviour
         }
 
         CountClicks();
+        GrantOvertime();
 
         if (!jumping && RunStats.FilesInfected - filesAtComputerStart >= GetFilesForCurrentComputer())
         {
@@ -174,7 +176,7 @@ public class RunManager : MonoBehaviour
                 finished = true;
                 iconManager.StopSpawning();
                 RunStats.Complete();
-                GameProgress.GameCompleted = true;
+                GameProgress.MarkGameCompleted();
                 ending.Play();
             }
             else
@@ -185,24 +187,14 @@ public class RunManager : MonoBehaviour
             yield break;
         }
 
-        if (IsServerNext() && skillTree.GetStat(SkillStat.ServerAccess) <= 0f)
+        if (IsServerNext() && !skillTree.IsEverythingElseMaxed())
         {
             yield return ServerDenied(startScale);
             Finish();
             yield break;
         }
 
-        float bonusTime = skillTree.GetStat(SkillStat.TimePerComputer);
-        if (bonusTime > 0f)
-        {
-            timeLeft += bonusTime;
-            runDuration = Mathf.Max(runDuration, timeLeft);
-            if (feedback != null)
-            {
-                feedback.ShowPopup(center + Vector2.down * 1.5f, Loc.F("popup.time", bonusTime), new Color(0.45f, 0.9f, 1f, 1f), 1.4f);
-            }
-        }
-
+        GrantTransitionTime(center);
         virus.ResetGrowth();
         iconManager.SpawnStartingIcons();
         filesAtComputerStart = RunStats.FilesInfected;
@@ -218,6 +210,54 @@ public class RunManager : MonoBehaviour
         jumping = false;
     }
 
+    private void GrantOvertime()
+    {
+        float perThreshold = skillTree.GetStat(SkillStat.Overtime);
+        if (perThreshold <= 0f)
+        {
+            return;
+        }
+
+        int reached = (int)(RunStats.MBEarned / SkillTuning.OvertimeMbStep);
+        if (reached <= overtimePaid)
+        {
+            return;
+        }
+
+        int steps = reached - overtimePaid;
+        overtimePaid = reached;
+        AddTime(steps * perThreshold, virus.GetAbsorbPoint());
+    }
+
+    private void GrantTransitionTime(Vector2 center)
+    {
+        float smoke = skillTree.GetStat(SkillStat.SmokeBreak);
+        if (smoke > 0f)
+        {
+            AddTime(smoke, center);
+        }
+
+        int infected = RunStats.ComputersInfected;
+        if (infected > 0 && infected % SkillTuning.SabotageEveryPcs == 0)
+        {
+            float sabotage = skillTree.GetStat(SkillStat.Sabotage);
+            if (sabotage > 0f)
+            {
+                AddTime(sabotage, center + Vector2.down * 0.9f);
+            }
+        }
+    }
+
+    private void AddTime(float seconds, Vector2 popupPosition)
+    {
+        timeLeft += seconds;
+        runDuration += seconds;
+        if (feedback != null)
+        {
+            feedback.ShowPopup(popupPosition, Loc.F("popup.time", seconds), new Color(0.45f, 0.9f, 1f, 1f), 1.2f);
+        }
+    }
+
     private bool IsServerNext()
     {
         return RunStats.ComputersInfected == totalComputers - 1;
@@ -229,7 +269,7 @@ public class RunManager : MonoBehaviour
         {
             Vector2 center = virus.GetAbsorbPoint();
             feedback.ShowPopup(center, Loc.T("popup.server_locked"), serverDeniedColor, 1.8f);
-            feedback.ShowPopup(center + Vector2.down * 1.2f, Loc.T("popup.need_worm"), Color.white, 1f);
+            feedback.ShowPopup(center + Vector2.down * 1.2f, Loc.T("popup.need_tree"), Color.white, 1f);
             feedback.Burst(center, serverDeniedColor, 40, 10f);
             feedback.Shake(0.5f);
             VirusLook look = virus.GetComponent<VirusLook>();

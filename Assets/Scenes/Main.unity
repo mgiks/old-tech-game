@@ -315,17 +315,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2250587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d637a8a851ecd45a64da009d28a3ec, type: 3}
+  m_Script: {fileID: 11500000, guid: a1c8e4b07f2d4a6e9c3b15d8e0f47a62, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VirusAttraction
+  m_EditorClassIdentifier: Assembly-CSharp::VirusCrawlers
   virus: {fileID: 2250591}
   skillTree: {fileID: 11400000, guid: b4055a78ea16993478cbfc8213374828, type: 2}
-  scoreManager: {fileID: 294910318}
-  basePullSpeed: 3
-  baseScreenWideIntervalInSeconds: 3
-  screenWideIntervalReductionPerLevel: 0.4
-  minScreenWideIntervalInSeconds: 0.5
-  chainPullSpeed: 14
+  silhouette: {fileID: 2100000, guid: c4d81e2a7b904f1e8a6c3d5b0e7f2941, type: 2}
+  worldHeight: 0.42
+  arriveDistance: 0.28
+  bodyColor: {r: 0.28, g: 0.92, b: 0.38, a: 1}
+  downloadColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &85068739
 GameObject:
   m_ObjectHideFlags: 0
@@ -2380,7 +2379,6 @@ Transform:
   - {fileID: 1511314528}
   - {fileID: 984513176}
   - {fileID: 1745572308}
-  - {fileID: 1605308020}
   - {fileID: 1818624825}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5837,59 +5835,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
   key: end.continue
---- !u!1 &1605308019
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1605308020}
-  - component: {fileID: 1605308021}
-  m_Layer: 0
-  m_Name: Virus Satellites
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1605308020
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605308019}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 609946496}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1605308021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605308019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81a0f6c776ec1774c9987fba41757c5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VirusSatellites
-  virus: {fileID: 2250591}
-  skillTree: {fileID: 11400000, guid: b4055a78ea16993478cbfc8213374828, type: 2}
-  feedback: {fileID: 984513175}
-  sizeInVirusHeights: 0.3
-  orbitInVirusHeights: 0.95
-  orbitPadding: 0.5
-  angularSpeed: 2.2
-  catchRadiusInSatelliteSizes: 0.6
-  tint: {r: 0.85, g: 0.55, b: 1, a: 1}
 --- !u!1 &1614872146
 GameObject:
   m_ObjectHideFlags: 0
