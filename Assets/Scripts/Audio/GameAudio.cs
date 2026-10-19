@@ -13,6 +13,7 @@ public static class GameAudio
 
     private static GameObject root;
     private static GameAudioLibrary library;
+    private static AudioClip clickClip;
     private static bool missingLogged;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -21,7 +22,68 @@ public static class GameAudio
         channels.Clear();
         root = null;
         library = null;
+        clickClip = null;
         missingLogged = false;
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void WarmClick()
+    {
+        AudioClip clip;
+        if (!TryGetClip(GameSfx.MouseClick, out clip))
+        {
+            return;
+        }
+
+        clickClip = TrimClick(clip);
+        Channel channel = GetChannel(GameSfx.MouseClick);
+        channel.source.clip = clickClip;
+    }
+
+    private static AudioClip TrimClick(AudioClip clip)
+    {
+        if (clip.loadState == AudioDataLoadState.Unloaded)
+        {
+            clip.LoadAudioData();
+        }
+
+        int channels = Mathf.Max(1, clip.channels);
+        float[] samples = new float[clip.samples * channels];
+        if (!clip.GetData(samples, 0))
+        {
+            return clip;
+        }
+
+        int first = 0;
+        for (int i = 0; i < samples.Length; i++)
+        {
+            float sample = samples[i];
+            if (sample < 0f)
+            {
+                sample = -sample;
+            }
+
+            if (sample > 0.02f)
+            {
+                first = i;
+                break;
+            }
+        }
+
+        int frame = first / channels;
+        int pad = clip.frequency / 100;
+        frame = frame > pad ? frame - pad : 0;
+        if (frame <= 0)
+        {
+            return clip;
+        }
+
+        int frames = clip.samples - frame;
+        float[] trimmed = new float[frames * channels];
+        System.Array.Copy(samples, frame * channels, trimmed, 0, trimmed.Length);
+        AudioClip cut = AudioClip.Create(clip.name + " Trimmed", frames, channels, clip.frequency, false);
+        cut.SetData(trimmed, 0);
+        return cut;
     }
 
     public static void PlayMouseClick()
@@ -35,6 +97,19 @@ public static class GameAudio
         if (!TryGetClip(sfx, out clip))
         {
             return;
+        }
+
+        if (sfx == GameSfx.MouseClick)
+        {
+            if (clickClip == null)
+            {
+                WarmClick();
+            }
+
+            if (clickClip != null)
+            {
+                clip = clickClip;
+            }
         }
 
         Channel channel = GetChannel(sfx);
@@ -53,6 +128,7 @@ public static class GameAudio
         channel.source.loop = false;
         channel.source.volume = Volume(sfx);
         channel.source.clip = clip;
+        channel.source.timeSamples = 0;
         channel.source.Play();
     }
 
@@ -109,11 +185,6 @@ public static class GameAudio
         }
 
         clip = library.Get(sfx);
-        if (clip != null && clip.loadState == AudioDataLoadState.Unloaded)
-        {
-            clip.LoadAudioData();
-        }
-
         return clip != null;
     }
 
@@ -146,7 +217,7 @@ public static class GameAudio
     {
         switch (sfx)
         {
-            case GameSfx.MouseClick: return 0.25f;
+            case GameSfx.MouseClick: return 0.7f;
             case GameSfx.Keyboard: return 0.35f;
             case GameSfx.Startup: return 0.4f;
             case GameSfx.CriticalError: return 0.5f;

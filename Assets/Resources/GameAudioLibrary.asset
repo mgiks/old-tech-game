@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9113b2982b5594ca7b6ff5d0a4a96f, type: 3}
   m_Name: GameAudioLibrary
   m_EditorClassIdentifier: Assembly-CSharp::GameAudioLibrary
-  mouseClick: {fileID: 8300000, guid: edda9380fbb63434ab517108cf927bab, type: 3}
+  mouseClick: {fileID: 8300000, guid: be29f349dd83bf4428ac0733f8a79c43, type: 3}
   keyboard: {fileID: 8300000, guid: c36a3463a5c4a35448a88244ef057af1, type: 3}
   startup: {fileID: 8300000, guid: 5fa9845f45a401c48aaf897164b344bc, type: 3}
   criticalError: {fileID: 8300000, guid: 6272d519e6966004fbb494b7ebacc1da, type: 3}
