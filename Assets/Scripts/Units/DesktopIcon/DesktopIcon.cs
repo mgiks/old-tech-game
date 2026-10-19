@@ -92,11 +92,19 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         IsDragged = false;
-        TryFeedVirus();
+        if (!GamePause.IsPaused)
+        {
+            TryFeedVirus();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (GamePause.IsPaused)
+        {
+            return;
+        }
+
         transform.position = GetPointerWorldPos() + offset;
     }
 

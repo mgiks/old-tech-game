@@ -27,12 +27,6 @@ public class GameEnding : MonoBehaviour
     [SerializeField] private Color mutationColor = new(0.85f, 0.35f, 1f, 1f);
     [SerializeField] private Color blueScreenColor = new(0f, 0f, 0.67f, 1f);
 
-    private static readonly string[] GlitchWords =
-    {
-        "ERROR", "FATAL", "0xDEAD", "0xBEEF", "SYSTEM32 удалён", "ДОСТУП ЗАПРЕЩЁН", "%$#@!", "заражено",
-        "ПК 11/11", "format C:", "NOT RESPONDING", "глич.exe", "kernel32.dll", "не выключайте компьютер"
-    };
-
     private const string GlitchChars = "#$%&@!?*01<>/\\|=+";
 
     private RectTransform root;
@@ -151,7 +145,8 @@ public class GameEnding : MonoBehaviour
 
     private IEnumerator GlitchWord()
     {
-        TextMeshProUGUI word = CreateText("Glitch Word", root, GlitchWords[Random.Range(0, GlitchWords.Length)], Random.Range(28f, 70f));
+        string[] words = Loc.T("ending.glitch_words").Split('|');
+        TextMeshProUGUI word = CreateText("Glitch Word", root, words[Random.Range(0, words.Length)], Random.Range(28f, 70f));
         word.color = Random.value < 0.6f ? dangerColor : infectColor;
         word.fontStyle = FontStyles.Bold;
         word.rectTransform.sizeDelta = new Vector2(900f, 120f);
@@ -226,16 +221,7 @@ public class GameEnding : MonoBehaviour
 
     private string BuildBlueScreenText()
     {
-        return "Обнаружена неустранимая ошибка. Windows была остановлена, чтобы предотвратить повреждение компьютера.\n\n"
-            + "GLITCH_ATE_EVERYTHING\n\n"
-            + $"Заражено компьютеров: {RunStats.TotalComputers} из {RunStats.TotalComputers}\n"
-            + "Сервер фирмы: ЗАРАЖЁН\n"
-            + "Ваши файлы: съедены\n"
-            + "Ваша должность: сокращена\n\n"
-            + "Если вы видите этот экран впервые, перезагрузите компьютер. Не поможет.\n\n"
-            + "Технические сведения:\n"
-            + "*** STOP: 0x0000000B (0x0000DEAD, 0x0000BEEF, 0x00000011, 0x6C1C4000)\n\n"
-            + "Нажмите любую клавишу...";
+        return Loc.F("ending.bsod", RunStats.TotalComputers);
     }
 
     private IEnumerator CrtShutdown(RectTransform panel)
@@ -303,7 +289,7 @@ public class GameEnding : MonoBehaviour
         title.rectTransform.sizeDelta = new Vector2(1800f, 120f);
         title.rectTransform.anchoredPosition = new Vector2(0f, -20f);
 
-        TextMeshProUGUI subtitle = CreateText("Subtitle", screen, "Глич сожрал весь офис. Тебя, кстати, уволили.", 38f);
+        TextMeshProUGUI subtitle = CreateText("Subtitle", screen, Loc.T("ending.subtitle"), 38f);
         subtitle.color = new Color(0.8f, 0.82f, 0.9f, 0f);
         subtitle.rectTransform.sizeDelta = new Vector2(1600f, 70f);
         subtitle.rectTransform.anchoredPosition = new Vector2(0f, -110f);
@@ -313,8 +299,8 @@ public class GameEnding : MonoBehaviour
         stats.rectTransform.sizeDelta = new Vector2(1700f, 60f);
         stats.rectTransform.anchoredPosition = new Vector2(0f, -190f);
 
-        Button restart = CreateButton(screen, "Начать заново", infectColor, Color.black, new Vector2(-260f, -330f));
-        Button keepEating = CreateButton(screen, "Продолжить жрать", new Color(0.25f, 0.27f, 0.35f, 1f), Color.white, new Vector2(260f, -330f));
+        Button restart = CreateButton(screen, Loc.T("ending.restart"), infectColor, Color.black, new Vector2(-260f, -330f));
+        Button keepEating = CreateButton(screen, Loc.T("ending.keep_eating"), new Color(0.25f, 0.27f, 0.35f, 1f), Color.white, new Vector2(260f, -330f));
         restart.gameObject.SetActive(false);
         keepEating.gameObject.SetActive(false);
         restart.onClick.AddListener(StartOver);
@@ -331,7 +317,7 @@ public class GameEnding : MonoBehaviour
 
         StartCoroutine(AnimateVirus(virusImage.rectTransform, glow));
 
-        string message = $"ВСЕ {RunStats.TotalComputers} КОМПЬЮТЕРОВ ЗАРАЖЕНЫ";
+        string message = Loc.F("ending.title", RunStats.TotalComputers);
         yield return Decode(title, message, 1.4f);
 
         for (float t = 0f; t < 0.6f; t += Time.unscaledDeltaTime)
@@ -350,8 +336,7 @@ public class GameEnding : MonoBehaviour
 
     private static string BuildStatsText()
     {
-        return $"Ранов: {RunStats.RunNumber}   ·   MB за всё время: {GameProgress.TotalMB}   ·   "
-            + $"Файлов съедено: {RunStats.TotalFiles}   ·   Кликов: {RunStats.TotalClicks}";
+        return Loc.F("ending.stats", RunStats.RunNumber, GameProgress.TotalMB, RunStats.TotalFiles, RunStats.TotalClicks);
     }
 
     private IEnumerator AnimateVirus(RectTransform virusRect, Image glow)

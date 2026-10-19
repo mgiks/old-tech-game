@@ -309,27 +309,37 @@ public class SkillTreeDefinition : ScriptableObject
         return true;
     }
 
+    public static string GetName(Node node)
+    {
+        return Loc.TryGet($"skill.{node.id}.name", out string value) ? value : node.displayName;
+    }
+
+    public static string GetDescription(Node node)
+    {
+        return Loc.TryGet($"skill.{node.id}.desc", out string value) ? value : node.description;
+    }
+
     public static string FormatStat(SkillStat stat, float total)
     {
         return stat switch
         {
-            SkillStat.SpawnRate => $"частота файлов ×{1f + total:0.##}",
-            SkillStat.MaxFiles => $"+{total:0} к лимиту файлов",
-            SkillStat.StartFiles => $"+{total:0} файлов на старте",
-            SkillStat.AttractionRadius => $"радиус притяжения {total:0.#}",
-            SkillStat.PullSpeed => $"+{total:0.#} к скорости притяжения",
-            SkillStat.ScreenWideEating => $"охота, уровень {total:0}",
-            SkillStat.RunTime => $"+{total:0} с к забегу",
-            SkillStat.FileValue => $"{1f + total:0} MB за файл",
-            SkillStat.SpawnBurst => $"{1f + total:0} файла в пачке",
-            SkillStat.GoldenChance => $"{total * 100f:0}% золотых файлов",
-            SkillStat.CursorRadius => $"радиус курсора {total:0.##}",
-            SkillStat.HoverFeed => total > 0f ? "кормление наведением" : "только перетаскивание",
-            SkillStat.Combo => $"+{total * 100f:0}% MB за шаг комбо",
-            SkillStat.ChainChance => $"{total * 100f:0}% шанс цепной реакции",
-            SkillStat.Satellites => $"{total:0} копий вокруг глича",
-            SkillStat.TimePerComputer => $"+{total:0} с за каждый ПК",
-            SkillStat.ServerAccess => total > 0f ? "сервер открыт" : "сервер закрыт",
+            SkillStat.SpawnRate => Loc.F("stat.spawn_rate", 1f + total),
+            SkillStat.MaxFiles => Loc.F("stat.max_files", total),
+            SkillStat.StartFiles => Loc.F("stat.start_files", total),
+            SkillStat.AttractionRadius => Loc.F("stat.attraction_radius", total),
+            SkillStat.PullSpeed => Loc.F("stat.pull_speed", total),
+            SkillStat.ScreenWideEating => Loc.F("stat.screen_wide", total),
+            SkillStat.RunTime => Loc.F("stat.run_time", total),
+            SkillStat.FileValue => Loc.F("stat.file_value", 1f + total),
+            SkillStat.SpawnBurst => Loc.F("stat.spawn_burst", 1f + total),
+            SkillStat.GoldenChance => Loc.F("stat.golden", total * 100f),
+            SkillStat.CursorRadius => Loc.F("stat.cursor_radius", total),
+            SkillStat.HoverFeed => Loc.T(total > 0f ? "stat.hover_on" : "stat.hover_off"),
+            SkillStat.Combo => Loc.F("stat.combo", total * 100f),
+            SkillStat.ChainChance => Loc.F("stat.chain", total * 100f),
+            SkillStat.Satellites => Loc.F("stat.satellites", total),
+            SkillStat.TimePerComputer => Loc.F("stat.time_per_pc", total),
+            SkillStat.ServerAccess => Loc.T(total > 0f ? "stat.server_open" : "stat.server_closed"),
             _ => string.Empty
         };
     }

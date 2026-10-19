@@ -29,7 +29,7 @@ public class SkillTooltip : MonoBehaviour
 
         if (node.comingSoon)
         {
-            status = "<color=#C9A0FF>Скоро</color>";
+            status = $"<color=#C9A0FF>{Loc.T("tooltip.soon")}</color>";
         }
         else if (node.startsOwned)
         {
@@ -37,20 +37,20 @@ public class SkillTooltip : MonoBehaviour
         }
         else if (skillTree.IsMaxed(node))
         {
-            status = $"Уровень {level}/{node.maxLevel} — <color=#FFD24D>максимум</color>";
+            status = Loc.F("tooltip.level_max", level, node.maxLevel);
         }
         else
         {
             uint cost = skillTree.GetCost(node);
             string costColor = GameProgress.MB >= cost ? "#7CFF9A" : "#FF7C7C";
-            status = $"Уровень {level}/{node.maxLevel}\nЦена: <color={costColor}>{cost} MB</color>";
+            status = Loc.F("tooltip.level_cost", level, node.maxLevel, costColor, cost);
         }
 
         if (node.requiresAllMaxed && !skillTree.IsMaxed(node))
         {
             skillTree.GetMasteryProgress(out int done, out int total);
             string progressColor = done >= total ? "#7CFF9A" : "#FF7C7C";
-            status = $"Прокачано дерево: <color={progressColor}>{done}/{total}</color>\n{status}";
+            status = $"{Loc.F("tooltip.mastery", progressColor, done, total)}\n{status}";
         }
 
         if (!node.comingSoon && node.stat != SkillStat.None)
@@ -63,9 +63,8 @@ public class SkillTooltip : MonoBehaviour
             status = $"{preview}\n{status}";
         }
 
-        text.text = string.IsNullOrEmpty(status)
-            ? $"<b>{node.displayName}</b>\n{node.description}"
-            : $"<b>{node.displayName}</b>\n{node.description}\n\n{status}";
+        string header = $"<b>{SkillTreeDefinition.GetName(node)}</b>\n{SkillTreeDefinition.GetDescription(node)}";
+        text.text = string.IsNullOrEmpty(status) ? header : $"{header}\n\n{status}";
 
         gameObject.SetActive(true);
         FollowCursor();

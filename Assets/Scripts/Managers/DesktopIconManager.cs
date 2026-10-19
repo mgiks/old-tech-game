@@ -103,7 +103,7 @@ public class DesktopIconManager : MonoBehaviour
         Vector2 iconHalfExtents = GetIconHalfExtents();
         float minDistance = haloRadius + iconHalfExtents.magnitude;
 
-        Vector3 bottomLeft = cam.ViewportToWorldPoint(new Vector3(0f, 0f, distanceFromCamera));
+        Vector3 bottomLeft = cam.ViewportToWorldPoint(new Vector3(0f, Taskbar.ScreenFraction, distanceFromCamera));
         Vector3 topRight = cam.ViewportToWorldPoint(new Vector3(1f, 1f, distanceFromCamera));
         float minX = bottomLeft.x + iconHalfExtents.x + padding;
         float maxX = topRight.x - iconHalfExtents.x - padding;

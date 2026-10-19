@@ -84,8 +84,8 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
 
         int level = skillTree.GetLevel(node);
-        nameLabel.text = node.displayName;
-        levelLabel.text = node.comingSoon ? "скоро" : node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
+        nameLabel.text = SkillTreeDefinition.GetName(node);
+        levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
 
         stateColor = GetStateColor(level);
         levelLabel.color = Color.Lerp(stateColor, Color.white, 0.35f);
@@ -187,10 +187,10 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (node.comingSoon || skillTree.IsMaxed(node) || !skillTree.CanBuy(node))
         {
             denyTime = Time.unscaledTime;
-            fx.PlayDenied(rect, node.comingSoon ? "Скоро"
-                : skillTree.IsMaxed(node) ? "Максимум"
-                : node.requiresAllMaxed && !skillTree.IsEverythingElseMaxed() ? "Нужно всё дерево"
-                : "Мало MB");
+            fx.PlayDenied(rect, Loc.T(node.comingSoon ? "deny.soon"
+                : skillTree.IsMaxed(node) ? "deny.max"
+                : node.requiresAllMaxed && !skillTree.IsEverythingElseMaxed() ? "deny.need_all"
+                : "deny.no_mb"));
             return;
         }
 

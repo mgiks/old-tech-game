@@ -47,7 +47,7 @@ public class CursorFeeder : MonoBehaviour
     void Update()
     {
         Mouse mouse = Mouse.current;
-        if (mouse == null)
+        if (mouse == null || GamePause.IsPaused)
         {
             return;
         }

@@ -90,6 +90,11 @@ public class EatFeedback : MonoBehaviour
 
     public void Shake(float amount)
     {
+        if (!GameSettings.ScreenShake)
+        {
+            return;
+        }
+
         shake = Mathf.Max(shake, amount);
     }
 
@@ -126,7 +131,7 @@ public class EatFeedback : MonoBehaviour
         int combo = scoreManager.Combo;
         if (scoreManager.ComboUnlocked && combo >= 5 && combo % 5 == 0)
         {
-            ShowPopup(center + Vector2.up * (virusSize * 0.9f), $"КОМБО ×{combo}!", comboColor, 1.3f + Mathf.Min(combo, 30) * 0.02f);
+            ShowPopup(center + Vector2.up * (virusSize * 0.9f), Loc.F("popup.combo", combo), comboColor, 1.3f + Mathf.Min(combo, 30) * 0.02f);
             Ring(center, comboColor, virusSize * 2.8f);
             Shake(0.08f);
         }
@@ -136,7 +141,7 @@ public class EatFeedback : MonoBehaviour
     {
         float dt = Time.unscaledDeltaTime;
 
-        shake = Mathf.Max(0f, shake - dt * 0.6f);
+        shake = GameSettings.ScreenShake ? Mathf.Max(0f, shake - dt * 0.6f) : 0f;
         cam.transform.position = cameraBase + (Vector3)(Random.insideUnitCircle * shake);
 
         foreach (Particle p in particles)

@@ -21,6 +21,11 @@ public class ScreenShake : MonoBehaviour
 
     public void Add(float amount)
     {
+        if (!GameSettings.ScreenShake)
+        {
+            return;
+        }
+
         strength = Mathf.Min(strength + amount, maxStrength);
     }
 

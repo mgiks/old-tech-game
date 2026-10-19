@@ -90,7 +90,7 @@ public class RunEndScreen : MonoBehaviour
         upgradeButton.transform.localScale = Vector3.one;
 
         affordableUpgrades = CountAffordableUpgrades();
-        upgradeLabel.text = affordableUpgrades > 0 ? $"апгрейд  <color=#2E9E4F>(доступно: {affordableUpgrades})</color>" : "апгрейд";
+        UpdateUpgradeLabel();
 
         for (float t = 0f; t < zoomOutDuration; t += Time.unscaledDeltaTime)
         {
@@ -114,9 +114,33 @@ public class RunEndScreen : MonoBehaviour
 
         SetValues(1f);
         computersFill.fillAmount = computersTarget;
+        revealed = true;
         ShowComparison();
         recordStamp.gameObject.SetActive(RunStats.IsNewRecord);
-        revealed = true;
+    }
+
+    void OnEnable()
+    {
+        GameSettings.Changed += OnSettingsChanged;
+    }
+
+    void OnDisable()
+    {
+        GameSettings.Changed -= OnSettingsChanged;
+    }
+
+    private void OnSettingsChanged()
+    {
+        UpdateUpgradeLabel();
+        if (revealed)
+        {
+            ShowComparison();
+        }
+    }
+
+    private void UpdateUpgradeLabel()
+    {
+        upgradeLabel.text = affordableUpgrades > 0 ? Loc.F("end.upgrade_available", affordableUpgrades) : Loc.T("end.upgrade");
     }
 
     private void ShowComparison()
@@ -131,7 +155,7 @@ public class RunEndScreen : MonoBehaviour
         bool better = delta >= 0;
         string arrow = better ? "▲" : "▼";
         comparison.color = better ? betterColor : worseColor;
-        comparison.text = $"{arrow} {(better ? "+" : "")}{percent:0}% к прошлому рану ({RunStats.PreviousRunMB} MB)";
+        comparison.text = Loc.F("end.comparison", arrow, better ? "+" : "", percent, RunStats.PreviousRunMB);
     }
 
     private int CountAffordableUpgrades()

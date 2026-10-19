@@ -18,6 +18,7 @@ public class GameIntro : MonoBehaviour
     public bool ShouldPlay => !GameProgress.IntroDone;
 
     private Action onFinished;
+    private string hintKey;
     private Vector3 virusScale;
     private SpriteRenderer virusRenderer;
     private Collider2D virusCollider;
@@ -41,7 +42,7 @@ public class GameIntro : MonoBehaviour
         gameObject.SetActive(true);
         folder.gameObject.SetActive(true);
         window.gameObject.SetActive(false);
-        SetHint("Дважды кликни по папке");
+        SetHint("intro.open_folder");
     }
 
     private void OpenFolder()
@@ -49,7 +50,7 @@ public class GameIntro : MonoBehaviour
         folder.SetSelected(false);
         window.gameObject.SetActive(true);
         StartCoroutine(PopWindow());
-        SetHint("Внутри что-то есть. Открой файл");
+        SetHint("intro.open_file");
     }
 
     private void RunFile()
@@ -71,7 +72,7 @@ public class GameIntro : MonoBehaviour
 
     private IEnumerator RevealGlitch()
     {
-        SetHint(string.Empty);
+        SetHint(null);
         Vector2 basePosition = window.anchoredPosition;
         for (float t = 0f; t < 0.35f; t += Time.deltaTime)
         {
@@ -103,14 +104,31 @@ public class GameIntro : MonoBehaviour
         GameProgress.IntroDone = true;
         onFinished?.Invoke();
 
-        SetHint("Перетаскивай файлы в глича!");
+        SetHint("intro.feed");
         yield return new WaitForSeconds(feedHintDuration);
         gameObject.SetActive(false);
     }
 
-    private void SetHint(string message)
+    void OnEnable()
     {
-        hint.text = message;
-        hint.gameObject.SetActive(!string.IsNullOrEmpty(message));
+        GameSettings.Changed += RefreshHint;
+    }
+
+    void OnDisable()
+    {
+        GameSettings.Changed -= RefreshHint;
+    }
+
+    private void SetHint(string key)
+    {
+        hintKey = key;
+        RefreshHint();
+    }
+
+    private void RefreshHint()
+    {
+        bool visible = !string.IsNullOrEmpty(hintKey);
+        hint.text = visible ? Loc.T(hintKey) : string.Empty;
+        hint.gameObject.SetActive(visible);
     }
 }

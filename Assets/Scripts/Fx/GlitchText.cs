@@ -37,9 +37,27 @@ public class GlitchText : MonoBehaviour
         nextGlitch = Time.unscaledTime + Random.Range(intervalRange.x, intervalRange.y);
     }
 
+    public void SetText(string value)
+    {
+        original = value;
+        GetComponent<TMP_Text>().text = value;
+    }
+
     void Update()
     {
         float now = Time.unscaledTime;
+
+        if (!GameSettings.ScreenEffects)
+        {
+            if (glitching)
+            {
+                glitchEnd = now;
+            }
+            else
+            {
+                nextGlitch = now + Random.Range(intervalRange.x, intervalRange.y);
+            }
+        }
 
         if (now >= nextGlitch)
         {

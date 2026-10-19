@@ -42,6 +42,16 @@ public class RunManager : MonoBehaviour
     private bool started;
     private bool finished;
 
+    void OnEnable()
+    {
+        GameSettings.Changed += UpdateDisplay;
+    }
+
+    void OnDisable()
+    {
+        GameSettings.Changed -= UpdateDisplay;
+    }
+
     void Start()
     {
         Time.timeScale = 1f;
@@ -79,7 +89,7 @@ public class RunManager : MonoBehaviour
 
     void Update()
     {
-        if (finished || !started)
+        if (finished || !started || GamePause.IsPaused)
         {
             return;
         }
@@ -180,7 +190,7 @@ public class RunManager : MonoBehaviour
             runDuration = Mathf.Max(runDuration, timeLeft);
             if (feedback != null)
             {
-                feedback.ShowPopup(center + Vector2.down * 1.5f, $"+{bonusTime:0} с", new Color(0.45f, 0.9f, 1f, 1f), 1.4f);
+                feedback.ShowPopup(center + Vector2.down * 1.5f, Loc.F("popup.time", bonusTime), new Color(0.45f, 0.9f, 1f, 1f), 1.4f);
             }
         }
 
@@ -208,8 +218,8 @@ public class RunManager : MonoBehaviour
         if (feedback != null)
         {
             Vector2 center = virus.GetAbsorbPoint();
-            feedback.ShowPopup(center, "СЕРВЕР ЗАЩИЩЁН", serverDeniedColor, 1.8f);
-            feedback.ShowPopup(center + Vector2.down * 1.2f, "нужен «Сетевой червь»", Color.white, 1f);
+            feedback.ShowPopup(center, Loc.T("popup.server_locked"), serverDeniedColor, 1.8f);
+            feedback.ShowPopup(center + Vector2.down * 1.2f, Loc.T("popup.need_worm"), Color.white, 1f);
             feedback.Burst(center, serverDeniedColor, 40, 10f);
             feedback.Shake(0.5f);
         }
@@ -286,8 +296,8 @@ public class RunManager : MonoBehaviour
         {
             int current = Mathf.Min(RunStats.ComputersInfected + 1, totalComputers);
             int eaten = Mathf.Min(RunStats.FilesInfected - filesAtComputerStart, GetFilesForCurrentComputer());
-            string pc = current == totalComputers ? "СЕРВЕР" : "ПК";
-            computerDisplay.text = $"{pc} {current}/{totalComputers} · заражено файлов {eaten}/{GetFilesForCurrentComputer()}";
+            string key = current == totalComputers ? "hud.server" : "hud.pc";
+            computerDisplay.text = Loc.F(key, current, totalComputers, eaten, GetFilesForCurrentComputer());
         }
     }
 }

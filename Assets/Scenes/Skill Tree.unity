@@ -895,6 +895,7 @@ GameObject:
   - component: {fileID: 772193181}
   - component: {fileID: 772193183}
   - component: {fileID: 772193182}
+  - component: {fileID: 772193184}
   m_Layer: 0
   m_Name: Hint
   m_TagString: Untagged
@@ -918,7 +919,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: 64}
   m_SizeDelta: {x: 1600, y: 40}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &772193182
@@ -1024,6 +1025,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772193180}
   m_CullTransparentMesh: 1
+--- !u!114 &772193184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772193180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ec29ff98879a94e9e6d9ad6ae88986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: tree.hint
 --- !u!1 &877406916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1717,7 @@ GameObject:
   - component: {fileID: 1426194102}
   - component: {fileID: 1426194101}
   - component: {fileID: 1426194103}
+  - component: {fileID: 1426194104}
   m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
@@ -1850,6 +1865,19 @@ MonoBehaviour:
   - {r: 0.3, g: 1, b: 1, a: 1}
   - {r: 1, g: 0.3, b: 0.9, a: 1}
   - {r: 0.4, g: 1, b: 0.5, a: 1}
+--- !u!114 &1426194104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426194099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ec29ff98879a94e9e6d9ad6ae88986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: tree.title
 --- !u!1 &1496684746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,6 +2324,7 @@ GameObject:
   - component: {fileID: 1675877442}
   - component: {fileID: 1675877444}
   - component: {fileID: 1675877443}
+  - component: {fileID: 1675877445}
   m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
@@ -2422,6 +2451,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675877441}
   m_CullTransparentMesh: 1
+--- !u!114 &1675877445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675877441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ec29ff98879a94e9e6d9ad6ae88986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalizedText
+  key: tree.new_run
 --- !u!1 &1894899133
 GameObject:
   m_ObjectHideFlags: 0

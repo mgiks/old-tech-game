@@ -53,12 +53,19 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
     void OnEnable()
     {
         GameProgress.Changed += OnProgressChanged;
+        GameSettings.Changed += OnSettingsChanged;
         Refresh(false);
     }
 
     void OnDisable()
     {
         GameProgress.Changed -= OnProgressChanged;
+        GameSettings.Changed -= OnSettingsChanged;
+    }
+
+    private void OnSettingsChanged()
+    {
+        Refresh(false);
     }
 
     void Start()
