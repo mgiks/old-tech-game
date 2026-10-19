@@ -8,6 +8,8 @@ using UnityEngine.UI;
 [DefaultExecutionOrder(-200)]
 public class CrtMonitor : MonoBehaviour
 {
+    [SerializeField] private float distanceFromMonitor = 0.76f;
+
     public const int Layer = 6;
     private const int TextureWidth = 1920;
     private const int TextureHeight = 1080;
@@ -22,6 +24,8 @@ public class CrtMonitor : MonoBehaviour
     private bool onGlass;
     private Vector3 localMin;
     private Vector3 localMax;
+    private Vector2 fitScale = Vector2.one;
+    private Vector2 fitOffset;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetSession()
@@ -82,6 +86,7 @@ public class CrtMonitor : MonoBehaviour
 
     void Update()
     {
+        FitView();
         UpdatePointer();
     }
 
@@ -155,8 +160,9 @@ public class CrtMonitor : MonoBehaviour
         }
 
         model.transform.localScale = Vector3.one * 1.8f;
-        model.transform.position = new Vector3(0f, -bounds.min.y * 1.8f, 0f);
+        model.transform.position = new Vector3(2.55f, 3.0f, 0f);
         BringGlassForward();
+        FitPicture(renderer.sharedMaterial);
         return true;
     }
 
@@ -204,6 +210,41 @@ public class CrtMonitor : MonoBehaviour
         {
             screen.position += new Vector3(shift, 0f, 0f);
         }
+    }
+
+    private void FitPicture(Material material)
+    {
+        Bounds bounds = screen.GetComponent<Renderer>().bounds;
+        float glassAspect = bounds.size.z / Mathf.Max(0.001f, bounds.size.y);
+        float contentAspect = TextureWidth / (float)TextureHeight;
+        if (glassAspect > contentAspect)
+        {
+            float used = contentAspect / glassAspect;
+            fitScale = new Vector2(1f / used, 1f);
+        }
+        else
+        {
+            float used = glassAspect / contentAspect;
+            fitScale = new Vector2(1f, 1f / Mathf.Max(0.001f, used));
+        }
+
+        fitOffset = (Vector2.one - fitScale) * 0.5f;
+        material.SetVector("_FitScale", new Vector4(fitScale.x, fitScale.y, 0f, 0f));
+        material.SetVector("_FitOffset", new Vector4(fitOffset.x, fitOffset.y, 0f, 0f));
+    }
+
+    private Vector2 ContentToGlass(Vector2 content)
+    {
+        return new Vector2(
+            (content.x - fitOffset.x) / Mathf.Max(0.001f, fitScale.x),
+            (content.y - fitOffset.y) / Mathf.Max(0.001f, fitScale.y));
+    }
+
+    private Vector3 GlassUvToWorld(Vector2 glassUv)
+    {
+        float y = Mathf.Lerp(localMin.y, localMax.y, glassUv.y);
+        float z = Mathf.Lerp(localMin.z, localMax.z, glassUv.x);
+        return screen.TransformPoint(new Vector3(localMax.x, y, z));
     }
 
     private static void RemapScreen(Mesh mesh, Transform screenTransform)
@@ -315,6 +356,49 @@ public class CrtMonitor : MonoBehaviour
         }
 
         FrameCamera();
+        BuildBackdrop();
+    }
+
+    private void BuildBackdrop()
+    {
+        GameObject backdropObject = new("CRT Backdrop");
+        backdropObject.transform.SetParent(transform, false);
+        Camera backdrop = backdropObject.AddComponent<Camera>();
+        backdrop.clearFlags = CameraClearFlags.SolidColor;
+        backdrop.backgroundColor = Color.black;
+        backdrop.cullingMask = 0;
+        backdrop.depth = 10f;
+        backdrop.orthographic = true;
+        backdrop.allowHDR = false;
+        UniversalAdditionalCameraData data = backdropObject.GetComponent<UniversalAdditionalCameraData>();
+        if (data == null)
+        {
+            data = backdropObject.AddComponent<UniversalAdditionalCameraData>();
+        }
+
+        data.renderPostProcessing = false;
+        data.volumeLayerMask = 0;
+        AudioListener listener = backdropObject.GetComponent<AudioListener>();
+        if (listener != null)
+        {
+            listener.enabled = false;
+        }
+    }
+
+    private void FitView()
+    {
+        float windowAspect = Screen.width / Mathf.Max(1f, (float)Screen.height);
+        const float targetAspect = 16f / 9f;
+        if (windowAspect > targetAspect)
+        {
+            float width = targetAspect / windowAspect;
+            viewCamera.rect = new Rect((1f - width) * 0.5f, 0f, width, 1f);
+        }
+        else
+        {
+            float height = windowAspect / targetAspect;
+            viewCamera.rect = new Rect(0f, (1f - height) * 0.5f, 1f, height);
+        }
     }
 
     private void FrameCamera()
@@ -340,7 +424,8 @@ public class CrtMonitor : MonoBehaviour
         float distanceForHeight = bounds.extents.y / Mathf.Tan(halfFov);
         float horizontalFov = Mathf.Atan(Mathf.Tan(halfFov) * aspect);
         float distanceForWidth = bounds.extents.z / Mathf.Tan(horizontalFov);
-        float distance = Mathf.Max(distanceForHeight, distanceForWidth) * 1.28f;
+
+        float distance = Mathf.Max(distanceForHeight, distanceForWidth) * distanceFromMonitor;
 
         viewCamera.fieldOfView = fov;
         viewCamera.transform.position = center + facing * distance;
@@ -369,13 +454,17 @@ public class CrtMonitor : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 30f, 1 << screen.gameObject.layer, QueryTriggerInteraction.Ignore)
             && hit.collider == glass)
         {
-            hitGlass = true;
-            pointer = new Vector2(hit.textureCoord.x * TextureWidth, hit.textureCoord.y * TextureHeight);
+            Vector2 content = Vector2.Scale(hit.textureCoord, fitScale) + fitOffset;
+            if (content.x >= 0f && content.x <= 1f && content.y >= 0f && content.y <= 1f)
+            {
+                hitGlass = true;
+                pointer = new Vector2(content.x * TextureWidth, content.y * TextureHeight);
+            }
         }
 
         onGlass = hitGlass;
-        Vector3 left = screen.TransformPoint(new Vector3(localMax.x, (localMin.y + localMax.y) * 0.5f, localMin.z));
-        Vector3 right = screen.TransformPoint(new Vector3(localMax.x, (localMin.y + localMax.y) * 0.5f, localMax.z));
+        Vector3 left = GlassUvToWorld(ContentToGlass(new Vector2(0f, 0.5f)));
+        Vector3 right = GlassUvToWorld(ContentToGlass(new Vector2(1f, 0.5f)));
         float viewWidth = Vector2.Distance(viewCamera.WorldToScreenPoint(left), viewCamera.WorldToScreenPoint(right));
         float dragScale = viewWidth > 1f ? TextureWidth / viewWidth : 1f;
         MonitorScreen.SetActive(texture, dragScale, onGlass, pointer);
@@ -394,7 +483,7 @@ public class CrtMonitor : MonoBehaviour
 
         foreach (Camera camera in FindObjectsByType<Camera>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
         {
-            if (!camera.orthographic || camera == viewCamera)
+            if (!camera.orthographic || camera.transform.IsChildOf(transform))
             {
                 continue;
             }
