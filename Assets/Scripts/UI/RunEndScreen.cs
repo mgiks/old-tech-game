@@ -83,6 +83,7 @@ public class RunEndScreen : MonoBehaviour
         StyleWell(screen.Find("Stats Panel/Files"), art);
         StyleWell(screen.Find("Stats Panel/Clicks"), art);
         StyleWell(screen.Find("Stats Panel/GB"), art);
+        EnlargeStats(screen);
 
         if (computersFill != null)
         {
@@ -98,12 +99,12 @@ public class RunEndScreen : MonoBehaviour
         StyleTmp(screen, "Computers Count", 22f, XpUi.TextDark, FontStyles.Bold);
         StyleTmp(screen, "Total Panel/Title", 28f, XpUi.TextDark, FontStyles.Bold);
         StyleTmp(screen, "Total Panel/Value", 52f, XpUi.Hex("#0C6B32"), FontStyles.Bold);
-        StyleTmp(screen, "Stats Panel/Files/Value", 28f, XpUi.TextDark, FontStyles.Bold);
-        StyleTmp(screen, "Stats Panel/Clicks/Value", 28f, XpUi.TextDark, FontStyles.Bold);
-        StyleTmp(screen, "Stats Panel/GB/Value", 28f, XpUi.TextDark, FontStyles.Bold);
-        StyleTmp(screen, "Stats Panel/Files Label", 16f, XpUi.TextDark, FontStyles.Normal);
-        StyleTmp(screen, "Stats Panel/Clicks Label", 16f, XpUi.TextDark, FontStyles.Normal);
-        StyleTmp(screen, "Stats Panel/GB Label", 16f, XpUi.TextDark, FontStyles.Normal);
+        StyleTmp(screen, "Stats Panel/Files/Value", 44f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Stats Panel/Clicks/Value", 44f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Stats Panel/GB/Value", 44f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Stats Panel/Files Label", 26f, XpUi.TextDark, FontStyles.Normal);
+        StyleTmp(screen, "Stats Panel/Clicks Label", 26f, XpUi.TextDark, FontStyles.Normal);
+        StyleTmp(screen, "Stats Panel/GB Label", 26f, XpUi.TextDark, FontStyles.Normal);
 
         if (virusDecor != null)
         {
@@ -115,6 +116,50 @@ public class RunEndScreen : MonoBehaviour
         if (fakeTaskbar != null)
         {
             fakeTaskbar.gameObject.SetActive(false);
+        }
+    }
+
+    private static void EnlargeStats(Transform screen)
+    {
+        RectTransform panel = screen.Find("Stats Panel") as RectTransform;
+        if (panel == null)
+        {
+            return;
+        }
+
+        panel.sizeDelta = new Vector2(700f, 220f);
+        panel.anchoredPosition = new Vector2(0f, -4f);
+        PlaceStat(panel, "Files", -220f);
+        PlaceStat(panel, "Clicks", 0f);
+        PlaceStat(panel, "GB", 220f);
+
+        RectTransform upgrade = screen.Find("Upgrade Button") as RectTransform;
+        if (upgrade != null)
+        {
+            upgrade.anchoredPosition = new Vector2(upgrade.anchoredPosition.x, -168f);
+        }
+
+        RectTransform next = screen.Find("Continue Button") as RectTransform;
+        if (next != null)
+        {
+            next.anchoredPosition = new Vector2(next.anchoredPosition.x, -286f);
+        }
+    }
+
+    private static void PlaceStat(RectTransform panel, string name, float x)
+    {
+        RectTransform well = panel.Find(name) as RectTransform;
+        if (well != null)
+        {
+            well.sizeDelta = new Vector2(170f, 112f);
+            well.anchoredPosition = new Vector2(x, 32f);
+        }
+
+        RectTransform label = panel.Find(name + " Label") as RectTransform;
+        if (label != null)
+        {
+            label.sizeDelta = new Vector2(210f, 68f);
+            label.anchoredPosition = new Vector2(x, -70f);
         }
     }
 
