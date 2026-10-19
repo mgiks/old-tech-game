@@ -26,11 +26,12 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private float popVelocity = 14f;
 
     [Header("Colors")]
-    [SerializeField] private Color affordableColor = new(0.15f, 0.95f, 0.55f, 1f);
-    [SerializeField] private Color unaffordableColor = new(0.3f, 0.33f, 0.45f, 1f);
-    [SerializeField] private Color ownedColor = new(0.25f, 0.55f, 1f, 1f);
-    [SerializeField] private Color maxedColor = new(1f, 0.75f, 0.2f, 1f);
-    [SerializeField] private Color comingSoonColor = new(0.65f, 0.3f, 1f, 1f);
+    [SerializeField] private Color affordableColor = new(0.22f, 0.78f, 0.28f, 1f);
+    [SerializeField] private Color unaffordableColor = new(0.82f, 0.18f, 0.16f, 1f);
+    [SerializeField] private Color ownedColor = new(0.22f, 0.48f, 0.9f, 1f);
+    [SerializeField] private Color maxedColor = new(0.93f, 0.72f, 0.16f, 1f);
+    [SerializeField] private Color comingSoonColor = new(0.55f, 0.56f, 0.58f, 1f);
+    [SerializeField] private Color lockedColor = new(0.42f, 0.44f, 0.47f, 1f);
     [SerializeField, Range(0f, 1f)] private float bodyBrightness = 0.22f;
 
     private SkillTreeDefinition skillTree;
@@ -110,9 +111,14 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         bool newlyRevealed = revealed && !wasRevealed;
         wasRevealed = revealed;
 
-        gameObject.SetActive(revealed);
+        gameObject.SetActive(true);
         if (!revealed)
         {
+            nameLabel.text = SkillTreeDefinition.GetName(node);
+            levelLabel.text = string.Empty;
+            stateColor = lockedColor;
+            nameLabel.color = new Color(0.35f, 0.38f, 0.42f, 1f);
+            levelLabel.color = nameLabel.color;
             return;
         }
 
@@ -125,7 +131,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         nameLabel.text = SkillTreeDefinition.GetName(node);
         levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
 
-        stateColor = GetStateColor(level);
+        stateColor = GetStateColor();
         nameLabel.color = XpUi.TextDark;
         levelLabel.color = XpUi.TextDark;
 
@@ -182,31 +188,16 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         glow.rectTransform.localScale = Vector3.one * (1f + flash * 0.12f);
         if (skillSlot != null && slotNormal != null)
         {
-            frame.color = Color.white;
-            int ownedLevel = skillTree.GetLevel(node);
-            Sprite slot = slotNormal;
-            if (hovered && slotHover != null)
-            {
-                slot = slotHover;
-            }
-            else if ((ownedLevel > 0 || node.startsOwned) && slotSelected != null)
-            {
-                slot = slotSelected;
-            }
-            else if (!affordable && ownedLevel == 0 && slotLocked != null)
-            {
-                slot = slotLocked;
-            }
-
-            skillSlot.sprite = slot;
-            skillSlot.color = slot != null ? Color.white : new Color(0.05f, 0.1f, 0.22f, 1f);
+            skillSlot.sprite = hovered && slotHover != null ? slotHover : slotNormal;
+            skillSlot.color = stateColor;
+            frame.color = stateColor;
         }
         else
         {
             frame.color = stateColor;
-            if (skillSlot != null && skillSlot.sprite == null)
+            if (skillSlot != null)
             {
-                skillSlot.color = new Color(0.05f, 0.1f, 0.22f, 1f);
+                skillSlot.color = stateColor;
             }
         }
 
@@ -257,10 +248,25 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             GameAudio.PlayMouseClick();
             denyTime = Time.unscaledTime;
-            fx.PlayDenied(rect, Loc.T(node.comingSoon ? "deny.soon"
-                : skillTree.IsMaxed(node) ? "deny.max"
-                : node.requiresAllMaxed && !skillTree.IsEverythingElseMaxed() ? "deny.need_all"
-                : "deny.no_mb"));
+            string denyKey = "deny.no_mb";
+            if (!skillTree.IsRevealed(node))
+            {
+                denyKey = "deny.locked";
+            }
+            else if (node.comingSoon)
+            {
+                denyKey = "deny.soon";
+            }
+            else if (skillTree.IsMaxed(node))
+            {
+                denyKey = "deny.max";
+            }
+            else if (node.requiresAllMaxed && !skillTree.IsEverythingElseMaxed())
+            {
+                denyKey = "deny.need_all";
+            }
+
+            fx.PlayDenied(rect, Loc.T(denyKey));
             return;
         }
 
@@ -276,16 +282,21 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         fx.PlayPurchase(rect, stateColor, skillTree.IsMaxed(node), cost);
     }
 
-    private Color GetStateColor(int level)
+    private Color GetStateColor()
     {
+        if (!skillTree.IsRevealed(node))
+        {
+            return lockedColor;
+        }
+
         if (node.comingSoon)
         {
             return comingSoonColor;
         }
 
-        if (skillTree.IsMaxed(node))
+        if (node.startsOwned || skillTree.IsMaxed(node))
         {
-            return maxedColor;
+            return skillTree.IsMaxed(node) ? maxedColor : ownedColor;
         }
 
         if (skillTree.CanBuy(node))
@@ -293,6 +304,6 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return affordableColor;
         }
 
-        return level > 0 ? ownedColor : unaffordableColor;
+        return unaffordableColor;
     }
 }

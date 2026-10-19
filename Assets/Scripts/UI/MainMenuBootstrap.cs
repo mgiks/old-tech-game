@@ -3,49 +3,47 @@ using UnityEngine.SceneManagement;
 
 public static class MainMenuBootstrap
 {
-    private static bool started;
+    public static bool Entered { get; private set; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetSession()
     {
-        started = false;
+        Entered = false;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void EnterMenu()
     {
-        if (started)
+        if (Entered)
         {
             return;
         }
 
         Scene active = SceneManager.GetActiveScene();
-        if (active.name != "ViewManager")
+        if (active.name == Taskbar.MainMenuScene)
         {
+            Entered = true;
             return;
         }
 
-        started = true;
-
-        Init init = Object.FindAnyObjectByType<Init>();
+        Init init = Object.FindAnyObjectByType<Init>(FindObjectsInactive.Include);
         if (init != null)
         {
             init.enabled = false;
         }
 
-        if (SceneManager.GetSceneByName(Taskbar.MainMenuScene).isLoaded)
+        Entered = true;
+
+        if (active.name == "ViewManager")
         {
-            return;
+            ViewManager viewManager = Object.FindAnyObjectByType<ViewManager>();
+            if (viewManager != null)
+            {
+                viewManager.LoadScene(Taskbar.MainMenuScene);
+                return;
+            }
         }
 
-        ViewManager viewManager = Object.FindAnyObjectByType<ViewManager>();
-        if (viewManager != null)
-        {
-            viewManager.LoadScene(Taskbar.MainMenuScene);
-        }
-        else
-        {
-            SceneManager.LoadScene(Taskbar.MainMenuScene);
-        }
+        SceneManager.LoadScene(Taskbar.MainMenuScene);
     }
 }

@@ -4,6 +4,11 @@ public class Init : MonoBehaviour
 {
     void Start()
     {
-        gameObject.GetComponent<ViewManager>().LoadScene("Main");
+        if (MainMenuBootstrap.Entered)
+        {
+            return;
+        }
+
+        gameObject.GetComponent<ViewManager>().LoadScene(Taskbar.MainMenuScene);
     }
 }

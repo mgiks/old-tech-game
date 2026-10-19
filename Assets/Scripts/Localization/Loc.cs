@@ -76,6 +76,7 @@ public static class Loc
         ["deny.max"] = new[] { "Максимум", "Maxed" },
         ["deny.need_all"] = new[] { "Нужно всё дерево", "Needs the full tree" },
         ["deny.no_mb"] = new[] { "Мало MB", "Not enough MB" },
+        ["deny.locked"] = new[] { "Ещё закрыт", "Still locked" },
 
         // Skill nodes
         ["skill.core.name"] = new[] { "Вирус", "Virus" },

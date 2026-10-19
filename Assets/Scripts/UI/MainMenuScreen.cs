@@ -6,20 +6,11 @@ using UnityEngine.UI;
 public class MainMenuScreen : MonoBehaviour
 {
     private const string RunSceneName = "Main";
-    private const float DesignWidth = 320f;
-    private const float CanvasWidth = 1920f;
-    private const float CanvasHeight = 1080f;
+    private const float WindowWidth = 460f;
+    private const float WindowHeight = 300f;
+    private const float TitleHeight = 36f;
 
     [SerializeField] private Sprite wallpaper;
-    [SerializeField] private Sprite logo;
-    [SerializeField] private Sprite newGameNormal;
-    [SerializeField] private Sprite newGameHover;
-    [SerializeField] private Sprite newGamePressed;
-    [SerializeField] private Sprite newGameDisabled;
-    [SerializeField] private Sprite exitNormal;
-    [SerializeField] private Sprite exitHover;
-    [SerializeField] private Sprite exitPressed;
-    [SerializeField] private Sprite exitDisabled;
 
     private bool starting;
 
@@ -31,68 +22,96 @@ public class MainMenuScreen : MonoBehaviour
 
         CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(CanvasWidth, CanvasHeight);
+        scaler.referenceResolution = new Vector2(1920f, 1080f);
         scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
         scaler.matchWidthOrHeight = 1f;
 
         gameObject.AddComponent<GraphicRaycaster>();
 
         BuildWallpaper();
-        BuildLogo();
-        ArtButton("New Game", "mainmenu.new_game", newGameNormal, newGameHover, newGamePressed, newGameDisabled, 121, 51, 76, 13, StartNewGame);
-        ArtButton("Exit", "mainmenu.exit", exitNormal, exitHover, exitPressed, exitDisabled, 121, 85, 76, 13, ExitGame);
+        BuildWindow();
     }
 
     private void BuildWallpaper()
     {
         Image image = XpUi.Image("Wallpaper", transform, wallpaper, Color.white);
-        XpUi.Place(image.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(CanvasWidth, CanvasHeight));
-        image.preserveAspect = true;
+        XpUi.Stretch(image.rectTransform);
+        image.preserveAspect = false;
     }
 
-    private void BuildLogo()
+    private void BuildWindow()
     {
-        if (logo == null)
+        ArtBindings art = ArtBindings.Load();
+
+        Image frame = XpUi.Image("Menu Window", transform, null, Color.white, true);
+        if (art != null && art.windowFrame != null)
         {
-            return;
+            ArtBindings.ApplySlice(frame, art.windowFrame);
+        }
+        else
+        {
+            frame.sprite = XpUi.Panel("xpWindowFrame", 32, 32, 9, XpCorners.Top, XpUi.WindowFrame);
+            frame.type = Image.Type.Sliced;
         }
 
-        Image image = XpUi.Image("Logo", transform, logo, Color.white);
-        PlaceDesign(image.rectTransform, 109, 30, 100, 17);
-        image.preserveAspect = true;
+        XpUi.Place(frame.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, Taskbar.Height * 0.5f), new Vector2(WindowWidth, WindowHeight));
+
+        Image title = XpUi.Image("Title Bar", frame.transform, null, Color.white);
+        if (art != null && art.titlebarActive != null)
+        {
+            ArtBindings.ApplySlice(title, art.titlebarActive);
+        }
+        else
+        {
+            title.sprite = XpUi.Panel("xpTitle", 32, 36, 8, XpCorners.Top, XpUi.Hex("#3D95FF"), XpUi.Hex("#0A5FEA"));
+            title.type = Image.Type.Sliced;
+        }
+
+        title.rectTransform.anchorMin = new Vector2(0f, 1f);
+        title.rectTransform.anchorMax = Vector2.one;
+        title.rectTransform.pivot = new Vector2(0.5f, 1f);
+        title.rectTransform.anchoredPosition = Vector2.zero;
+        title.rectTransform.sizeDelta = new Vector2(0f, TitleHeight);
+
+        RectTransform titleTextRoot = XpUi.Rect("Title Text", title.transform);
+        XpUi.Stretch(titleTextRoot, 14f, 0f, 14f, 0f);
+        XpUi.ShadowText("Title", titleTextRoot, "mainmenu.title", 22f, Color.white, TextAlignmentOptions.MidlineLeft, FontStyles.Bold, new Vector2(1.5f, -1.5f));
+
+        Image body = XpUi.Image("Body", frame.transform, null, XpUi.WindowBody);
+        if (art != null && art.settingsBody != null)
+        {
+            ArtBindings.ApplySlice(body, art.settingsBody);
+        }
+
+        XpUi.Stretch(body.rectTransform, 4f, 4f, 4f, TitleHeight);
+
+        if (art != null && art.virus != null)
+        {
+            Image icon = XpUi.Image("Virus", body.transform, art.virus, Color.white);
+            XpUi.Place(icon.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -18f), new Vector2(72f, 72f));
+            icon.preserveAspect = true;
+        }
+
+        MenuButton(body.transform, "mainmenu.new_game", -118f, StartNewGame);
+        MenuButton(body.transform, "mainmenu.exit", -186f, ExitGame);
     }
 
-    private void ArtButton(string name, string key, Sprite normal, Sprite hover, Sprite pressed, Sprite disabled, int x, int y, int width, int height, UnityAction action)
+    private static void MenuButton(Transform parent, string key, float y, UnityAction action)
     {
-        Image image = XpUi.Image(name, transform, normal, Color.white, true);
-        PlaceDesign(image.rectTransform, x, y, width, height);
+        Button button = XpUi.XpButton(key, parent, key, new Vector2(280f, 48f));
+        XpUi.Place((RectTransform)button.transform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, y), new Vector2(280f, 48f));
+        ArtBindings.StyleXpButton(button);
+        TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>();
+        if (label != null)
+        {
+            label.fontSize = 22f;
+        }
 
-        Button button = image.gameObject.AddComponent<Button>();
-        button.targetGraphic = image;
-        button.transition = Selectable.Transition.SpriteSwap;
-        SpriteState state = button.spriteState;
-        state.highlightedSprite = hover;
-        state.pressedSprite = pressed;
-        state.selectedSprite = hover;
-        state.disabledSprite = disabled;
-        button.spriteState = state;
-
-        TextMeshProUGUI label = XpUi.Text("Label", image.transform, string.Empty, 26f, Color.white, TextAlignmentOptions.Center, FontStyles.Bold);
-        XpUi.Stretch(label.rectTransform, 8f, 2f, 8f, 2f);
-        label.outlineWidth = 0.2f;
-        label.outlineColor = new Color32(0, 24, 72, 220);
-        XpUi.Localize(label, key);
         button.onClick.AddListener(() =>
         {
             GameAudio.PlayMouseClick();
             action();
         });
-    }
-
-    private static void PlaceDesign(RectTransform rect, int x, int y, int width, int height)
-    {
-        float scale = CanvasWidth / DesignWidth;
-        XpUi.Place(rect, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(x * scale, -y * scale), new Vector2(width * scale, height * scale));
     }
 
     private void StartNewGame()
