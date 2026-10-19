@@ -255,16 +255,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a87a87b55cbe841a5c6b6ab74a25b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuScreen
-  wallpaper: {fileID: 6248151405480547076, guid: 292f415a4c9974644bde98f4ed12e3c6, type: 3}
-  logo: {fileID: -1835100738850108935, guid: 936f1cedc73840c4b9db7bcd89f96801, type: 3}
-  newGameNormal: {fileID: 382033914698256760, guid: cdb6f4a146ca0974ea4ac0ea49f08d00, type: 3}
-  newGameHover: {fileID: -1576338825868301899, guid: 72e93d9009dc9de46a2ee5bebc3d94af, type: 3}
-  newGamePressed: {fileID: -1405277167125063668, guid: 495443424e914ad4b884bd8721b3fb20, type: 3}
-  newGameDisabled: {fileID: 2936258309704144045, guid: 907d066afddb2494199a21e6342529f8, type: 3}
-  exitNormal: {fileID: 2849277369945584978, guid: 0a8ffa558167eac45a8536fe0f9286cf, type: 3}
-  exitHover: {fileID: 9015978388884096322, guid: 911c1fc6317f1c64db5774903ad7cb1d, type: 3}
-  exitPressed: {fileID: -8464624537913791431, guid: 05ee0c6597e52164b8f5484f32a9d103, type: 3}
-  exitDisabled: {fileID: 497247071052751016, guid: 820ea40aa29c4cb48b5c65488b6df82d, type: 3}
+  wallpaper: {fileID: 21300000, guid: 292f415a4c9974644bde98f4ed12e3c6, type: 3}
+  logo: {fileID: 21300000, guid: 936f1cedc73840c4b9db7bcd89f96801, type: 3}
+  newGameNormal: {fileID: 21300000, guid: cdb6f4a146ca0974ea4ac0ea49f08d00, type: 3}
+  newGameHover: {fileID: 21300000, guid: 72e93d9009dc9de46a2ee5bebc3d94af, type: 3}
+  newGamePressed: {fileID: 21300000, guid: 495443424e914ad4b884bd8721b3fb20, type: 3}
+  newGameDisabled: {fileID: 21300000, guid: 907d066afddb2494199a21e6342529f8, type: 3}
+  exitNormal: {fileID: 21300000, guid: 0a8ffa558167eac45a8536fe0f9286cf, type: 3}
+  exitHover: {fileID: 21300000, guid: 911c1fc6317f1c64db5774903ad7cb1d, type: 3}
+  exitPressed: {fileID: 21300000, guid: 05ee0c6597e52164b8f5484f32a9d103, type: 3}
+  exitDisabled: {fileID: 21300000, guid: 820ea40aa29c4cb48b5c65488b6df82d, type: 3}
 --- !u!1 &1983917986
 GameObject:
   m_ObjectHideFlags: 0

@@ -286,24 +286,27 @@ public class GameEnding : MonoBehaviour
         virusImage.rectTransform.anchoredPosition = new Vector2(0f, 230f);
         virusImage.rectTransform.localScale = Vector3.zero;
 
-        TextMeshProUGUI title = CreateText("Title", screen, string.Empty, 76f);
+        BuildResultWindow(screen);
+        virusImage.transform.SetAsLastSibling();
+
+        TextMeshProUGUI title = CreateText("Title", screen, string.Empty, 64f);
         title.fontStyle = FontStyles.Bold;
-        title.color = infectColor;
-        title.rectTransform.sizeDelta = new Vector2(1800f, 120f);
-        title.rectTransform.anchoredPosition = new Vector2(0f, -20f);
+        title.color = XpUi.TextDark;
+        title.rectTransform.sizeDelta = new Vector2(1100f, 90f);
+        title.rectTransform.anchoredPosition = new Vector2(0f, -40f);
 
-        TextMeshProUGUI subtitle = CreateText("Subtitle", screen, Loc.T("ending.subtitle"), 38f);
-        subtitle.color = new Color(0.8f, 0.82f, 0.9f, 0f);
-        subtitle.rectTransform.sizeDelta = new Vector2(1600f, 70f);
-        subtitle.rectTransform.anchoredPosition = new Vector2(0f, -110f);
+        TextMeshProUGUI subtitle = CreateText("Subtitle", screen, Loc.T("ending.subtitle"), 32f);
+        subtitle.color = new Color(0.15f, 0.2f, 0.32f, 0f);
+        subtitle.rectTransform.sizeDelta = new Vector2(1000f, 60f);
+        subtitle.rectTransform.anchoredPosition = new Vector2(0f, -120f);
 
-        TextMeshProUGUI stats = CreateText("Stats", screen, BuildStatsText(), 30f);
-        stats.color = new Color(0.65f, 0.7f, 0.8f, 0f);
+        TextMeshProUGUI stats = CreateText("Stats", screen, BuildStatsText(), 26f);
+        stats.color = new Color(0.2f, 0.24f, 0.32f, 0f);
         stats.rectTransform.sizeDelta = new Vector2(1700f, 60f);
         stats.rectTransform.anchoredPosition = new Vector2(0f, -190f);
 
-        Button restart = CreateButton(screen, Loc.T("ending.restart"), infectColor, Color.black, new Vector2(-260f, -330f));
-        Button keepEating = CreateButton(screen, Loc.T("ending.keep_eating"), new Color(0.25f, 0.27f, 0.35f, 1f), Color.white, new Vector2(260f, -330f));
+        Button restart = CreateButton(screen, Loc.T("ending.restart"), new Vector2(-260f, -310f));
+        Button keepEating = CreateButton(screen, Loc.T("ending.keep_eating"), new Vector2(260f, -310f));
         restart.gameObject.SetActive(false);
         keepEating.gameObject.SetActive(false);
         restart.onClick.AddListener(StartOver);
@@ -423,24 +426,62 @@ public class GameEnding : MonoBehaviour
         ViewManager.Switch(gameObject.scene.name, skillTreeSceneName);
     }
 
-    private Button CreateButton(RectTransform parent, string label, Color background, Color textColor, Vector2 position)
+    private void BuildResultWindow(RectTransform screen)
     {
-        Image image = CreateImage(label, parent, background);
+        ArtBindings art = ArtBindings.Load();
+        Image frame = CreateImage("Result Window", screen, Color.white);
+        frame.rectTransform.sizeDelta = new Vector2(1240f, 500f);
+        frame.rectTransform.anchoredPosition = new Vector2(0f, -150f);
+        if (art != null && art.windowFrame != null)
+        {
+            ArtBindings.ApplySlice(frame, art.windowFrame);
+        }
+        else
+        {
+            frame.color = XpUi.WindowFrame;
+        }
+
+        Image body = CreateImage("Body", frame.rectTransform, XpUi.WindowBody);
+        Stretch(body.rectTransform);
+        body.rectTransform.offsetMin = new Vector2(8f, 8f);
+        body.rectTransform.offsetMax = new Vector2(-8f, -46f);
+
+        Image title = CreateImage("Title Bar", frame.rectTransform, Color.white);
+        title.rectTransform.anchorMin = new Vector2(0f, 1f);
+        title.rectTransform.anchorMax = new Vector2(1f, 1f);
+        title.rectTransform.pivot = new Vector2(0.5f, 1f);
+        title.rectTransform.anchoredPosition = Vector2.zero;
+        title.rectTransform.sizeDelta = new Vector2(0f, 42f);
+        if (art != null && art.titlebarActive != null)
+        {
+            ArtBindings.ApplySlice(title, art.titlebarActive);
+        }
+
+        TextMeshProUGUI caption = CreateText("Caption", title.rectTransform, Loc.T("end.window"), 24f);
+        Stretch(caption.rectTransform);
+        caption.rectTransform.offsetMin = new Vector2(16f, 0f);
+        caption.alignment = TextAlignmentOptions.MidlineLeft;
+        caption.fontStyle = FontStyles.Bold;
+        caption.color = Color.white;
+    }
+
+    private Button CreateButton(RectTransform parent, string label, Vector2 position)
+    {
+        Image image = CreateImage(label, parent, Color.white);
         image.raycastTarget = true;
-        image.rectTransform.sizeDelta = new Vector2(440f, 96f);
+        image.rectTransform.sizeDelta = new Vector2(440f, 78f);
         image.rectTransform.anchoredPosition = position;
         image.rectTransform.localScale = Vector3.zero;
 
         Button button = image.gameObject.AddComponent<Button>();
-        ColorBlock colors = button.colors;
-        colors.highlightedColor = new Color(1.15f, 1.15f, 1.15f, 1f);
-        colors.pressedColor = new Color(0.75f, 0.75f, 0.75f, 1f);
-        button.colors = colors;
+        ArtBindings.StyleXpButton(button);
 
-        TextMeshProUGUI text = CreateText("Label", image.rectTransform, label, 40f);
+        TextMeshProUGUI text = CreateText("Label", image.rectTransform, label, 30f);
         Stretch(text.rectTransform);
         text.fontStyle = FontStyles.Bold;
-        text.color = textColor;
+        text.color = Color.white;
+        text.outlineWidth = 0.18f;
+        text.outlineColor = new Color32(0, 24, 72, 220);
 
         return button;
     }

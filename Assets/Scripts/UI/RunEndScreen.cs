@@ -36,9 +36,160 @@ public class RunEndScreen : MonoBehaviour
 
     void Awake()
     {
+        ApplyXpChrome();
         upgradeButton.onClick.AddListener(() => Choose(onUpgrade));
         continueButton.onClick.AddListener(() => Choose(onContinue));
         gameObject.SetActive(false);
+    }
+
+    private void ApplyXpChrome()
+    {
+        ArtBindings art = ArtBindings.Load();
+        Image backdrop = GetComponent<Image>();
+        if (backdrop != null)
+        {
+            backdrop.sprite = null;
+            backdrop.color = new Color(0.04f, 0.1f, 0.24f, 0.45f);
+        }
+
+        if (monitor == null)
+        {
+            return;
+        }
+
+        Image bezel = monitor.GetComponent<Image>();
+        if (bezel != null && art != null && art.windowFrame != null)
+        {
+            ArtBindings.ApplySlice(bezel, art.windowFrame);
+        }
+
+        Transform screen = monitor.Find("Screen");
+        if (screen == null)
+        {
+            return;
+        }
+
+        Image screenImage = screen.GetComponent<Image>();
+        if (screenImage != null)
+        {
+            screenImage.sprite = null;
+            screenImage.color = XpUi.WindowBody;
+        }
+
+        BuildTitleBar(screen, art);
+        StyleWell(screen.Find("Computers Bar"), art);
+        StyleWell(screen.Find("Total Panel"), art);
+        StyleWell(screen.Find("Stats Panel"), art);
+        StyleWell(screen.Find("Stats Panel/Files"), art);
+        StyleWell(screen.Find("Stats Panel/Clicks"), art);
+        StyleWell(screen.Find("Stats Panel/GB"), art);
+
+        if (computersFill != null)
+        {
+            computersFill.color = XpUi.Hex("#2F8F45");
+        }
+
+        ArtBindings.StyleXpButton(upgradeButton);
+        ArtBindings.StyleXpButton(continueButton);
+        StyleTmp(upgradeButton.transform, "Label", 32f, Color.white, FontStyles.Bold);
+        StyleTmp(continueButton.transform, "Label", 32f, Color.white, FontStyles.Bold);
+
+        StyleTmp(screen, "Computers Label", 22f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Computers Count", 22f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Total Panel/Title", 28f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Total Panel/Value", 52f, XpUi.Hex("#0C6B32"), FontStyles.Bold);
+        StyleTmp(screen, "Stats Panel/Files/Value", 28f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Stats Panel/Clicks/Value", 28f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Stats Panel/GB/Value", 28f, XpUi.TextDark, FontStyles.Bold);
+        StyleTmp(screen, "Stats Panel/Files Label", 16f, XpUi.TextDark, FontStyles.Normal);
+        StyleTmp(screen, "Stats Panel/Clicks Label", 16f, XpUi.TextDark, FontStyles.Normal);
+        StyleTmp(screen, "Stats Panel/GB Label", 16f, XpUi.TextDark, FontStyles.Normal);
+
+        if (virusDecor != null)
+        {
+            virusDecor.sizeDelta = new Vector2(210f, 210f);
+            virusDecor.anchoredPosition = new Vector2(-460f, -8f);
+        }
+
+        Transform fakeTaskbar = screen.Find("Taskbar");
+        if (fakeTaskbar != null)
+        {
+            fakeTaskbar.gameObject.SetActive(false);
+        }
+    }
+
+    private static void BuildTitleBar(Transform screen, ArtBindings art)
+    {
+        Image title = XpUi.Image("Xp Title", screen, null, Color.white);
+        if (art != null && art.titlebarActive != null)
+        {
+            ArtBindings.ApplySlice(title, art.titlebarActive);
+        }
+        else
+        {
+            title.color = XpUi.WindowFrame;
+        }
+
+        RectTransform rect = title.rectTransform;
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = new Vector2(0f, 42f);
+        XpUi.ShadowText("Title", title.transform, "end.window", 24f, Color.white, TextAlignmentOptions.MidlineLeft, FontStyles.Bold, new Vector2(1.5f, -1.5f));
+        TextMeshProUGUI[] captions = title.GetComponentsInChildren<TextMeshProUGUI>();
+        for (int i = 0; i < captions.Length; i++)
+        {
+            captions[i].rectTransform.offsetMin = new Vector2(16f, 0f);
+            captions[i].rectTransform.offsetMax = new Vector2(-12f, 0f);
+        }
+    }
+
+    private static void StyleWell(Transform well, ArtBindings art)
+    {
+        if (well == null)
+        {
+            return;
+        }
+
+        Image image = well.GetComponent<Image>();
+        if (image == null)
+        {
+            return;
+        }
+
+        if (art != null && art.panelSunken != null)
+        {
+            ArtBindings.ApplySlice(image, art.panelSunken);
+        }
+        else
+        {
+            image.color = new Color(0.78f, 0.78f, 0.72f, 1f);
+        }
+    }
+
+    private static void StyleTmp(Transform parent, string path, float size, Color color, FontStyles style)
+    {
+        if (parent == null)
+        {
+            return;
+        }
+
+        Transform child = parent.Find(path);
+        if (child == null)
+        {
+            return;
+        }
+
+        TextMeshProUGUI text = child.GetComponent<TextMeshProUGUI>();
+        if (text == null)
+        {
+            return;
+        }
+
+        text.fontSize = size;
+        text.color = color;
+        text.fontStyle = style;
     }
 
     void Update()

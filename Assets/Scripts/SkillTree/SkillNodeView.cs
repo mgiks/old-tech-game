@@ -65,8 +65,31 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             skillIcon.sprite = node.icon;
             skillIcon.enabled = node.icon != null;
             skillIcon.color = Color.white;
+            skillIcon.material = null;
             skillIcon.preserveAspect = true;
             skillIcon.raycastTarget = false;
+        }
+
+        if (frame != null)
+        {
+            frame.material = null;
+            frame.color = Color.white;
+        }
+
+        if (glow != null)
+        {
+            glow.material = null;
+            glow.rectTransform.sizeDelta = new Vector2(148f, 148f);
+        }
+
+        if (body != null && skillSlot != null && slotNormal != null)
+        {
+            body.enabled = false;
+        }
+
+        if (nameLabel != null)
+        {
+            nameLabel.color = XpUi.TextDark;
         }
 
         Refresh(-1f);
@@ -103,7 +126,8 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
 
         stateColor = GetStateColor(level);
-        levelLabel.color = Color.Lerp(stateColor, Color.white, 0.35f);
+        nameLabel.color = XpUi.TextDark;
+        levelLabel.color = XpUi.TextDark;
 
         if (hovered)
         {
@@ -153,11 +177,9 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         flash *= Mathf.Exp(-5f * dt);
 
         float pulse = affordable ? 0.5f + 0.5f * Mathf.Sin(now * 4f + phase) : 0f;
-        float idleGlow = affordable ? 0.45f + 0.35f * pulse : skillTree.GetLevel(node) > 0 || node.comingSoon ? 0.3f : 0.12f;
-        float glowAlpha = Mathf.Clamp01(idleGlow + (hovered ? 0.3f : 0f) + flash * 0.8f);
-
-        glow.color = new Color(stateColor.r, stateColor.g, stateColor.b, glowAlpha);
-        glow.rectTransform.localScale = Vector3.one * (1f + flash * 0.5f + pulse * 0.08f);
+        float glowAlpha = (affordable ? 0.16f : 0.07f) + pulse * 0.06f + (hovered ? 0.08f : 0f) + flash * 0.12f;
+        glow.color = new Color(stateColor.r, stateColor.g, stateColor.b, Mathf.Clamp01(glowAlpha));
+        glow.rectTransform.localScale = Vector3.one * (1f + flash * 0.12f);
         if (skillSlot != null && slotNormal != null)
         {
             frame.color = Color.white;
@@ -177,15 +199,22 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             }
 
             skillSlot.sprite = slot;
-            skillSlot.color = Color.white;
+            skillSlot.color = slot != null ? Color.white : new Color(0.05f, 0.1f, 0.22f, 1f);
         }
         else
         {
-            frame.color = Color.Lerp(stateColor, Color.white, flash * 0.8f);
+            frame.color = stateColor;
+            if (skillSlot != null && skillSlot.sprite == null)
+            {
+                skillSlot.color = new Color(0.05f, 0.1f, 0.22f, 1f);
+            }
         }
 
-        Color dark = new(stateColor.r * bodyBrightness, stateColor.g * bodyBrightness, stateColor.b * bodyBrightness, 1f);
-        body.color = Color.Lerp(dark, Color.white, flash * 0.5f);
+        if (body != null && body.enabled)
+        {
+            Color paper = Color.Lerp(new Color(0.7f, 0.69f, 0.62f, 1f), XpUi.WindowBody, Mathf.Clamp01(bodyBrightness + 0.7f));
+            body.color = paper;
+        }
 
         float denyAge = now - denyTime;
         float wobble = denyAge < 0.4f ? Mathf.Sin(denyAge * 70f) * 14f * (1f - denyAge / 0.4f) : 0f;

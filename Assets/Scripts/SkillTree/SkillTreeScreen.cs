@@ -17,6 +17,8 @@ public class SkillTreeScreen : MonoBehaviour
     void Awake()
     {
         startRunButton.onClick.AddListener(StartRun);
+        ArtBindings.StyleXpButton(startRunButton);
+        HideGlow(startRunButton.transform);
         shownMB = GameProgress.MB;
     }
 
@@ -42,6 +44,24 @@ public class SkillTreeScreen : MonoBehaviour
 
         mbPunch *= Mathf.Exp(-8f * dt);
         UpdateDisplay();
+    }
+
+    private static void HideGlow(Transform button)
+    {
+        Transform parent = button.parent;
+        if (parent == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.name.Contains("Glow"))
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void OnProgressChanged()

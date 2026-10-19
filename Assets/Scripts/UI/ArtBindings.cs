@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,10 @@ public class ArtBindings : MonoBehaviour
     public Sprite volumeHandle;
     public Sprite settingsIcon;
     public Sprite virus;
+    public Sprite buttonNormal;
+    public Sprite buttonHover;
+    public Sprite buttonPressed;
+    public Sprite buttonDisabled;
     public Texture2D cursorDefault;
     public Vector2 cursorDefaultHotspot = new(1f, 1f);
     public Texture2D cursorGrab;
@@ -60,6 +65,44 @@ public class ArtBindings : MonoBehaviour
         if (sprite.pixelsPerUnit > 0f)
         {
             image.pixelsPerUnitMultiplier = 100f / sprite.pixelsPerUnit;
+        }
+    }
+
+    public static void StyleXpButton(Button button)
+    {
+        if (button == null)
+        {
+            return;
+        }
+
+        ArtBindings art = Load();
+        Image image = button.targetGraphic as Image;
+        if (image == null)
+        {
+            image = button.GetComponent<Image>();
+        }
+
+        if (image != null && art != null && art.buttonNormal != null)
+        {
+            image.material = null;
+            ApplySlice(image, art.buttonNormal);
+            button.targetGraphic = image;
+            button.transition = Selectable.Transition.SpriteSwap;
+            SpriteState state = button.spriteState;
+            state.highlightedSprite = art.buttonHover;
+            state.pressedSprite = art.buttonPressed;
+            state.selectedSprite = art.buttonHover;
+            state.disabledSprite = art.buttonDisabled;
+            button.spriteState = state;
+        }
+
+        TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>();
+        if (label != null)
+        {
+            label.color = Color.white;
+            label.fontStyle = FontStyles.Bold;
+            label.outlineWidth = 0.18f;
+            label.outlineColor = new Color32(0, 24, 72, 220);
         }
     }
 }

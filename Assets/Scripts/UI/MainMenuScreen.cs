@@ -77,8 +77,10 @@ public class MainMenuScreen : MonoBehaviour
         state.disabledSprite = disabled;
         button.spriteState = state;
 
-        TextMeshProUGUI label = XpUi.Text("Label", image.transform, string.Empty, 28f, Color.white, TextAlignmentOptions.Center, FontStyles.Bold);
-        XpUi.Stretch(label.rectTransform);
+        TextMeshProUGUI label = XpUi.Text("Label", image.transform, string.Empty, 26f, Color.white, TextAlignmentOptions.Center, FontStyles.Bold);
+        XpUi.Stretch(label.rectTransform, 8f, 2f, 8f, 2f);
+        label.outlineWidth = 0.2f;
+        label.outlineColor = new Color32(0, 24, 72, 220);
         XpUi.Localize(label, key);
         button.onClick.AddListener(() =>
         {

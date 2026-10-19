@@ -50,6 +50,7 @@ public static class Loc
         ["intro.feed"] = new[] { "Перетаскивай файлы в глича!", "Drag files into the glitch!" },
 
         // End of run screen
+        ["end.window"] = new[] { "Итоги забега", "Run summary" },
         ["end.total"] = new[] { "ТОТАЛ ПОЛУЧЕНО", "TOTAL EARNED" },
         ["end.gb"] = new[] { "гб получено", "GB earned" },
         ["end.files"] = new[] { "файлов заражено", "files infected" },

@@ -73,6 +73,16 @@ public class CrtMonitor : MonoBehaviour
         BuildView(layer);
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     void OnDestroy()
     {
         if (texture != null)
@@ -82,6 +92,11 @@ public class CrtMonitor : MonoBehaviour
         }
 
         MonitorScreen.ResetSession();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        BindGame();
     }
 
     void Update()

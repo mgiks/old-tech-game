@@ -20,6 +20,10 @@ public class Virus : MonoBehaviour
     {
         initialScale = transform.localScale;
         initialExponent = exponent;
+        if (GetComponent<VirusLook>() == null)
+        {
+            gameObject.AddComponent<VirusLook>();
+        }
     }
 
     public void ResetGrowth()
@@ -37,6 +41,11 @@ public class Virus : MonoBehaviour
         }
 
         GameAudio.Play(GameSfx.VirusEating);
+        VirusLook look = GetComponent<VirusLook>();
+        if (look != null)
+        {
+            look.PlayEat();
+        }
 
         if (scale)
         {

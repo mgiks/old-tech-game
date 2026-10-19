@@ -232,6 +232,11 @@ public class RunManager : MonoBehaviour
             feedback.ShowPopup(center + Vector2.down * 1.2f, Loc.T("popup.need_worm"), Color.white, 1f);
             feedback.Burst(center, serverDeniedColor, 40, 10f);
             feedback.Shake(0.5f);
+            VirusLook look = virus.GetComponent<VirusLook>();
+            if (look != null)
+            {
+                look.PlayDeny();
+            }
         }
 
         Vector3 bigScale = virus.transform.localScale;
