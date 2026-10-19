@@ -69,7 +69,7 @@ public class RunManager : MonoBehaviour
 
         if (intro != null && intro.ShouldPlay)
         {
-            intro.Play(BeginRun);
+            IcqStory.Play(() => intro.Play(BeginRun));
         }
         else
         {

@@ -35,6 +35,21 @@ public static class Loc
         ["mainmenu.new_game"] = new[] { "Новая игра", "New game" },
         ["mainmenu.exit"] = new[] { "Выход", "Exit" },
 
+        // ICQ backstory
+        ["icq"] = new[] { "icq", "icq" },
+        ["icq.chat"] = new[] { "Сообщение", "Message" },
+        ["icq.send"] = new[] { "Отправить", "Send" },
+        ["icq.me"] = new[] { "Я", "Me" },
+        ["icq.boss"] = new[] { "Босс (палец вниз)", "Boss (thumbs down)" },
+        ["icq.martin"] = new[] { "Урод 1 (коллега Мартин)", "Jerk 1 (coworker Martin)" },
+        ["icq.vitas"] = new[] { "Урод 2 (коллега Витас)", "Jerk 2 (coworker Vitas)" },
+        ["icq.xavier"] = new[] { "Урод 3 (коллега Ксавьер)", "Jerk 3 (coworker Xavier)" },
+        ["icq.katie"] = new[] { "Урод 4 (коллега Кэти)", "Jerk 4 (coworker Katie)" },
+        ["icq.sema"] = new[] { "Классный перец (Сема)", "Cool guy (Sema)" },
+        ["icq.boss_message"] = new[] { "Ты уволен! Собирай вещи и проваливай", "You're fired! Pack your things and get out" },
+        ["icq.player_reply"] = new[] { "Ок, дайте мне 5 минут\nя сохраню проект", "Ok, give me 5 minutes\nI'll save the project" },
+        ["icq.sema_message"] = new[] { "Черт, меня уволили! Я собирался сам уйти из этого проклятого места, но раз так, то я напоследок заражу им все компьютеры ВИРУСОМ!!!!", "Damn, they fired me! I was going to leave this cursed place myself, but fine — on my way out I'll infect every one of their computers with a VIRUS!!!!" },
+
         // Run HUD and popups
         ["hud.pc"] = new[] { "ПК {0}/{1} · заражено файлов {2}/{3}", "PC {0}/{1} · files infected {2}/{3}" },
         ["hud.server"] = new[] { "СЕРВЕР {0}/{1} · заражено файлов {2}/{3}", "SERVER {0}/{1} · files infected {2}/{3}" },

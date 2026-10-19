@@ -161,6 +161,12 @@ public static class GameAudio
             return;
         }
 
+        if (channel.source == null)
+        {
+            channels.Remove(sfx);
+            return;
+        }
+
         channel.source.loop = false;
         channel.source.Stop();
     }
@@ -193,7 +199,12 @@ public static class GameAudio
         Channel channel;
         if (channels.TryGetValue(sfx, out channel))
         {
-            return channel;
+            if (channel.source != null)
+            {
+                return channel;
+            }
+
+            channels.Remove(sfx);
         }
 
         if (root == null)
