@@ -5,10 +5,13 @@ using UnityEngine;
 
 public static class GameProgress
 {
-    private const string FileName = "progress_v2.json";
+    public const string ProductionSaveName = "progress_v2.json";
+    public const string DevelopmentSaveName = "progress_v2.dev.json";
+    private const string ResetOnPlayKey = "OldTech.ResetProgressOnPlay";
 
     private static readonly Dictionary<string, int> skillLevels = new();
     private static bool loading;
+    private static string sandboxPath;
 
     public static long MB { get; private set; }
     public static long TotalMB { get; private set; }
@@ -34,7 +37,45 @@ public static class GameProgress
 
     public static event Action Changed;
 
-    public static string SavePath => Path.Combine(Application.persistentDataPath, FileName);
+    public static bool UsesDevelopmentSave
+    {
+        get
+        {
+#if UNITY_EDITOR
+            return string.IsNullOrEmpty(sandboxPath);
+#else
+            return false;
+#endif
+        }
+    }
+
+    public static string SavePath
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(sandboxPath))
+            {
+                return sandboxPath;
+            }
+
+#if UNITY_EDITOR
+            return Path.Combine(Application.persistentDataPath, DevelopmentSaveName);
+#else
+            return Path.Combine(Application.persistentDataPath, ProductionSaveName);
+#endif
+        }
+    }
+
+    public static string ProductionSavePath => Path.Combine(Application.persistentDataPath, ProductionSaveName);
+
+    public static string DevelopmentSavePath => Path.Combine(Application.persistentDataPath, DevelopmentSaveName);
+
+    internal static string SandboxPath => sandboxPath;
+
+    internal static Dictionary<string, int> CopyLevels()
+    {
+        return new Dictionary<string, int>(skillLevels);
+    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetSession()
@@ -47,9 +88,105 @@ public static class GameProgress
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Boot()
     {
+        sandboxPath = null;
+#if UNITY_EDITOR
+        PrepareEditorSave();
+#endif
         Load();
         Application.quitting -= Save;
         Application.quitting += Save;
+    }
+
+#if UNITY_EDITOR
+    private static void PrepareEditorSave()
+    {
+        bool resetOnPlay = UnityEditor.EditorPrefs.GetBool(ResetOnPlayKey, false);
+        if (resetOnPlay)
+        {
+            TryDelete(DevelopmentSavePath);
+            return;
+        }
+
+        if (!File.Exists(DevelopmentSavePath) && File.Exists(ProductionSavePath))
+        {
+            try
+            {
+                File.Copy(ProductionSavePath, DevelopmentSavePath);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning("Development save could not be seeded: " + exception.Message);
+            }
+        }
+    }
+#endif
+
+    public static ProgressSandbox BeginSandbox(string absoluteSavePath)
+    {
+        ProgressSandbox sandbox = ProgressSandbox.Capture();
+        sandboxPath = absoluteSavePath;
+        loading = true;
+        ClearMemory();
+        loading = false;
+        return sandbox;
+    }
+
+    public static void ClearSandboxProgress()
+    {
+        if (string.IsNullOrEmpty(sandboxPath))
+        {
+            return;
+        }
+
+        loading = true;
+        ClearMemory();
+        loading = false;
+    }
+
+    public static void ResetDevelopmentSave()
+    {
+#if UNITY_EDITOR
+        loading = true;
+        ClearMemory();
+        loading = false;
+        TryDelete(DevelopmentSavePath);
+        Changed?.Invoke();
+#else
+        Debug.LogWarning("Development reset is available in the editor only.");
+#endif
+    }
+
+    private static bool WouldEraseProgress()
+    {
+        if (MB != 0 || TotalMB != 0 || IntroDone || GameCompleted || skillLevels.Count > 0 || !File.Exists(SavePath))
+        {
+            return false;
+        }
+
+        try
+        {
+            SaveFile existing = JsonUtility.FromJson<SaveFile>(File.ReadAllText(SavePath));
+            return existing != null && (existing.mb > 0 || existing.totalMb > 0 || existing.introDone || existing.gameCompleted || (existing.ids != null && existing.ids.Length > 0));
+        }
+        catch (Exception)
+        {
+            return true;
+        }
+    }
+
+    private static void TryDelete(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning("Save could not be deleted: " + exception.Message);
+        }
     }
 
     public static int GetSkillLevel(string skillId)
@@ -170,7 +307,7 @@ public static class GameProgress
 
     public static void Save()
     {
-        if (loading)
+        if (loading || WouldEraseProgress())
         {
             return;
         }
@@ -265,6 +402,27 @@ public static class GameProgress
         }
     }
 
+    internal static void LeaveSandbox(ProgressSandbox sandbox)
+    {
+        loading = true;
+        skillLevels.Clear();
+        if (sandbox.Levels != null)
+        {
+            foreach (KeyValuePair<string, int> pair in sandbox.Levels)
+            {
+                skillLevels[pair.Key] = pair.Value;
+            }
+        }
+
+        MB = sandbox.Mb;
+        TotalMB = sandbox.TotalMb;
+        IntroDone = sandbox.Intro;
+        GameCompleted = sandbox.Completed;
+        sandboxPath = sandbox.PreviousPath;
+        loading = false;
+        Changed?.Invoke();
+    }
+
     private static void Reject(string rejectedName)
     {
         try
@@ -296,5 +454,40 @@ public static class GameProgress
         public bool gameCompleted;
         public string[] ids;
         public int[] levels;
+    }
+}
+
+public sealed class ProgressSandbox : IDisposable
+{
+    internal Dictionary<string, int> Levels;
+    internal long Mb;
+    internal long TotalMb;
+    internal bool Intro;
+    internal bool Completed;
+    internal string PreviousPath;
+    private bool disposed;
+
+    internal static ProgressSandbox Capture()
+    {
+        return new ProgressSandbox
+        {
+            Levels = GameProgress.CopyLevels(),
+            Mb = GameProgress.MB,
+            TotalMb = GameProgress.TotalMB,
+            Intro = GameProgress.IntroDone,
+            Completed = GameProgress.GameCompleted,
+            PreviousPath = GameProgress.SandboxPath
+        };
+    }
+
+    public void Dispose()
+    {
+        if (disposed)
+        {
+            return;
+        }
+
+        disposed = true;
+        GameProgress.LeaveSandbox(this);
     }
 }

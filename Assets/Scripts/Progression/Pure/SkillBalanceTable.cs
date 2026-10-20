@@ -72,6 +72,26 @@ public enum SkillVisibility
     Maxed
 }
 
+public enum PurchaseBlock
+{
+    None,
+    MissingCurrency,
+    RequiredSkill,
+    TotalThreshold,
+    MaxLevel,
+    Unavailable
+}
+
+public struct PurchaseDenial
+{
+    public PurchaseBlock Block;
+    public string SkillId;
+    public int RequiredLevel;
+    public int RequiredPurchases;
+
+    public bool CanBuy => Block == PurchaseBlock.None;
+}
+
 public sealed class SkillDef
 {
     public string Id;
@@ -125,6 +145,8 @@ public static class SkillBalanceTable
     public const string H2 = "h2_mini_chain";
     public const string H3 = "h3_cascade_overload";
 
+    private static int[] stagedUnlockLevels;
+
     private static readonly SkillDef[] skills =
     {
         Node(Core, SkillCategory.Core, SkillEffectId.None, 0, 0, true, true, 0f, 0f, null, null, L()),
@@ -171,12 +193,6 @@ public static class SkillBalanceTable
     };
 
     private static readonly Dictionary<string, SkillDef> byId = BuildIndex();
-
-    static SkillBalanceTable()
-    {
-        Find(A3).UnlockLevels = new[] { 2 };
-        Find(B3).UnlockLevels = new[] { 2 };
-    }
 
     public static IReadOnlyList<SkillDef> Skills => skills;
 
@@ -246,10 +262,13 @@ public static class SkillBalanceTable
 
     private static string[] U(params object[] pairs)
     {
-        string[] ids = new string[pairs.Length / 2];
-        for (int i = 0; i < ids.Length; i++)
+        int count = pairs.Length / 2;
+        string[] ids = new string[count];
+        stagedUnlockLevels = new int[count];
+        for (int i = 0; i < count; i++)
         {
             ids[i] = (string)pairs[i * 2];
+            stagedUnlockLevels[i] = (int)pairs[i * 2 + 1];
         }
 
         return ids;
@@ -274,12 +293,21 @@ public static class SkillBalanceTable
         int[] levels = Array.Empty<int>();
         if (unlockIds != null && unlockIds.Length > 0)
         {
-            levels = new int[unlockIds.Length];
-            for (int i = 0; i < levels.Length; i++)
+            if (stagedUnlockLevels != null && stagedUnlockLevels.Length == unlockIds.Length)
             {
-                levels[i] = 1;
+                levels = stagedUnlockLevels;
+            }
+            else
+            {
+                levels = new int[unlockIds.Length];
+                for (int i = 0; i < levels.Length; i++)
+                {
+                    levels[i] = 1;
+                }
             }
         }
+
+        stagedUnlockLevels = null;
 
         return new SkillDef
         {

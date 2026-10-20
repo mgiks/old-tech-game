@@ -23,11 +23,11 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
     [SerializeField] private SkillTreeFx fx;
 
     [Header("Lines")]
-    [SerializeField] private float lineThickness = 22f;
+    [SerializeField] private float lineThickness = 10f;
     [SerializeField] private Material ownedLineMaterial;
     [SerializeField] private Material lockedLineMaterial;
-    [SerializeField] private Color ownedLineColor = new(0.3f, 0.9f, 1f, 1f);
-    [SerializeField] private Color lockedLineColor = new(0.35f, 0.4f, 0.6f, 0.5f);
+    [SerializeField] private Color ownedLineColor = new(0.38f, 0.55f, 0.40f, 1f);
+    [SerializeField] private Color lockedLineColor = new(0.55f, 0.53f, 0.48f, 0.95f);
 
     [Header("Animation")]
     [SerializeField] private float introDelay = 0.45f;
@@ -44,9 +44,19 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
     private readonly List<Line> lines = new();
     private Canvas canvas;
 
+    public SkillTreeDefinition Definition => skillTree;
+
     void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
+        lineThickness = 10f;
+        ownedLineColor = new Color(0.38f, 0.55f, 0.40f, 1f);
+        lockedLineColor = new Color(0.62f, 0.60f, 0.55f, 1f);
+        _ = ownedLineMaterial;
+        _ = lockedLineMaterial;
+        _ = introDelay;
+        _ = introSecondsPerPixel;
+        _ = revealDelay;
         Build();
     }
 
@@ -68,9 +78,76 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
         Refresh(false);
     }
 
-    void Start()
+    System.Collections.IEnumerator Start()
     {
-        PlayIntro();
+        yield return null;
+        ResetView();
+    }
+
+    public void ResetView()
+    {
+        bool any = false;
+        float minX = 0f;
+        float maxX = 0f;
+        float minY = 0f;
+        float maxY = 0f;
+        foreach (SkillTreeDefinition.Node node in skillTree.Nodes)
+        {
+            if (!skillTree.IsRevealed(node))
+            {
+                continue;
+            }
+
+            if (!any)
+            {
+                minX = maxX = node.position.x;
+                minY = maxY = node.position.y;
+                any = true;
+            }
+            else
+            {
+                minX = Mathf.Min(minX, node.position.x);
+                maxX = Mathf.Max(maxX, node.position.x);
+                minY = Mathf.Min(minY, node.position.y);
+                maxY = Mathf.Max(maxY, node.position.y);
+            }
+        }
+
+        if (!any)
+        {
+            content.localScale = Vector3.one;
+            content.anchoredPosition = Vector2.zero;
+            return;
+        }
+
+        Rect area = ((RectTransform)transform).rect;
+        Vector2 focus = new((minX + maxX) * 0.5f, (minY + maxY) * 0.5f);
+        float spanX = Mathf.Max(280f, maxX - minX + 280f);
+        float spanY = Mathf.Max(280f, maxY - minY + 280f);
+        float zoom = 1f;
+        if (area.width > 1f && area.height > 1f)
+        {
+            zoom = Mathf.Min(area.width / spanX, area.height / spanY);
+        }
+
+        zoom = Mathf.Clamp(zoom, minZoom, 1f);
+        content.localScale = new Vector3(zoom, zoom, 1f);
+        content.anchoredPosition = -focus * zoom;
+    }
+
+    public bool TryGetNodeRect(string skillId, out RectTransform nodeRect)
+    {
+        foreach (KeyValuePair<SkillTreeDefinition.Node, SkillNodeView> pair in nodeViews)
+        {
+            if (pair.Key.id == skillId && pair.Value.gameObject.activeInHierarchy)
+            {
+                nodeRect = (RectTransform)pair.Value.transform;
+                return true;
+            }
+        }
+
+        nodeRect = null;
+        return false;
     }
 
     void Update()
@@ -135,7 +212,8 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
         {
             SkillNodeView view = Instantiate(nodePrefab, nodesRoot);
             view.name = $"Node {node.id}";
-            ((RectTransform)view.transform).anchoredPosition = node.position;
+            RectTransform nodeRect = (RectTransform)view.transform;
+            nodeRect.anchoredPosition = node.position;
             view.Init(skillTree, node, tooltip, fx);
             nodeViews.Add(node, view);
         }
@@ -148,40 +226,10 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
 
         UILine graphic = go.GetComponent<UILine>();
         graphic.raycastTarget = false;
+        graphic.material = null;
         graphic.Set(from.position, to.position, lineThickness);
 
         return new Line { graphic = graphic, from = from, to = to };
-    }
-
-    private void PlayIntro()
-    {
-        float now = Time.unscaledTime;
-
-        foreach (KeyValuePair<SkillTreeDefinition.Node, SkillNodeView> pair in nodeViews)
-        {
-            if (skillTree.IsRevealed(pair.Key))
-            {
-                pair.Value.PlayPop(GetIntroDelay(pair.Key), false);
-            }
-        }
-
-        foreach (Line line in lines)
-        {
-            if (!line.revealed)
-            {
-                continue;
-            }
-
-            float startDelay = GetIntroDelay(line.from);
-            line.drawStart = now + startDelay;
-            line.drawDuration = Mathf.Max(0.05f, GetIntroDelay(line.to) - startDelay);
-            line.graphic.Progress = 0f;
-        }
-    }
-
-    private float GetIntroDelay(SkillTreeDefinition.Node node)
-    {
-        return introDelay + node.position.magnitude * introSecondsPerPixel;
     }
 
     private void OnProgressChanged()
@@ -195,7 +243,7 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
 
         foreach (SkillNodeView view in nodeViews.Values)
         {
-            view.Refresh(animate ? revealDelay : -1f);
+            view.Refresh();
         }
 
         foreach (Line line in lines)
@@ -212,7 +260,7 @@ public class SkillTreeView : MonoBehaviour, IDragHandler, IScrollHandler
             line.graphic.gameObject.SetActive(revealed);
 
             bool owned = skillTree.GetLevel(line.to) > 0;
-            line.graphic.material = owned ? ownedLineMaterial : lockedLineMaterial;
+            line.graphic.material = null;
             line.graphic.color = owned ? ownedLineColor : lockedLineColor;
         }
     }

@@ -125,7 +125,12 @@ public class SkillTreeDefinition : ScriptableObject
 
     public long GetCost(Node node)
     {
-        return EconomyMath.NextPurchaseCost(GameProgress.TotalPurchases);
+        return SkillPurchase.NextCost();
+    }
+
+    public PurchaseDenial Evaluate(Node node)
+    {
+        return SkillPurchase.Evaluate(node == null ? null : SkillBalanceTable.Find(node.id));
     }
 
     public SkillVisibility GetVisibility(Node node)
@@ -162,33 +167,12 @@ public class SkillTreeDefinition : ScriptableObject
 
     public bool CanBuy(Node node)
     {
-        return node != null
-            && !node.anchor
-            && !node.comingSoon
-            && !IsMaxed(node)
-            && GetVisibility(node) == SkillVisibility.Purchasable;
+        return node != null && !node.comingSoon && Evaluate(node).CanBuy;
     }
 
     public bool TryBuy(Node node)
     {
-        if (!CanBuy(node))
-        {
-            return false;
-        }
-
-        long cost = GetCost(node);
-        if (!GameProgress.TrySpendMB(cost))
-        {
-            return false;
-        }
-
-        if (!GameProgress.CommitSkillLevel(node.id, GetLevel(node) + 1))
-        {
-            GameProgress.RefundMB(cost);
-            return false;
-        }
-
-        return true;
+        return node != null && !node.comingSoon && SkillPurchase.TryBuy(node.id);
     }
 
     public void GetMasteryProgress(out int done, out int total)

@@ -59,14 +59,14 @@ public static class UnlockEval
             return SkillVisibility.Maxed;
         }
 
-        if (owned > 0)
-        {
-            return SkillVisibility.Partial;
-        }
-
         if (Meets(skill, level, totalPurchases))
         {
             return mb >= nextCost && nextCost > 0 ? SkillVisibility.Purchasable : SkillVisibility.Available;
+        }
+
+        if (owned > 0)
+        {
+            return SkillVisibility.Partial;
         }
 
         if (!SkillPrereqsMet(skill, level, out int unmet, out bool oneShort, out string unmetId, out int unmetHave))
@@ -96,6 +96,69 @@ public static class UnlockEval
         }
 
         return SkillVisibility.Locked;
+    }
+
+    public static PurchaseDenial Evaluate(SkillDef skill, Func<string, int> level, int totalPurchases, long mb, long nextCost)
+    {
+        if (skill == null || skill.Anchor || skill.MaxLevel <= 0)
+        {
+            return new PurchaseDenial { Block = PurchaseBlock.Unavailable };
+        }
+
+        int owned = level(skill.Id);
+        if (owned >= skill.MaxLevel)
+        {
+            return new PurchaseDenial { Block = PurchaseBlock.MaxLevel };
+        }
+
+        for (int i = 0; i < skill.UnlockIds.Length; i++)
+        {
+            int need = i < skill.UnlockLevels.Length ? skill.UnlockLevels[i] : 1;
+            int have = level(skill.UnlockIds[i]);
+            if (have < need)
+            {
+                return new PurchaseDenial
+                {
+                    Block = PurchaseBlock.RequiredSkill,
+                    SkillId = skill.UnlockIds[i],
+                    RequiredLevel = need
+                };
+            }
+        }
+
+        if (totalPurchases < skill.MinTotal)
+        {
+            return new PurchaseDenial
+            {
+                Block = PurchaseBlock.TotalThreshold,
+                RequiredPurchases = skill.MinTotal
+            };
+        }
+
+        for (int i = 0; i < skill.Systems.Length; i++)
+        {
+            if (!SystemUnlocked(skill.Systems[i], level))
+            {
+                return new PurchaseDenial
+                {
+                    Block = PurchaseBlock.RequiredSkill,
+                    SkillId = SkillBalanceTable.SystemUnlockId(skill.Systems[i]),
+                    RequiredLevel = 1
+                };
+            }
+        }
+
+        if (nextCost <= 0 || totalPurchases >= ProgressionConfig.TargetPurchases)
+        {
+            return new PurchaseDenial { Block = PurchaseBlock.MaxLevel };
+        }
+
+        if (mb < nextCost)
+        {
+            return new PurchaseDenial { Block = PurchaseBlock.MissingCurrency };
+        }
+
+        return new PurchaseDenial { Block = PurchaseBlock.None };
     }
 
     public static List<string> Validate()
@@ -139,6 +202,18 @@ public static class UnlockEval
         if (SkillBalanceTable.MaxLevelSum() != 120)
         {
             errors.Add("max level sum " + SkillBalanceTable.MaxLevelSum());
+        }
+
+        SkillDef downloadBuffer = SkillBalanceTable.Find(SkillBalanceTable.A3);
+        SkillDef valuable = SkillBalanceTable.Find(SkillBalanceTable.B3);
+        if (downloadBuffer == null || downloadBuffer.UnlockLevels.Length != 1 || downloadBuffer.UnlockLevels[0] != 2)
+        {
+            errors.Add("a3 unlock level");
+        }
+
+        if (valuable == null || valuable.UnlockLevels.Length != 1 || valuable.UnlockLevels[0] != 2)
+        {
+            errors.Add("b3 unlock level");
         }
 
         errors.AddRange(FindCycles());
@@ -272,7 +347,9 @@ public static class UnlockEval
                     continue;
                 }
 
-                if (Meets(skill, id => levels.TryGetValue(id, out int value) ? value : 0, total))
+                Func<string, int> read = id => levels.TryGetValue(id, out int value) ? value : 0;
+                PurchaseDenial denial = Evaluate(skill, read, total, long.MaxValue, EconomyMath.NextPurchaseCost(total));
+                if (denial.CanBuy)
                 {
                     next = skill;
                     break;

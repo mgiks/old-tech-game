@@ -51,6 +51,9 @@ public class SkillTreeFx : MonoBehaviour
 
     void Awake()
     {
+        _ = shake;
+        _ = postFx;
+        _ = background;
         for (int i = 0; i < particlePoolSize; i++)
         {
             GameObject go = new("Particle", typeof(RectTransform), typeof(Image));
@@ -97,83 +100,38 @@ public class SkillTreeFx : MonoBehaviour
     public void PlayPurchase(RectTransform node, Color color, bool maxed, long cost)
     {
         Vector2 p = ToFx(node);
-
-        int sparks = maxed ? 80 : 45;
-        for (int i = 0; i < sparks; i++)
-        {
-            Color c = Random.value < 0.3f ? Color.white : color;
-            EmitSpark(p, RandomDirection() * Random.Range(350f, maxed ? 1400f : 1000f), Random.Range(0.45f, 1f), Random.Range(10f, 22f), c);
-        }
-
-        for (int i = 0; i < 16; i++)
-        {
-            Vector2 velocity = Random.insideUnitCircle * 120f + Vector2.up * Random.Range(80f, 200f);
-            Emit(particleSprite, p + Random.insideUnitCircle * 40f, velocity, Random.Range(1.2f, 1.8f), Random.Range(6f, 12f), 0f, 1f, 0f, color);
-        }
-
-        EmitRing(p, 60f, maxed ? 900f : 620f, 0.55f, color);
-        EmitRing(p, 30f, maxed ? 1300f : 900f, 0.75f, new Color(1f, 1f, 1f, 0.6f));
-        if (maxed)
-        {
-            EmitRing(p, 10f, 1800f, 1f, color);
-        }
-
-        ShowPopup(p + Vector2.up * 70f, "-" + NumberFormat.Mb(cost) + " MB", costColor, 1f);
-        ShowPopup(p + Vector2.up * 125f, maxed ? "MAX!" : "LEVEL UP", color, maxed ? 1.5f : 1.15f);
-
-        shake?.Add(maxed ? 26f : 14f);
-        postFx?.Punch(maxed ? 1f : 0.6f);
-        background?.Shockwave(node.position, color);
-        flashAlpha = Mathf.Max(flashAlpha, maxed ? 0.35f : 0.18f);
+        ShowPopup(p + Vector2.up * 64f, "-" + NumberFormat.Mb(cost) + " MB", costColor, 0.8f);
+        _ = color;
+        _ = maxed;
     }
 
     public void PlayReveal(RectTransform node, Color color)
     {
-        Vector2 p = ToFx(node);
-        for (int i = 0; i < 20; i++)
-        {
-            EmitSpark(p, RandomDirection() * Random.Range(150f, 450f), Random.Range(0.4f, 0.8f), Random.Range(6f, 14f), color);
-        }
-
-        EmitRing(p, 20f, 320f, 0.45f, color);
-        shake?.Add(4f);
+        _ = node;
+        _ = color;
     }
 
     public void PlayIntroPop(RectTransform node, Color color)
     {
-        Vector2 p = ToFx(node);
-        for (int i = 0; i < 8; i++)
-        {
-            EmitSpark(p, RandomDirection() * Random.Range(120f, 320f), Random.Range(0.3f, 0.6f), Random.Range(5f, 10f), color);
-        }
-
-        EmitRing(p, 10f, 240f, 0.4f, new Color(color.r, color.g, color.b, 0.6f));
+        _ = node;
+        _ = color;
     }
 
     public void PlayPoke(RectTransform node, Color color)
     {
-        Vector2 p = ToFx(node);
-        for (int i = 0; i < 24; i++)
-        {
-            EmitSpark(p, RandomDirection() * Random.Range(200f, 700f), Random.Range(0.4f, 0.8f), Random.Range(8f, 16f), color);
-        }
-
-        EmitRing(p, 40f, 520f, 0.5f, color);
-        shake?.Add(6f);
-        postFx?.Punch(0.25f);
-        background?.Shockwave(node.position, color);
+        _ = node;
+        _ = color;
     }
 
     public void PlayDenied(RectTransform node, string message)
     {
-        Vector2 p = ToFx(node);
-        for (int i = 0; i < 12; i++)
+        if (node == null)
         {
-            EmitSpark(p, RandomDirection() * Random.Range(80f, 260f), Random.Range(0.3f, 0.5f), Random.Range(6f, 10f), deniedColor);
+            return;
         }
 
-        ShowPopup(p + Vector2.up * 80f, message, deniedColor, 0.9f);
-        shake?.Add(5f);
+        Vector2 p = ToFx(node);
+        ShowPopup(p + Vector2.up * 64f, message, deniedColor, 1.1f);
     }
 
     void Update()
@@ -321,7 +279,7 @@ public class SkillTreeFx : MonoBehaviour
         popup.baseScale = scale;
         popup.text.text = message;
         popup.text.color = color;
-        popup.text.fontSize = 44f;
+        popup.text.fontSize = 30f;
         popup.text.rectTransform.anchoredPosition = position;
         popup.text.gameObject.SetActive(true);
         popup.text.transform.SetAsLastSibling();

@@ -80,7 +80,7 @@ public static class Loc
 
         // Skill tree screen
         ["tree.title"] = new[] { "ДЕРЕВО НАВЫКОВ", "SKILL TREE" },
-        ["tree.hint"] = new[] { "ЛКМ по узлу — купить   •   Тянуть мышью — двигать   •   Колёсико — зум", "LMB on a node — buy   •   Drag — move   •   Wheel — zoom" },
+        ["tree.hint"] = new[] { "ЛКМ — выбрать   •   Купить — внизу   •   Тянуть — двигать   •   Колёсико — зум", "LMB — select   •   Buy is below   •   Drag — move   •   Wheel — zoom" },
         ["tree.new_run"] = new[] { "Новый забег", "New run" },
         ["tree.soon"] = new[] { "скоро", "soon" },
         ["tooltip.soon"] = new[] { "Скоро", "Soon" },
@@ -91,6 +91,9 @@ public static class Loc
         ["deny.max"] = new[] { "Максимум", "Maxed" },
         ["deny.need_all"] = new[] { "Нужно всё дерево", "Needs the full tree" },
         ["deny.no_mb"] = new[] { "Мало MB", "Not enough MB" },
+        ["deny.no_mb_cost"] = new[] { "Не хватает MB: нужно {0}", "Not enough MB: need {0}" },
+        ["deny.need_skill"] = new[] { "Нужно: {0}, уровень {1}", "Requires {0}, level {1}" },
+        ["deny.need_purchases"] = new[] { "Нужно покупок: {0} (сейчас {1})", "Need {0} purchases (now {1})" },
         ["deny.locked"] = new[] { "Ещё закрыт", "Still locked" },
 
         // Skill nodes
@@ -161,7 +164,17 @@ public static class Loc
         ["tooltip.now"] = new[] { "Сейчас: {0}", "Now: {0}" },
         ["tooltip.next"] = new[] { "Дальше: {0}", "Next: {0}" },
         ["tooltip.req"] = new[] { "Открытие:\n{0}", "Unlock:\n{0}" },
-        ["tree.counter"] = new[] { "Улучшений куплено: {0} / 120", "Upgrades Purchased: {0} / 120" },
+        ["tree.counter"] = new[] { "Улучшения: {0}/120", "Upgrades: {0}/120" },
+        ["tree.mb"] = new[] { "MB: {0}", "MB: {0}" },
+        ["tree.buy"] = new[] { "Купить", "Buy" },
+        ["tree.reset_view"] = new[] { "Сброс вида", "Reset view" },
+        ["tree.pick"] = new[] { "Выберите навык", "Select a skill" },
+        ["tree.afford_yes"] = new[] { "Хватает MB", "You can afford this" },
+        ["tree.any_price"] = new[] { "Любая покупка сейчас", "Any purchase right now" },
+        ["tree.level"] = new[] { "Уровень {0}/{1}", "Level {0}/{1}" },
+        ["tree.mark_lock"] = new[] { "закр", "lock" },
+        ["tree.mark_max"] = new[] { "макс", "max" },
+        ["tree.core_state"] = new[] { "ядро", "core" },
         ["tree.evolved"] = new[] { "ВИРУС ПОЛНОСТЬЮ ЭВОЛЮЦИОНИРОВАЛ", "VIRUS FULLY EVOLVED" },
         ["tree.file_reward"] = new[] { "Награда файла: {0} MB", "File reward: {0} MB" },
         ["req.purchases"] = new[] { "Покупок всего: {0}", "Total purchases: {0}" },

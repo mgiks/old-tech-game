@@ -18,105 +18,54 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private TextMeshProUGUI levelLabel;
     [SerializeField] private Button button;
 
-    [Header("Motion")]
-    [SerializeField] private float hoverScale = 1.12f;
-    [SerializeField] private float springStiffness = 320f;
-    [SerializeField] private float springDamping = 14f;
-    [SerializeField] private float purchasePunch = 9f;
-    [SerializeField] private float popVelocity = 14f;
-
-    [Header("Colors")]
-    [SerializeField] private Color affordableColor = new(0.22f, 0.78f, 0.28f, 1f);
-    [SerializeField] private Color unaffordableColor = new(0.82f, 0.18f, 0.16f, 1f);
-    [SerializeField] private Color ownedColor = new(0.22f, 0.48f, 0.9f, 1f);
-    [SerializeField] private Color maxedColor = new(0.93f, 0.72f, 0.16f, 1f);
-    [SerializeField] private Color comingSoonColor = new(0.55f, 0.56f, 0.58f, 1f);
-    [SerializeField] private Color lockedColor = new(0.42f, 0.44f, 0.47f, 1f);
-    [SerializeField, Range(0f, 1f)] private float bodyBrightness = 0.22f;
+    private static readonly Color Paper = new(0.95f, 0.93f, 0.88f, 1f);
+    private static readonly Color PaperOwned = new(0.86f, 0.91f, 0.84f, 1f);
+    private static readonly Color PaperLocked = new(0.78f, 0.76f, 0.72f, 1f);
+    private static readonly Color FrameOwned = new(0.38f, 0.55f, 0.40f, 1f);
+    private static readonly Color FrameOpen = new(0.28f, 0.32f, 0.28f, 1f);
+    private static readonly Color FrameLocked = new(0.42f, 0.40f, 0.37f, 1f);
+    private static readonly Color FrameSelected = new(0.12f, 0.13f, 0.12f, 1f);
+    private static readonly Color Ink = new(0.16f, 0.16f, 0.15f, 1f);
+    private static readonly Color InkLocked = new(0.32f, 0.31f, 0.28f, 1f);
 
     private SkillTreeDefinition skillTree;
     private SkillTreeDefinition.Node node;
     private SkillTooltip tooltip;
-    private SkillTreeFx fx;
-    private RectTransform rect;
-    private Vector2 basePosition;
-    private Color stateColor;
-    private bool hovered;
-    private bool wasRevealed;
-    private bool popWithFx;
-    private float scale = 1f;
-    private float scaleVelocity;
-    private float flash;
-    private float popAt = -1f;
-    private float denyTime = -10f;
-    private float phase;
+
+    public SkillTreeDefinition.Node Node => node;
 
     public void Init(SkillTreeDefinition tree, SkillTreeDefinition.Node definition, SkillTooltip skillTooltip, SkillTreeFx skillFx)
     {
         skillTree = tree;
         node = definition;
         tooltip = skillTooltip;
-        fx = skillFx;
-        rect = (RectTransform)transform;
-        basePosition = rect.anchoredPosition;
-        phase = Random.value * 10f;
+        _ = skillFx;
+        _ = slotNormal;
+        _ = slotHover;
+        _ = slotSelected;
+        _ = slotLocked;
         button.onClick.AddListener(OnClick);
+        ApplySquareLayout();
         if (skillIcon != null)
         {
             skillIcon.sprite = node.icon;
             skillIcon.enabled = node.icon != null;
-            skillIcon.color = Color.white;
-            skillIcon.material = null;
             skillIcon.preserveAspect = true;
             skillIcon.raycastTarget = false;
+            skillIcon.material = null;
         }
 
-        if (frame != null)
-        {
-            frame.material = null;
-            frame.color = Color.white;
-        }
-
-        if (glow != null)
-        {
-            glow.material = null;
-            glow.rectTransform.sizeDelta = new Vector2(148f, 148f);
-        }
-
-        if (body != null && skillSlot != null && slotNormal != null)
-        {
-            body.enabled = false;
-        }
-
-        if (nameLabel != null)
-        {
-            nameLabel.color = XpUi.TextDark;
-        }
-
-        Refresh(-1f);
+        Refresh();
     }
 
-    public void PlayPop(float delay, bool withFx)
-    {
-        popAt = Time.unscaledTime + delay;
-        popWithFx = withFx;
-        scale = 0f;
-        scaleVelocity = 0f;
-        transform.localScale = Vector3.zero;
-    }
-
-    public void Refresh(float revealPopDelay)
+    public void Refresh()
     {
         bool revealed = skillTree.IsRevealed(node);
-        bool newlyRevealed = revealed && !wasRevealed;
-        wasRevealed = revealed;
-
         if (!revealed)
         {
-            if (hovered && tooltip != null)
+            if (SkillTreeFocus.HoveredId == node.id)
             {
-                hovered = false;
-                tooltip.Hide();
+                SkillTreeFocus.ClearHover(node.id);
             }
 
             gameObject.SetActive(false);
@@ -124,209 +73,191 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
 
         gameObject.SetActive(true);
-
-        if (newlyRevealed && revealPopDelay >= 0f)
-        {
-            PlayPop(revealPopDelay, true);
-        }
-
-        int level = skillTree.GetLevel(node);
-        nameLabel.text = SkillTreeDefinition.GetName(node);
-        levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.anchor || node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
-
-        stateColor = GetStateColor();
-        int tier = skillTree.RevealTier(node);
-        bool closed = tier >= 3;
-        nameLabel.color = closed ? new Color(0.45f, 0.47f, 0.5f, 1f) : XpUi.TextDark;
-        levelLabel.color = nameLabel.color;
-        if (skillIcon != null)
-        {
-            skillIcon.color = closed ? new Color(0.45f, 0.47f, 0.5f, 1f) : Color.white;
-        }
-
-        if (hovered)
-        {
-            tooltip.Show(skillTree, node);
-        }
-    }
-
-    void Update()
-    {
-        float now = Time.unscaledTime;
-        float dt = Time.unscaledDeltaTime;
-
-        if (popAt >= 0f)
-        {
-            if (now < popAt)
-            {
-                transform.localScale = Vector3.zero;
-                return;
-            }
-
-            popAt = -1f;
-            scaleVelocity = popVelocity;
-            flash = 1f;
-            if (popWithFx)
-            {
-                fx.PlayReveal(rect, stateColor);
-            }
-            else
-            {
-                fx.PlayIntroPop(rect, stateColor);
-            }
-        }
-
-        bool affordable = skillTree.CanBuy(node);
-
-        float target = hovered ? hoverScale : 1f;
-        if (affordable)
-        {
-            target += Mathf.Sin(now * 3f + phase) * 0.025f;
-        }
-
-        scaleVelocity += (target - scale) * springStiffness * dt;
-        scaleVelocity *= Mathf.Exp(-springDamping * dt);
-        scale += scaleVelocity * dt;
-        float size = node.major ? 1.12f : 1f;
-        transform.localScale = new Vector3(scale * size, scale * size, 1f);
-
-        flash *= Mathf.Exp(-5f * dt);
-
-        float pulse = affordable ? 0.5f + 0.5f * Mathf.Sin(now * 4f + phase) : 0f;
-        float glowAlpha = (affordable ? 0.16f : 0.07f) + pulse * 0.06f + (hovered ? 0.08f : 0f) + flash * 0.12f;
-        glow.color = new Color(stateColor.r, stateColor.g, stateColor.b, Mathf.Clamp01(glowAlpha));
-        glow.rectTransform.localScale = Vector3.one * (1f + flash * 0.12f);
-        if (skillSlot != null && slotNormal != null)
-        {
-            bool closed = skillTree.RevealTier(node) >= 3;
-            skillSlot.sprite = closed && slotLocked != null
-                ? slotLocked
-                : hovered && slotHover != null ? slotHover : slotNormal;
-            skillSlot.color = stateColor;
-            frame.color = stateColor;
-        }
-        else
-        {
-            frame.color = stateColor;
-            if (skillSlot != null)
-            {
-                skillSlot.color = stateColor;
-            }
-        }
-
-        if (body != null && body.enabled)
-        {
-            Color paper = Color.Lerp(new Color(0.7f, 0.69f, 0.62f, 1f), XpUi.WindowBody, Mathf.Clamp01(bodyBrightness + 0.7f));
-            body.color = paper;
-        }
-
-        float denyAge = now - denyTime;
-        float wobble = denyAge < 0.4f ? Mathf.Sin(denyAge * 70f) * 14f * (1f - denyAge / 0.4f) : 0f;
-        rect.anchoredPosition = basePosition + new Vector2(wobble, 0f);
+        ApplyVisual();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        hovered = true;
-        tooltip.Show(skillTree, node);
+        SkillTreeFocus.Hover(node.id);
+        ApplyVisual();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        hovered = false;
-        tooltip.Hide();
+        SkillTreeFocus.ClearHover(node.id);
+        ApplyVisual();
+    }
+
+    void OnEnable()
+    {
+        SkillTreeFocus.Changed -= ApplyVisual;
+        SkillTreeFocus.Changed += ApplyVisual;
     }
 
     void OnDisable()
     {
-        if (hovered && tooltip != null)
+        SkillTreeFocus.Changed -= ApplyVisual;
+        if (node != null && SkillTreeFocus.HoveredId == node.id)
         {
-            hovered = false;
-            tooltip.Hide();
+            SkillTreeFocus.ClearHover(node.id);
         }
     }
 
     private void OnClick()
     {
-        if (node.startsOwned)
+        GameAudio.PlayMouseClick();
+        SkillTreeFocus.Select(node.id);
+        if (tooltip != null)
         {
-            GameAudio.PlayMouseClick();
-            scaleVelocity += purchasePunch * 0.6f;
-            flash = 0.6f;
-            fx.PlayPoke(rect, stateColor);
-            return;
+            tooltip.Hide();
         }
-
-        if (node.comingSoon || skillTree.IsMaxed(node) || !skillTree.CanBuy(node))
-        {
-            GameAudio.PlayMouseClick();
-            denyTime = Time.unscaledTime;
-            string denyKey = "deny.no_mb";
-            if (skillTree.RevealTier(node) != 1)
-            {
-                denyKey = "deny.locked";
-            }
-            else if (node.comingSoon)
-            {
-                denyKey = "deny.soon";
-            }
-            else if (skillTree.IsMaxed(node))
-            {
-                denyKey = "deny.max";
-            }
-            else if (node.requiresAllMaxed && !skillTree.IsEverythingElseMaxed())
-            {
-                denyKey = "deny.need_all";
-            }
-
-            fx.PlayDenied(rect, Loc.T(denyKey));
-            return;
-        }
-
-        long price = skillTree.GetCost(node);
-        if (!skillTree.TryBuy(node))
-        {
-            return;
-        }
-
-        scaleVelocity += purchasePunch * (node.major ? 1.35f : 1f);
-        flash = 1f;
-        GameAudio.Play(GameSfx.LevelUp);
-        fx.PlayPurchase(rect, stateColor, skillTree.IsMaxed(node) || (node.major && skillTree.GetLevel(node) == 1), price);
     }
 
-    private Color GetStateColor()
+    private void ApplySquareLayout()
     {
-        if (skillTree.RevealTier(node) != 1)
+        float size = node.major ? 112f : 80f;
+        RectTransform nodeRect = (RectTransform)transform;
+        nodeRect.sizeDelta = new Vector2(size, size);
+        nodeRect.localScale = Vector3.one;
+
+        if (glow != null)
         {
-            return lockedColor;
+            glow.gameObject.SetActive(false);
+            glow.raycastTarget = false;
         }
 
-        if (node.anchor || node.startsOwned)
+        if (nameLabel != null)
         {
-            return ownedColor;
+            nameLabel.gameObject.SetActive(false);
+        }
+
+        if (skillSlot != null)
+        {
+            skillSlot.enabled = false;
+            skillSlot.raycastTarget = false;
+        }
+
+        PreparePlate(frame, 0f, true);
+        PreparePlate(body, 4f, false);
+        if (skillIcon != null)
+        {
+            Stretch(skillIcon.rectTransform, node.major ? 18f : 14f, node.major ? 18f : 14f, 16f, 28f);
+        }
+
+        if (levelLabel != null)
+        {
+            RectTransform label = levelLabel.rectTransform;
+            label.anchorMin = new Vector2(0f, 0f);
+            label.anchorMax = new Vector2(1f, 0f);
+            label.pivot = new Vector2(0.5f, 0f);
+            label.anchoredPosition = new Vector2(0f, 4f);
+            label.sizeDelta = new Vector2(-6f, 18f);
+            levelLabel.fontSize = node.major ? 15f : 13f;
+            levelLabel.alignment = TextAlignmentOptions.Center;
+            levelLabel.textWrappingMode = TextWrappingModes.NoWrap;
+            levelLabel.overflowMode = TextOverflowModes.Overflow;
+            levelLabel.raycastTarget = false;
+        }
+    }
+
+    private void ApplyVisual()
+    {
+        if (node == null || skillTree == null || !isActiveAndEnabled)
+        {
+            return;
+        }
+
+        bool selected = SkillTreeFocus.DisplayedId == node.id;
+        SkillVisibility visibility = skillTree.GetVisibility(node);
+        bool locked = visibility is SkillVisibility.Locked or SkillVisibility.Silhouette or SkillVisibility.Hidden;
+        bool owned = skillTree.GetLevel(node) > 0 || node.anchor;
+        Color frameColor = locked ? FrameLocked : owned ? FrameOwned : FrameOpen;
+        Color fill = locked ? PaperLocked : owned ? PaperOwned : Paper;
+        if (selected)
+        {
+            frameColor = FrameSelected;
+        }
+
+        if (frame != null)
+        {
+            frame.color = frameColor;
+            frame.sprite = null;
+        }
+
+        if (body != null)
+        {
+            body.enabled = true;
+            body.sprite = null;
+            body.color = fill;
+            float inset = selected ? 6f : 3f;
+            body.rectTransform.offsetMin = new Vector2(inset, inset);
+            body.rectTransform.offsetMax = new Vector2(-inset, -inset);
+        }
+
+        if (skillIcon != null)
+        {
+            skillIcon.color = locked ? new Color(0.45f, 0.44f, 0.42f, 1f) : Color.white;
+        }
+
+        if (levelLabel != null)
+        {
+            levelLabel.text = Mark(visibility, owned);
+            levelLabel.color = locked ? InkLocked : Ink;
+        }
+    }
+
+    private string Mark(SkillVisibility visibility, bool owned)
+    {
+        if (node.anchor)
+        {
+            return Loc.T("tree.core_state");
         }
 
         if (skillTree.IsMaxed(node))
         {
-            return maxedColor;
+            return Loc.T("tree.mark_max");
         }
 
-        if (skillTree.GetLevel(node) > 0)
+        if (visibility is SkillVisibility.Locked or SkillVisibility.Silhouette)
         {
-            return ownedColor;
+            return Loc.T("tree.mark_lock");
         }
 
-        if (skillTree.CanBuy(node))
+        if (visibility == SkillVisibility.Available)
         {
-            return affordableColor;
+            return "MB";
         }
 
-        if (skillTree.GetVisibility(node) == SkillVisibility.Available)
+        int level = skillTree.GetLevel(node);
+        if (owned || level > 0 || visibility == SkillVisibility.Purchasable)
         {
-            return unaffordableColor;
+            return level + "/" + node.maxLevel;
         }
 
-        return lockedColor;
+        return level + "/" + node.maxLevel;
+    }
+
+    private static void PreparePlate(Image image, float inset, bool raycast)
+    {
+        if (image == null)
+        {
+            return;
+        }
+
+        image.sprite = null;
+        image.material = null;
+        image.type = Image.Type.Simple;
+        image.raycastTarget = raycast;
+        Stretch(image.rectTransform, inset, inset, inset, inset);
+    }
+
+    private static void Stretch(RectTransform target, float left, float bottom, float right, float top)
+    {
+        target.anchorMin = Vector2.zero;
+        target.anchorMax = Vector2.one;
+        target.offsetMin = new Vector2(left, bottom);
+        target.offsetMax = new Vector2(-right, -top);
+        target.anchoredPosition = Vector2.zero;
+        target.localScale = Vector3.one;
     }
 }
