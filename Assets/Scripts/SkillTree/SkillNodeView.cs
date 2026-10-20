@@ -111,16 +111,19 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         bool newlyRevealed = revealed && !wasRevealed;
         wasRevealed = revealed;
 
-        gameObject.SetActive(true);
         if (!revealed)
         {
-            nameLabel.text = SkillTreeDefinition.GetName(node);
-            levelLabel.text = string.Empty;
-            stateColor = lockedColor;
-            nameLabel.color = new Color(0.35f, 0.38f, 0.42f, 1f);
-            levelLabel.color = nameLabel.color;
+            if (hovered && tooltip != null)
+            {
+                hovered = false;
+                tooltip.Hide();
+            }
+
+            gameObject.SetActive(false);
             return;
         }
+
+        gameObject.SetActive(true);
 
         if (newlyRevealed && revealPopDelay >= 0f)
         {
@@ -132,8 +135,14 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
 
         stateColor = GetStateColor();
-        nameLabel.color = XpUi.TextDark;
-        levelLabel.color = XpUi.TextDark;
+        int tier = skillTree.RevealTier(node);
+        bool closed = tier >= 3;
+        nameLabel.color = closed ? new Color(0.45f, 0.47f, 0.5f, 1f) : XpUi.TextDark;
+        levelLabel.color = nameLabel.color;
+        if (skillIcon != null)
+        {
+            skillIcon.color = closed ? new Color(0.45f, 0.47f, 0.5f, 1f) : Color.white;
+        }
 
         if (hovered)
         {
@@ -188,7 +197,10 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         glow.rectTransform.localScale = Vector3.one * (1f + flash * 0.12f);
         if (skillSlot != null && slotNormal != null)
         {
-            skillSlot.sprite = hovered && slotHover != null ? slotHover : slotNormal;
+            bool closed = skillTree.RevealTier(node) >= 3;
+            skillSlot.sprite = closed && slotLocked != null
+                ? slotLocked
+                : hovered && slotHover != null ? slotHover : slotNormal;
             skillSlot.color = stateColor;
             frame.color = stateColor;
         }
@@ -249,7 +261,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             GameAudio.PlayMouseClick();
             denyTime = Time.unscaledTime;
             string denyKey = "deny.no_mb";
-            if (!skillTree.IsRevealed(node))
+            if (skillTree.RevealTier(node) != 1)
             {
                 denyKey = "deny.locked";
             }
@@ -284,7 +296,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private Color GetStateColor()
     {
-        if (!skillTree.IsRevealed(node))
+        if (skillTree.RevealTier(node) != 1)
         {
             return lockedColor;
         }
