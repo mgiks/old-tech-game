@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float comboWindowInSeconds = 1.2f;
     [SerializeField, Min(1)] private int comboCap = 10;
 
-    public event Action<Vector3, uint, bool> FileScored;
+    public event Action<Vector3, long, bool> FileScored;
 
     public int Combo { get; private set; }
     public bool ComboUnlocked => skillTree.GetStat(SkillStat.Combo) > 0f;
@@ -60,24 +60,28 @@ public class ScoreManager : MonoBehaviour
 
     public void AddFile(DesktopIcon icon)
     {
-        Combo = Time.time - lastFileTime <= comboWindowInSeconds ? Combo + 1 : 1;
-        lastFileTime = Time.time;
-
-        uint value = baseFileValue + (uint)Mathf.RoundToInt(skillTree.GetStat(SkillStat.FileValue));
-        if (icon.IsGolden)
+        if (icon == null || skillTree == null || !icon.TryMarkReward())
         {
-            value *= goldenMultiplier;
+            return;
         }
 
-        float comboMultiplier = 1f + skillTree.GetStat(SkillStat.Combo) * Mathf.Min(Combo - 1, comboCap);
-        value = (uint)Mathf.Max(value, Mathf.RoundToInt(value * comboMultiplier));
-
+        long value = EconomyMath.FileReward(
+            GameProgress.TotalPurchases,
+            GameProgress.GetSkillLevel(SkillBalanceTable.B1),
+            GameProgress.GetSkillLevel(SkillBalanceTable.B2),
+            icon.IsGolden);
         AddScore(value);
+        GameEvents.RaiseConsumed(icon);
         FileScored?.Invoke(icon.transform.position, value, icon.IsGolden);
     }
 
-    public void AddScore(uint count)
+    public void AddScore(long count)
     {
+        if (count <= 0)
+        {
+            return;
+        }
+
         RunStats.AddMB(count);
         GameProgress.AddMB(count);
         punch = 1f;
@@ -85,6 +89,6 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateDisplay()
     {
-        scoreDisplay.text = $"MB: {GameProgress.MB}";
+        scoreDisplay.text = "MB: " + NumberFormat.Mb(GameProgress.MB);
     }
 }

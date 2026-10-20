@@ -5442,7 +5442,7 @@ MonoBehaviour:
   feedback: {fileID: 984513175}
   ending: {fileID: 1818624826}
   skillTreeSceneName: Skill Tree
-  baseRunDurationInSeconds: 8
+  baseRunDurationInSeconds: 20
   timerFill: {fileID: 764613690}
   timerDisplay: {fileID: 812960194}
   timerFullColor: {r: 0.3, g: 1, b: 0.5, a: 1}

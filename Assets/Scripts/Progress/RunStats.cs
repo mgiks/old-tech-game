@@ -2,23 +2,23 @@ using UnityEngine;
 
 public static class RunStats
 {
-    public static uint MBEarned { get; private set; }
+    public static long MBEarned { get; private set; }
     public static int FilesInfected { get; private set; }
     public static int Clicks { get; private set; }
     public static int ComputersInfected { get; private set; }
     public static int TotalComputers { get; private set; }
 
     public static int RunNumber { get; private set; }
-    public static uint PreviousRunMB { get; private set; }
+    public static long PreviousRunMB { get; private set; }
     public static bool HasPreviousRun { get; private set; }
     public static bool IsNewRecord { get; private set; }
     public static int TotalFiles { get; private set; }
     public static int TotalClicks { get; private set; }
 
-    private static uint bestRunMB;
-    private static uint lastRunMB;
+    public static double GBEarned => MBEarned / 1024d;
 
-    public static float GBEarned => MBEarned / 1024f;
+    private static long bestRunMB;
+    private static long lastRunMB;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     public static void ResetSession()
@@ -56,12 +56,21 @@ public static class RunStats
         PreviousRunMB = lastRunMB;
         IsNewRecord = HasPreviousRun && MBEarned > bestRunMB;
         lastRunMB = MBEarned;
-        bestRunMB = (uint)Mathf.Max(bestRunMB, MBEarned);
+        if (MBEarned > bestRunMB)
+        {
+            bestRunMB = MBEarned;
+        }
         TotalFiles += FilesInfected;
         TotalClicks += Clicks;
     }
 
-    public static void AddMB(uint amount) => MBEarned += amount;
+    public static void AddMB(long amount)
+    {
+        if (amount > 0)
+        {
+            MBEarned = EconomyMath.AddClamped(MBEarned, amount);
+        }
+    }
 
     public static void AddFile() => FilesInfected++;
 

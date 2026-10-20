@@ -38,6 +38,7 @@ public class VirusAttraction : MonoBehaviour
 
     void Update()
     {
+        return;
         targeted.RemoveWhere(icon => icon == null);
         chained.RemoveWhere(icon => icon == null);
 
@@ -45,8 +46,9 @@ public class VirusAttraction : MonoBehaviour
         PullIcons(skillTree.GetStat(SkillStat.AttractionRadius));
     }
 
-    private void OnFileScored(Vector3 position, uint value, bool golden)
+    private void OnFileScored(Vector3 position, long value, bool golden)
     {
+        return;
         if (Random.value >= skillTree.GetStat(SkillStat.ChainChance))
         {
             return;

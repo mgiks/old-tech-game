@@ -1,0 +1,99 @@
+VALIDATION: PASS
+NODES 32
+LEVEL_SUM 120
+TOTAL_COST 8950648209
+PRICE P0 10
+REWARD P0 1
+PRICE P20 232
+REWARD P20 24
+PRICE P40 5339
+REWARD P40 534
+PRICE P60 123354
+REWARD P60 12336
+PRICE P80 2850159
+REWARD P80 285016
+PRICE P100 65854609
+REWARD P100 6585461
+PRICE P119 1300521535
+REWARD P119 130052154
+MAX_MULT_REWARD_P0 5
+COMPRESSION_8 2.8526
+OPTIMIZATION_5 1.6105
+STRATEGY Balanced
+  P0 actual=0 runs=0 min=0.00 mb=0 next=10 runIncome=0 runSec=0.00 files=6 pcs=0 reward=1 systems=-
+  P12 actual=12 runs=8 min=2.99 mb=63 next=66 runIncome=176 runSec=25.60 files=21 pcs=2 reward=7 systems=-
+  UNLOCK c1_mini_virus_unlock P=13 runs=9 min=3.42
+  P20 actual=20 runs=10 min=3.89 mb=335 next=232 runIncome=907 runSec=28.40 files=34 pcs=3 reward=24 systems=c1_mini_virus_unlock
+  P30 actual=30 runs=12 min=4.84 mb=3603 next=1111 runIncome=6063 runSec=28.40 files=40 pcs=3 reward=112 systems=c1_mini_virus_unlock
+  UNLOCK d1_chain_unlock P=31 runs=12 min=4.84
+  P40 actual=40 runs=14 min=5.79 mb=53230 next=5339 runIncome=54092 runSec=28.40 files=46 pcs=3 reward=534 systems=c1_mini_virus_unlock,d1_chain_unlock
+  P50 actual=50 runs=15 min=6.31 mb=178274 next=25663 runIncome=244599 runSec=31.20 files=51 pcs=4 reward=2567 systems=c1_mini_virus_unlock,d1_chain_unlock
+  UNLOCK e1_overload_unlock P=51 runs=15 min=6.31
+  P60 actual=60 runs=16 min=6.83 mb=466299 next=123354 runIncome=862684 runSec=31.20 files=54 pcs=4 reward=12336 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock
+  P70 actual=70 runs=17 min=7.35 mb=1676935 next=592940 runIncome=3972910 runSec=31.20 files=54 pcs=4 reward=59294 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock
+  UNLOCK f1_infected_unlock P=71 runs=17 min=7.35
+  P80 actual=80 runs=18 min=7.87 mb=9611206 next=2850159 runIncome=21212032 runSec=31.20 files=54 pcs=4 reward=285016 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock
+  P88 actual=88 runs=19 min=8.39 mb=73278851 next=10008197 runIncome=105773760 runSec=31.20 files=54 pcs=4 reward=1000820 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock
+  UNLOCK g1_fragment_unlock P=89 runs=19 min=8.39
+  P100 actual=100 runs=20 min=8.91 mb=359104662 next=65854609 runIncome=614334123 runSec=31.20 files=55 pcs=4 reward=6585461 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock
+  P102 actual=102 runs=20 min=8.91 mb=216200160 next=90148375 runIncome=614334123 runSec=31.20 files=55 pcs=4 reward=9014838 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock
+  UNLOCK h1_manual_mini P=103 runs=20 min=8.91
+  UNLOCK h2_mini_chain P=104 runs=20 min=8.91
+  UNLOCK h3_cascade_overload P=105 runs=21 min=9.43
+  P110 actual=110 runs=21 min=9.43 mb=3977530606 next=316551804 runIncome=5093115329 runSec=31.20 files=55 pcs=4 reward=31655181 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  P119 actual=119 runs=22 min=9.95 mb=35408845855 next=1300521535 runIncome=37219372496 runSec=31.20 files=55 pcs=4 reward=130052154 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  P120 actual=120 runs=22 min=9.95 mb=34108324320 next=0 runIncome=37219372496 runSec=31.20 files=55 pcs=4 reward=130052154 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  costAt119=1300521535
+  FINAL_P 120 RUNS 22 MINUTES 9.95
+STRATEGY Economy
+  P0 actual=0 runs=0 min=0.00 mb=0 next=10 runIncome=0 runSec=0.00 files=6 pcs=0 reward=1 systems=-
+  P12 actual=12 runs=11 min=3.67 mb=121 next=66 runIncome=138 runSec=20.00 files=6 pcs=0 reward=7 systems=-
+  P20 actual=20 runs=14 min=4.71 mb=1417 next=232 runIncome=1531 runSec=22.80 files=10 pcs=1 reward=24 systems=-
+  UNLOCK c1_mini_virus_unlock P=26 runs=15 min=5.14
+  P30 actual=30 runs=15 min=5.14 mb=1827 next=1111 runIncome=5590 runSec=25.60 files=21 pcs=2 reward=112 systems=c1_mini_virus_unlock
+  UNLOCK d1_chain_unlock P=31 runs=15 min=5.14
+  P40 actual=40 runs=16 min=5.61 mb=16359 next=5339 runIncome=39407 runSec=28.40 files=46 pcs=3 reward=534 systems=c1_mini_virus_unlock,d1_chain_unlock
+  P50 actual=50 runs=17 min=6.13 mb=113962 next=25663 runIncome=217158 runSec=31.20 files=50 pcs=4 reward=2567 systems=c1_mini_virus_unlock,d1_chain_unlock
+  UNLOCK e1_overload_unlock P=51 runs=17 min=6.13
+  P60 actual=60 runs=18 min=6.65 mb=1031309 next=123354 runIncome=1492006 runSec=31.20 files=55 pcs=4 reward=12336 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock
+  P70 actual=70 runs=19 min=7.17 mb=8912947 next=592940 runIncome=10643912 runSec=31.20 files=55 pcs=4 reward=59294 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock
+  UNLOCK f1_infected_unlock P=71 runs=19 min=7.17
+  P80 actual=80 runs=20 min=7.69 mb=68650472 next=2850159 runIncome=73015286 runSec=31.20 files=55 pcs=4 reward=285016 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock
+  P88 actual=88 runs=20 min=7.69 mb=26544357 next=10008197 runIncome=73015286 runSec=31.20 files=55 pcs=4 reward=1000820 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock
+  UNLOCK g1_fragment_unlock P=89 runs=20 min=7.69
+  P100 actual=100 runs=21 min=8.21 mb=200435415 next=65854609 runIncome=502399370 runSec=31.20 files=55 pcs=4 reward=6585461 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock
+  P102 actual=102 runs=21 min=8.21 mb=57530913 next=90148375 runIncome=502399370 runSec=31.20 files=55 pcs=4 reward=9014838 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock
+  UNLOCK h1_manual_mini P=103 runs=22 min=8.73
+  UNLOCK h2_mini_chain P=104 runs=22 min=8.73
+  UNLOCK h3_cascade_overload P=105 runs=22 min=8.73
+  P110 actual=110 runs=22 min=8.73 mb=2250458890 next=316551804 runIncome=3524712860 runSec=31.20 files=55 pcs=4 reward=31655181 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  P119 actual=119 runs=23 min=9.25 mb=25383550801 next=1300521535 runIncome=28921149158 runSec=31.20 files=55 pcs=4 reward=130052154 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  P120 actual=120 runs=23 min=9.25 mb=24083029266 next=0 runIncome=28921149158 runSec=31.20 files=55 pcs=4 reward=130052154 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  costAt119=1300521535
+  FINAL_P 120 RUNS 23 MINUTES 9.25
+STRATEGY Automation
+  P0 actual=0 runs=0 min=0.00 mb=0 next=10 runIncome=0 runSec=0.00 files=6 pcs=0 reward=1 systems=-
+  P12 actual=12 runs=8 min=3.09 mb=46 next=66 runIncome=175 runSec=28.40 files=35 pcs=3 reward=7 systems=-
+  UNLOCK c1_mini_virus_unlock P=13 runs=9 min=3.61
+  P20 actual=20 runs=10 min=4.13 mb=110 next=232 runIncome=676 runSec=31.20 files=52 pcs=4 reward=24 systems=c1_mini_virus_unlock
+  P30 actual=30 runs=13 min=5.69 mb=3156 next=1111 runIncome=4510 runSec=31.20 files=55 pcs=4 reward=112 systems=c1_mini_virus_unlock
+  UNLOCK d1_chain_unlock P=35 runs=14 min=6.21
+  P40 actual=40 runs=15 min=6.73 mb=2371 next=5339 runIncome=15675 runSec=31.20 files=55 pcs=4 reward=534 systems=c1_mini_virus_unlock,d1_chain_unlock
+  P50 actual=50 runs=18 min=8.29 mb=70366 next=25663 runIncome=103125 runSec=31.20 files=55 pcs=4 reward=2567 systems=c1_mini_virus_unlock,d1_chain_unlock
+  UNLOCK e1_overload_unlock P=53 runs=19 min=8.81
+  P60 actual=60 runs=20 min=9.33 mb=50987 next=123354 runIncome=362065 runSec=31.20 files=55 pcs=4 reward=12336 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock
+  P70 actual=70 runs=23 min=10.89 mb=1954473 next=592940 runIncome=2715900 runSec=31.20 files=55 pcs=4 reward=59294 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock
+  UNLOCK f1_infected_unlock P=71 runs=23 min=10.89
+  P80 actual=80 runs=25 min=11.93 mb=17486841 next=2850159 runIncome=21499928 runSec=31.20 files=55 pcs=4 reward=285016 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock
+  P88 actual=88 runs=26 min=12.45 mb=52621449 next=10008197 runIncome=77240723 runSec=31.20 files=55 pcs=4 reward=1000820 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock
+  UNLOCK g1_fragment_unlock P=89 runs=26 min=12.45
+  P100 actual=100 runs=27 min=12.97 mb=85757191 next=65854609 runIncome=361644054 runSec=31.20 files=55 pcs=4 reward=6585461 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock
+  P102 actual=102 runs=28 min=13.49 mb=1879443735 next=90148375 runIncome=1936591046 runSec=31.20 files=55 pcs=4 reward=9014838 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock
+  UNLOCK h2_mini_chain P=103 runs=28 min=13.49
+  UNLOCK h1_manual_mini P=107 runs=28 min=13.49
+  P110 actual=110 runs=28 min=13.49 mb=547658852 next=316551804 runIncome=1936591046 runSec=31.20 files=55 pcs=4 reward=31655181 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  UNLOCK h3_cascade_overload P=111 runs=28 min=13.49
+  P119 actual=119 runs=29 min=14.01 mb=4178280115 next=1300521535 runIncome=9418678510 runSec=31.20 files=55 pcs=4 reward=130052154 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  P120 actual=120 runs=29 min=14.01 mb=2877758580 next=0 runIncome=9418678510 runSec=31.20 files=55 pcs=4 reward=130052154 systems=c1_mini_virus_unlock,d1_chain_unlock,e1_overload_unlock,f1_infected_unlock,g1_fragment_unlock,h1_manual_mini
+  costAt119=1300521535
+  FINAL_P 120 RUNS 29 MINUTES 14.01

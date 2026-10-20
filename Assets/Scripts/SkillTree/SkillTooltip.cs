@@ -24,48 +24,51 @@ public class SkillTooltip : MonoBehaviour
 
     public void Show(SkillTreeDefinition skillTree, SkillTreeDefinition.Node node)
     {
-        string status;
+        SkillVisibility visibility = skillTree.GetVisibility(node);
         int level = skillTree.GetLevel(node);
-
-        if (node.comingSoon)
+        string status = string.Empty;
+        if (!node.anchor && visibility != SkillVisibility.Silhouette)
         {
-            status = $"<color=#C9A0FF>{Loc.T("tooltip.soon")}</color>";
+            string current = skillTree.CurrentEffectText(node);
+            string next = skillTree.NextEffectText(node);
+            if (!string.IsNullOrEmpty(current))
+            {
+                status = Loc.F("tooltip.now", current);
+            }
+
+            if (!string.IsNullOrEmpty(next))
+            {
+                status = string.IsNullOrEmpty(status) ? Loc.F("tooltip.next", next) : status + "\n" + Loc.F("tooltip.next", next);
+            }
         }
-        else if (node.startsOwned)
+
+        if (node.anchor)
         {
             status = string.Empty;
         }
         else if (skillTree.IsMaxed(node))
         {
-            status = Loc.F("tooltip.level_max", level, node.maxLevel);
+            status += "\n" + Loc.F("tooltip.level_max", level, node.maxLevel);
         }
-        else
+        else if (visibility is SkillVisibility.Purchasable or SkillVisibility.Available or SkillVisibility.Partial)
         {
-            uint cost = skillTree.GetCost(node);
+            long cost = skillTree.GetCost(node);
             string costColor = GameProgress.MB >= cost ? "#7CFF9A" : "#FF7C7C";
-            status = Loc.F("tooltip.level_cost", level, node.maxLevel, costColor, cost);
+            status += "\n" + Loc.F("tooltip.level_cost", level, node.maxLevel, costColor, NumberFormat.Mb(cost));
         }
 
-        if (node.requiresAllMaxed && !skillTree.IsMaxed(node))
+        if (visibility is SkillVisibility.Locked or SkillVisibility.Silhouette or SkillVisibility.Hidden)
         {
-            skillTree.GetMasteryProgress(out int done, out int total);
-            string progressColor = done >= total ? "#7CFF9A" : "#FF7C7C";
-            status = $"{Loc.F("tooltip.mastery", progressColor, done, total)}\n{status}";
+            string requirement = skillTree.RequirementText(node);
+            if (!string.IsNullOrEmpty(requirement))
+            {
+                status += "\n" + Loc.F("tooltip.req", requirement);
+            }
         }
 
-        if (!node.comingSoon && node.stat != SkillStat.None)
-        {
-            float current = skillTree.GetStat(node.stat);
-            string now = SkillTreeDefinition.FormatStat(node.stat, current);
-            string preview = skillTree.IsMaxed(node)
-                ? $"<color=#FFD24D>{now}</color>"
-                : $"<color=#8A93B8>{now}</color>  →  <color=#7CFFE0><b>{SkillTreeDefinition.FormatStat(node.stat, current + node.valuePerLevel)}</b></color>";
-            status = $"{preview}\n{status}";
-        }
-
-        string header = $"<b>{SkillTreeDefinition.GetName(node)}</b>\n{SkillTreeDefinition.GetDescription(node)}";
+        string description = visibility == SkillVisibility.Silhouette ? Loc.T("tooltip.soon") : SkillTreeDefinition.GetDescription(node);
+        string header = $"<b>{SkillTreeDefinition.GetName(node)}</b>\n{description}";
         text.text = string.IsNullOrEmpty(status) ? header : $"{header}\n\n{status}";
-
         gameObject.SetActive(true);
         FollowCursor();
     }

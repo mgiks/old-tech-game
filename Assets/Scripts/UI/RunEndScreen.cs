@@ -348,12 +348,12 @@ public class RunEndScreen : MonoBehaviour
             return;
         }
 
-        long delta = (long)RunStats.MBEarned - RunStats.PreviousRunMB;
-        float percent = delta * 100f / Mathf.Max(RunStats.PreviousRunMB, 1u);
+        long delta = RunStats.MBEarned - RunStats.PreviousRunMB;
+        double percent = RunStats.PreviousRunMB <= 0 ? 100d : delta * 100d / RunStats.PreviousRunMB;
         bool better = delta >= 0;
         string arrow = better ? "▲" : "▼";
         comparison.color = better ? betterColor : worseColor;
-        comparison.text = Loc.F("end.comparison", arrow, better ? "+" : "", percent, RunStats.PreviousRunMB);
+        comparison.text = Loc.F("end.comparison", arrow, better ? "+" : "", percent, NumberFormat.Mb(RunStats.PreviousRunMB));
     }
 
     private int CountAffordableUpgrades()
@@ -372,7 +372,7 @@ public class RunEndScreen : MonoBehaviour
 
     private void SetValues(float k)
     {
-        totalValue.text = $"{Mathf.RoundToInt(RunStats.MBEarned * k)} MB";
+        totalValue.text = NumberFormat.Mb((long)System.Math.Round(RunStats.MBEarned * (double)k, System.MidpointRounding.AwayFromZero)) + " MB";
         filesValue.text = Mathf.RoundToInt(RunStats.FilesInfected * k).ToString();
         clicksValue.text = Mathf.RoundToInt(RunStats.Clicks * k).ToString();
         gbValue.text = (RunStats.GBEarned * k).ToString("0.00");

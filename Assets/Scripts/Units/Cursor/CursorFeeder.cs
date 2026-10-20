@@ -191,6 +191,11 @@ public class CursorFeeder : MonoBehaviour
     {
         carried.Remove(icon);
         icon.IsCarried = false;
+        if (!icon.IsInfected && icon.DownloadProgress < 1f && !icon.CompletionHandled)
+        {
+            return;
+        }
+
         virus.Absorb(icon);
     }
 

@@ -17,10 +17,23 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     public bool IsDelivering { get; private set; }
     public bool IsFlashing { get; private set; }
     public bool FlashReadyToFly { get; private set; }
-    public bool IsFree => !IsDragged && !IsCarried && !IsConsumed && !IsDelivering && !IsFlashing && !FlashReadyToFly;
+    public bool IsInfected { get; private set; }
+    public bool WantsInfect { get; set; }
+    public bool CompletionHandled { get; private set; }
+    public bool DirectorHandled { get; set; }
+    public bool RewardPaid { get; private set; }
+    public CompletionSource LastSource { get; private set; }
+    public int ChainId { get; set; }
+    public int ChainDepth { get; set; }
+    public int ChainGeneration { get; set; }
+    public int RuntimeId { get; private set; }
+    public bool IsFree => !IsDragged && !IsCarried && !IsConsumed && !IsDelivering && !IsFlashing && !FlashReadyToFly && !IsInfected && !CompletionHandled;
 
     [SerializeField] private float downloadProgress;
     public float DownloadProgress => downloadProgress;
+
+    private static int nextRuntimeId = 1;
+    private SpriteRenderer infectMark;
 
     [SerializeField] private float popInDuration = 0.25f;
     [SerializeField] private Color goldenColor = new(1f, 0.82f, 0.25f, 1f);
@@ -77,6 +90,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         }
 
         baseScale = transform.localScale;
+        RuntimeId = nextRuntimeId++;
         transform.localScale = Vector3.zero;
         ApplyFillMaterial();
         CacheFillBounds();
@@ -104,6 +118,11 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         {
             float shimmer = 0.5f + 0.5f * Mathf.Sin(age * 8f);
             tint = Color.Lerp(goldenColor, Color.white, shimmer * 0.45f);
+        }
+        else if (IsInfected)
+        {
+            float pulse = 0.35f + 0.25f * Mathf.Sin(age * 7f);
+            tint = Color.Lerp(new Color(0.35f, 0.95f, 0.4f, 1f), new Color(0.15f, 0.35f, 0.2f, 1f), pulse);
         }
         else if (chainedTint)
         {
@@ -152,15 +171,71 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void AddDownloadTime(float deltaSeconds, float secondsToComplete, Color highlight)
     {
-        if (IsDelivering || IsConsumed || IsFlashing || FlashReadyToFly)
+        float duration = Mathf.Max(0.05f, secondsToComplete);
+        AddWork(deltaSeconds / duration, highlight, CompletionSource.Manual);
+    }
+
+    public void AddWork(float amount, Color highlight, CompletionSource source)
+    {
+        if (amount <= 0f || CompletionHandled || IsConsumed || IsInfected || IsDelivering || IsFlashing || FlashReadyToFly)
         {
             return;
         }
 
         downloadHighlight = highlight;
-        float duration = Mathf.Max(0.05f, secondsToComplete);
-        downloadProgress = Mathf.Clamp01(downloadProgress + deltaSeconds / duration);
+        LastSource = source;
+        downloadProgress = Mathf.Clamp01(downloadProgress + amount);
         ApplyDownloadVisual(0f);
+        GameEvents.RaiseProgress(this);
+        if (downloadProgress < 1f)
+        {
+            return;
+        }
+
+        downloadProgress = 1f;
+        CompletionHandled = true;
+        ApplyDownloadVisual(0f);
+        RunDirector.Instance?.HandleComplete(this, source);
+    }
+
+    public void BecomeInfected()
+    {
+        if (IsInfected || IsConsumed)
+        {
+            return;
+        }
+
+        IsInfected = true;
+        WantsInfect = false;
+        IsFlashing = false;
+        FlashReadyToFly = false;
+        posing = false;
+        releasing = false;
+        CompletionHandled = true;
+        downloadProgress = Mathf.Max(downloadProgress, 1f);
+        ApplyDownloadVisual(0f);
+        if (infectMark == null && spriteRenderer != null)
+        {
+            GameObject mark = new("Infect Mark");
+            mark.transform.SetParent(transform, false);
+            mark.transform.localPosition = new Vector3(0.18f, 0.18f, 0f);
+            mark.transform.localScale = Vector3.one * 0.28f;
+            infectMark = mark.AddComponent<SpriteRenderer>();
+            infectMark.sprite = spriteRenderer.sprite;
+            infectMark.color = new Color(0.2f, 1f, 0.35f, 0.9f);
+            infectMark.sortingOrder = spriteRenderer.sortingOrder + 2;
+        }
+    }
+
+    public bool TryMarkReward()
+    {
+        if (RewardPaid)
+        {
+            return false;
+        }
+
+        RewardPaid = true;
+        return true;
     }
 
     public void BeginDownloadFlash(float seconds)
@@ -260,6 +335,12 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            WantsInfect = true;
+            return;
+        }
+
         offset = transform.position - GetPointerWorldPos();
     }
 
@@ -354,7 +435,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
             virus = FindVirusAt(transform.position);
         }
 
-        if (virus != null)
+        if (virus != null && (IsInfected || downloadProgress >= 1f || CompletionHandled))
         {
             virus.Absorb(this);
         }

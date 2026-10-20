@@ -20,6 +20,8 @@ public class SkillTreeScreen : MonoBehaviour
         ArtBindings.StyleXpButton(startRunButton);
         HideGlow(startRunButton.transform);
         shownMB = GameProgress.MB;
+        mbDisplay.enableWordWrapping = true;
+        mbDisplay.overflowMode = TextOverflowModes.Overflow;
     }
 
     void OnEnable()
@@ -91,7 +93,12 @@ public class SkillTreeScreen : MonoBehaviour
 
     private void UpdateDisplay()
     {
-        mbDisplay.text = $"MB: {Mathf.RoundToInt(shownMB)}";
+        mbDisplay.text = $"MB: {NumberFormat.Mb(GameProgress.MB)}\n{Loc.F("tree.counter", GameProgress.TotalPurchases)}\n{Loc.F("tree.file_reward", NumberFormat.Mb(GameplayQuery.StandardReward()))}";
+        if (GameProgress.TotalPurchases >= ProgressionConfig.TargetPurchases)
+        {
+            mbDisplay.text += "\n" + Loc.T("tree.evolved");
+        }
+
         mbDisplay.rectTransform.localScale = Vector3.one * Mathf.Lerp(1f, mbPunchScale, mbPunch);
         mbDisplay.color = Color.Lerp(new Color(0.3f, 1f, 0.5f, 1f), new Color(1f, 0.4f, 0.45f, 1f), mbPunch);
     }

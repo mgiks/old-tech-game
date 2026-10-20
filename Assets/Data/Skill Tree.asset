@@ -14,370 +14,662 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillTreeDefinition
   nodes:
   - id: core
-    displayName: "\u0412\u0438\u0440\u0443\u0441"
-    description: "\u0422\u043E\u0447\u043A\u0430 \u0437\u0430\u0440\u0430\u0436\u0435\u043D\u0438\u044F.
-      \u041E\u0442\u0441\u044E\u0434\u0430 \u0440\u0430\u0441\u0442\u0443\u0442 \u0432\u0441\u0435
-      \u0432\u0435\u0442\u043A\u0438."
+    displayName: core
+    description: core
     stat: 0
-    valuePerLevel: 0
     maxLevel: 1
-    baseCost: 5
-    costMultiplier: 1.5
     startsOwned: 1
     comingSoon: 0
     requiresAllMaxed: 0
+    major: 1
+    anchor: 1
+    category: 0
+    effect: 0
+    minTotalPurchases: 0
     position: {x: 0, y: 0}
     requires: []
+    unlockIds: []
+    unlockLevels: 
     icon: {fileID: 21300000, guid: c69dfca65d320a04797fc04e9dcb96d0, type: 3}
-  - id: spawn_rate_1
-    displayName: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C"
-    description: "\u0424\u0430\u0439\u043B\u044B \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
-      \u043D\u0430 \u0440\u0430\u0431\u043E\u0447\u0435\u043C \u0441\u0442\u043E\u043B\u0435
-      \u0447\u0430\u0449\u0435."
-    stat: 1
-    valuePerLevel: 0.4
-    maxLevel: 5
-    baseCost: 5
-    costMultiplier: 1.5
+  - id: a1_download_speed
+    displayName: a1_download_speed
+    description: a1_download_speed
+    stat: 0
+    maxLevel: 8
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: -300, y: 0}
+    major: 1
+    anchor: 0
+    category: 1
+    effect: 1
+    minTotalPurchases: 0
+    position: {x: -380, y: 210}
     requires:
     - core
+    unlockIds: []
+    unlockLevels: 
     icon: {fileID: 21300000, guid: 31861b633d49d624da96b761ef46c15e, type: 3}
-  - id: max_files
-    displayName: "\u0417\u0430\u0445\u043B\u0430\u043C\u043B\u0451\u043D\u043D\u044B\u0439
-      \u0441\u0442\u043E\u043B"
-    description: "\u041D\u0430 \u044D\u043A\u0440\u0430\u043D\u0435 \u043F\u043E\u043C\u0435\u0449\u0430\u0435\u0442\u0441\u044F
-      \u0431\u043E\u043B\u044C\u0448\u0435 \u0444\u0430\u0439\u043B\u043E\u0432."
-    stat: 2
-    valuePerLevel: 5
-    maxLevel: 4
-    baseCost: 12
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: -560, y: 140}
-    requires:
-    - spawn_rate_1
-    icon: {fileID: 21300000, guid: eac538487641bde439ace93e8675677f, type: 3}
-  - id: start_files
-    displayName: "\u0410\u0432\u0442\u043E\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430"
-    description: "\u0417\u0430\u0431\u0435\u0433 \u043D\u0430\u0447\u0438\u043D\u0430\u0435\u0442\u0441\u044F
-      \u0441 \u043A\u0443\u0447\u0435\u0439 \u0444\u0430\u0439\u043B\u043E\u0432
-      \u043D\u0430 \u0441\u0442\u043E\u043B\u0435."
-    stat: 3
-    valuePerLevel: 3
-    maxLevel: 4
-    baseCost: 12
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: -560, y: -140}
-    requires:
-    - spawn_rate_1
-    icon: {fileID: 21300000, guid: 1efd38ca25afa9e4c9e645a01d935693, type: 3}
-  - id: spawn_burst
-    displayName: "\u0420\u0430\u0437\u0433\u043E\u043D"
-    description: "\u0424\u0430\u0439\u043B\u044B \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
-      \u043F\u0430\u0447\u043A\u0430\u043C\u0438: +1 \u0444\u0430\u0439\u043B \u0432
-      \u043A\u0430\u0436\u0434\u043E\u0439 \u043F\u0430\u0447\u043A\u0435."
-    stat: 9
-    valuePerLevel: 1
+  - id: a2_multithreading
+    displayName: a2_multithreading
+    description: a2_multithreading
+    stat: 0
     maxLevel: 3
-    baseCost: 30
-    costMultiplier: 1.5
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: -820, y: 140}
+    major: 0
+    anchor: 0
+    category: 1
+    effect: 2
+    minTotalPurchases: 0
+    position: {x: -640, y: 370}
     requires:
-    - max_files
-    icon: {fileID: 21300000, guid: 86ef65bda75cef24ca31f7485fc0e21b, type: 3}
-  - id: file_value
-    displayName: "\u0421\u0436\u0430\u0442\u0438\u0435"
-    description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0441\u044A\u0435\u0434\u0435\u043D\u043D\u044B\u0439
-      \u0444\u0430\u0439\u043B \u043F\u0440\u0438\u043D\u043E\u0441\u0438\u0442 \u0431\u043E\u043B\u044C\u0448\u0435
-      MB."
-    stat: 8
-    valuePerLevel: 1
-    maxLevel: 6
-    baseCost: 20
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: -300, y: -300}
-    requires:
-    - core
-    icon: {fileID: 21300000, guid: 9e6ac86b410c2f64fbe345e68ba9a466, type: 3}
-  - id: golden
-    displayName: "\u0426\u0435\u043D\u043D\u044B\u0435 \u0444\u0430\u0439\u043B\u044B"
-    description: "\u0418\u043D\u043E\u0433\u0434\u0430 \u043F\u043E\u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F
-      \u0437\u043E\u043B\u043E\u0442\u044B\u0435 \u0444\u0430\u0439\u043B\u044B:
-      \u043E\u043D\u0438 \u0441\u0442\u043E\u044F\u0442 \u0432 5 \u0440\u0430\u0437
-      \u0431\u043E\u043B\u044C\u0448\u0435."
-    stat: 10
-    valuePerLevel: 0.06
-    maxLevel: 5
-    baseCost: 45
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: -560, y: -400}
-    requires:
-    - file_value
-    icon: {fileID: 21300000, guid: 1e2276b017068e64f9c52ccefaa75d71, type: 3}
-  - id: attraction
-    displayName: "\u0410\u0432\u0442\u043E\u043D\u043E\u043C\u043D\u043E\u0441\u0442\u044C"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
-      \u0438 \u0441\u044A\u0435\u0434\u0430\u0435\u0442 \u0444\u0430\u0439\u043B\u044B
-      \u0432\u043E\u043A\u0440\u0443\u0433 \u0441\u0435\u0431\u044F."
-    stat: 4
-    valuePerLevel: 1.5
-    maxLevel: 1
-    baseCost: 70
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 300, y: 0}
-    requires:
-    - core
-    icon: {fileID: 21300000, guid: 07c140b58bc741146823447daf25d6a2, type: 3}
-  - id: attraction_radius
-    displayName: "\u0428\u0438\u0440\u043E\u043A\u0438\u0439 \u043E\u0445\u0432\u0430\u0442"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u043F\u0440\u0438\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
-      \u0444\u0430\u0439\u043B\u044B \u0441 \u0431\u043E\u043B\u044C\u0448\u0435\u0433\u043E
-      \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u044F."
-    stat: 4
-    valuePerLevel: 0.6
-    maxLevel: 5
-    baseCost: 140
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 560, y: 140}
-    requires:
-    - attraction
-    icon: {fileID: 21300000, guid: a4330d22c5d2c2a4fa921934575f690e, type: 3}
-  - id: pull_speed
-    displayName: "\u0421\u0438\u043B\u044C\u043D\u0430\u044F \u0433\u0440\u0430\u0432\u0438\u0442\u0430\u0446\u0438\u044F"
-    description: "\u0424\u0430\u0439\u043B\u044B \u043B\u0435\u0442\u044F\u0442 \u043A
-      \u0432\u0438\u0440\u0443\u0441\u0443 \u0431\u044B\u0441\u0442\u0440\u0435\u0435."
-    stat: 5
-    valuePerLevel: 1.5
-    maxLevel: 4
-    baseCost: 140
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 560, y: -140}
-    requires:
-    - attraction
-    icon: {fileID: 21300000, guid: cf6e57fe284288e44b29d910207b6e08, type: 3}
-  - id: screen_wide
-    displayName: "\u041E\u0445\u043E\u0442\u0430"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u0441\u0430\u043C \u0432\u044B\u0431\u0438\u0440\u0430\u0435\u0442
-      \u0444\u0430\u0439\u043B\u044B \u043F\u043E \u0432\u0441\u0435\u043C\u0443
-      \u044D\u043A\u0440\u0430\u043D\u0443 \u0438 \u0437\u0430\u0442\u044F\u0433\u0438\u0432\u0430\u0435\u0442
-      \u0438\u0445. \u041A\u0430\u0436\u0434\u044B\u0439 \u0443\u0440\u043E\u0432\u0435\u043D\u044C
-      \u043E\u0445\u043E\u0442\u0438\u0442\u0441\u044F \u0447\u0430\u0449\u0435,
-      \u0441 3-\u0433\u043E \u2014 \u043F\u043E \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E
-      \u0444\u0430\u0439\u043B\u043E\u0432 \u0441\u0440\u0430\u0437\u0443."
-    stat: 6
-    valuePerLevel: 1
-    maxLevel: 5
-    baseCost: 280
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 820, y: 140}
-    requires:
-    - attraction_radius
-    icon: {fileID: 21300000, guid: 9df792ccdb8634341a8becd09dbbe577, type: 3}
-  - id: run_time
-    displayName: "\u041E\u0442\u0441\u0440\u043E\u0447\u043A\u0430 \u0443\u0432\u043E\u043B\u044C\u043D\u0435\u043D\u0438\u044F"
-    description: "\u0417\u0430\u0431\u0435\u0433 \u0434\u043B\u0438\u0442\u0441\u044F
-      \u0434\u043E\u043B\u044C\u0448\u0435."
-    stat: 7
-    valuePerLevel: 2
-    maxLevel: 6
-    baseCost: 35
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 0, y: -220}
-    requires:
-    - core
-    icon: {fileID: 21300000, guid: a6e07c0cadabdbc4e99590f0721eff99, type: 3}
-  - id: run_time_2
-    displayName: "\u0411\u043E\u043B\u044C\u043D\u0438\u0447\u043D\u044B\u0439"
-    description: "\u0417\u0430\u0431\u0435\u0433 \u0434\u043B\u0438\u0442\u0441\u044F
-      \u043D\u0430\u043C\u043D\u043E\u0433\u043E \u0434\u043E\u043B\u044C\u0448\u0435."
-    stat: 7
-    valuePerLevel: 4
-    maxLevel: 3
-    baseCost: 80
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 0, y: -440}
-    requires:
-    - run_time
-    icon: {fileID: 21300000, guid: 6e2f482753bb3c94d9c9757e710d1604, type: 3}
-  - id: server_access
-    displayName: "\u0421\u0435\u0442\u0435\u0432\u043E\u0439 \u0447\u0435\u0440\u0432\u044C"
-    description: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439, 11-\u0439
-      \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440 \u2014 \u0441\u0435\u0440\u0432\u0435\u0440
-      \u0444\u0438\u0440\u043C\u044B. \u041E\u043D \u0437\u0430\u0449\u0438\u0449\u0451\u043D,
-      \u043F\u043E\u043A\u0430 \u0432\u0438\u0440\u0443\u0441 \u043D\u0435 \u043E\u0441\u0432\u043E\u0438\u0442
-      \u0432\u0441\u0451. \u041F\u0440\u043E\u043A\u0430\u0447\u0430\u0439 \u0432\u0441\u0451
-      \u0434\u0435\u0440\u0435\u0432\u043E \u0434\u043E \u043C\u0430\u043A\u0441\u0438\u043C\u0443\u043C\u0430."
-    stat: 17
-    valuePerLevel: 1
-    maxLevel: 1
-    baseCost: 600
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 1
-    position: {x: 0, y: -680}
-    requires:
-    - run_time_2
-    icon: {fileID: 21300000, guid: 2d55943cf5fa1f64097073cbd0769ceb, type: 3}
-  - id: cursor_radius
-    displayName: "\u0426\u0435\u043F\u043A\u0438\u0439 \u043A\u0443\u0440\u0441\u043E\u0440"
-    description: "\u0422\u0430\u0449\u0438\u0448\u044C \u043E\u0434\u0438\u043D \u0444\u0430\u0439\u043B
-      \u2014 \u043A\u0443\u0440\u0441\u043E\u0440 \u043F\u0440\u0438\u0445\u0432\u0430\u0442\u044B\u0432\u0430\u0435\u0442
-      \u0438 \u0432\u0441\u0435 \u0444\u0430\u0439\u043B\u044B \u0440\u044F\u0434\u043E\u043C."
-    stat: 11
-    valuePerLevel: 0.45
-    maxLevel: 5
-    baseCost: 50
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: -300, y: 260}
-    requires:
-    - core
+    - a1_download_speed
+    unlockIds:
+    - a1_download_speed
+    unlockLevels: 01000000
     icon: {fileID: 21300000, guid: 694272c1d91c000439f17c8a5500bf58, type: 3}
-  - id: hover_feed
-    displayName: "\u0411\u0435\u0437 \u0440\u0443\u043A"
-    description: "\u041A\u043D\u043E\u043F\u043A\u0443 \u0437\u0430\u0436\u0438\u043C\u0430\u0442\u044C
-      \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435 \u043D\u0443\u0436\u043D\u043E:
-      \u043F\u0440\u043E\u0441\u0442\u043E \u0432\u043E\u0434\u0438 \u043C\u044B\u0448\u043A\u043E\u0439,
-      \u0444\u0430\u0439\u043B\u044B \u043B\u0438\u043F\u043D\u0443\u0442 \u043A
-      \u043A\u0443\u0440\u0441\u043E\u0440\u0443. \u0417\u0430\u0432\u0435\u0434\u0438
-      \u0438\u0445 \u0432 \u0433\u043B\u0438\u0447\u0430."
-    stat: 12
-    valuePerLevel: 1
-    maxLevel: 1
-    baseCost: 120
-    costMultiplier: 1.5
+  - id: a3_download_buffer
+    displayName: a3_download_buffer
+    description: a3_download_buffer
+    stat: 0
+    maxLevel: 4
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: -560, y: 380}
+    major: 0
+    anchor: 0
+    category: 1
+    effect: 3
+    minTotalPurchases: 0
+    position: {x: -640, y: 170}
     requires:
-    - cursor_radius
+    - a1_download_speed
+    unlockIds:
+    - a1_download_speed
+    unlockLevels: 02000000
     icon: {fileID: 21300000, guid: 014bccda00a932842b8e25df57b8cb88, type: 3}
-  - id: mutation
-    displayName: "\u041C\u0443\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435"
-    description: "\u0412\u0438\u0440\u0443\u0441 \u043C\u0443\u0442\u0438\u0440\u0443\u0435\u0442.
-      \u0415\u0448\u044C \u0444\u0430\u0439\u043B\u044B \u0431\u0435\u0437 \u043F\u0430\u0443\u0437
-      \u2014 \u0440\u0430\u0441\u0442\u0451\u0442 \u043A\u043E\u043C\u0431\u043E,
-      \u0438 \u043A\u0430\u0436\u0434\u044B\u0439 \u0444\u0430\u0439\u043B \u0432
-      \u0441\u0435\u0440\u0438\u0438 \u0441\u0442\u043E\u0438\u0442 \u0431\u043E\u043B\u044C\u0448\u0435."
-    stat: 13
-    valuePerLevel: 0.1
-    maxLevel: 1
-    baseCost: 100
-    costMultiplier: 1.5
+  - id: a4_download_burst
+    displayName: a4_download_burst
+    description: a4_download_burst
+    stat: 0
+    maxLevel: 3
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: 0, y: 240}
+    major: 0
+    anchor: 0
+    category: 1
+    effect: 4
+    minTotalPurchases: 0
+    position: {x: -900, y: 270}
+    requires:
+    - a2_multithreading
+    unlockIds:
+    - a2_multithreading
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 86ef65bda75cef24ca31f7485fc0e21b, type: 3}
+  - id: b1_data_compression
+    displayName: b1_data_compression
+    description: b1_data_compression
+    stat: 0
+    maxLevel: 8
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 2
+    effect: 5
+    minTotalPurchases: 0
+    position: {x: -380, y: -190}
     requires:
     - core
-    icon: {fileID: 21300000, guid: 2dd99624c0eb4e145acba875764c9fd7, type: 3}
-  - id: gluttony
-    displayName: "\u041D\u0435\u043D\u0430\u0441\u044B\u0442\u043D\u043E\u0441\u0442\u044C"
-    description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0448\u0430\u0433 \u043A\u043E\u043C\u0431\u043E
-      \u0434\u0430\u0451\u0442 \u0435\u0449\u0451 \u0431\u043E\u043B\u044C\u0448\u0435
-      MB."
-    stat: 13
-    valuePerLevel: 0.05
-    maxLevel: 4
-    baseCost: 200
-    costMultiplier: 1.5
-    startsOwned: 0
-    comingSoon: 0
-    requiresAllMaxed: 0
-    position: {x: 0, y: 470}
-    requires:
-    - mutation
-    icon: {fileID: 21300000, guid: 5947ab353f2ac49489580b4c82608463, type: 3}
-  - id: chain
-    displayName: "\u0426\u0435\u043F\u043D\u0430\u044F \u0440\u0435\u0430\u043A\u0446\u0438\u044F"
-    description: "\u0421\u044A\u0435\u0434\u0435\u043D\u043D\u044B\u0439 \u0444\u0430\u0439\u043B
-      \u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u0440\u0430\u0437\u0438\u0442\u044C
-      \u0434\u0440\u0443\u0433\u043E\u0439 \u0444\u0430\u0439\u043B \u2014 \u0442\u043E\u0442
-      \u0441\u0430\u043C \u043B\u0435\u0442\u0438\u0442 \u0432 \u0433\u043B\u0438\u0447\u0430."
-    stat: 14
-    valuePerLevel: 0.1
+    unlockIds: []
+    unlockLevels: 
+    icon: {fileID: 21300000, guid: 9e6ac86b410c2f64fbe345e68ba9a466, type: 3}
+  - id: b2_data_optimization
+    displayName: b2_data_optimization
+    description: b2_data_optimization
+    stat: 0
     maxLevel: 5
-    baseCost: 200
-    costMultiplier: 1.5
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: 280, y: 360}
+    major: 0
+    anchor: 0
+    category: 2
+    effect: 6
+    minTotalPurchases: 0
+    position: {x: -640, y: -50}
     requires:
-    - mutation
-    icon: {fileID: 21300000, guid: 508536513c0465242b8b1a227ba93c0c, type: 3}
-  - id: expansion
-    displayName: "\u042D\u043A\u0441\u043F\u0430\u043D\u0441\u0438\u044F"
-    description: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0437\u0430\u0440\u0430\u0436\u0451\u043D\u043D\u044B\u0439
-      \u043A\u043E\u043C\u043F\u044C\u044E\u0442\u0435\u0440 \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442
-      \u0432\u0440\u0435\u043C\u044F \u043A \u0437\u0430\u0431\u0435\u0433\u0443."
-    stat: 16
-    valuePerLevel: 1
-    maxLevel: 3
-    baseCost: 400
-    costMultiplier: 1.5
+    - b1_data_compression
+    unlockIds:
+    - b1_data_compression
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 5947ab353f2ac49489580b4c82608463, type: 3}
+  - id: b3_valuable_files
+    displayName: b3_valuable_files
+    description: b3_valuable_files
+    stat: 0
+    maxLevel: 4
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: -280, y: 560}
+    major: 0
+    anchor: 0
+    category: 2
+    effect: 7
+    minTotalPurchases: 0
+    position: {x: -640, y: -310}
     requires:
-    - gluttony
-    icon: {fileID: 21300000, guid: aebea0fbb87bc6646b5fbfd2d73f416d, type: 3}
-  - id: satellites
-    displayName: "\u041E\u0442\u043F\u043E\u0447\u043A\u043E\u0432\u0430\u043D\u0438\u0435"
-    description: "\u0412\u043E\u043A\u0440\u0443\u0433 \u0433\u043B\u0438\u0447\u0430
-      \u043A\u0440\u0443\u0436\u0430\u0442 \u0435\u0433\u043E \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0438\u0435
-      \u043A\u043E\u043F\u0438\u0438 \u0438 \u0441\u044A\u0435\u0434\u0430\u044E\u0442
-      \u0432\u0441\u0451, \u043A \u0447\u0435\u043C\u0443 \u043F\u0440\u0438\u043A\u043E\u0441\u043D\u0443\u0442\u0441\u044F."
-    stat: 15
-    valuePerLevel: 1
-    maxLevel: 3
-    baseCost: 400
-    costMultiplier: 1.5
+    - b1_data_compression
+    unlockIds:
+    - b1_data_compression
+    unlockLevels: 02000000
+    icon: {fileID: 21300000, guid: 1e2276b017068e64f9c52ccefaa75d71, type: 3}
+  - id: c1_mini_virus_unlock
+    displayName: c1_mini_virus_unlock
+    description: c1_mini_virus_unlock
+    stat: 0
+    maxLevel: 1
     startsOwned: 0
     comingSoon: 0
     requiresAllMaxed: 0
-    position: {x: 0, y: 700}
+    major: 1
+    anchor: 0
+    category: 3
+    effect: 8
+    minTotalPurchases: 12
+    position: {x: 380, y: 250}
     requires:
-    - gluttony
+    - core
+    unlockIds: []
+    unlockLevels: 
     icon: {fileID: 21300000, guid: c6807d2a6c6fe974d97ae0ae3ab4a26a, type: 3}
+  - id: c2_virus_population
+    displayName: c2_virus_population
+    description: c2_virus_population
+    stat: 0
+    maxLevel: 5
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 3
+    effect: 9
+    minTotalPurchases: 0
+    position: {x: 660, y: 470}
+    requires:
+    - c1_mini_virus_unlock
+    unlockIds:
+    - c1_mini_virus_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 07c140b58bc741146823447daf25d6a2, type: 3}
+  - id: c3_movement_speed
+    displayName: c3_movement_speed
+    description: c3_movement_speed
+    stat: 0
+    maxLevel: 6
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 3
+    effect: 10
+    minTotalPurchases: 0
+    position: {x: 660, y: 270}
+    requires:
+    - c1_mini_virus_unlock
+    unlockIds:
+    - c1_mini_virus_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: cf6e57fe284288e44b29d910207b6e08, type: 3}
+  - id: c4_feeding_speed
+    displayName: c4_feeding_speed
+    description: c4_feeding_speed
+    stat: 0
+    maxLevel: 6
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 3
+    effect: 11
+    minTotalPurchases: 0
+    position: {x: 660, y: 70}
+    requires:
+    - c1_mini_virus_unlock
+    unlockIds:
+    - c1_mini_virus_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 9df792ccdb8634341a8becd09dbbe577, type: 3}
+  - id: c5_smart_targeting
+    displayName: c5_smart_targeting
+    description: c5_smart_targeting
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 3
+    effect: 12
+    minTotalPurchases: 0
+    position: {x: 940, y: 250}
+    requires:
+    - c1_mini_virus_unlock
+    unlockIds:
+    - c1_mini_virus_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: a4330d22c5d2c2a4fa921934575f690e, type: 3}
+  - id: d1_chain_unlock
+    displayName: d1_chain_unlock
+    description: d1_chain_unlock
+    stat: 0
+    maxLevel: 1
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 4
+    effect: 13
+    minTotalPurchases: 30
+    position: {x: 380, y: -210}
+    requires:
+    - c1_mini_virus_unlock
+    unlockIds:
+    - c1_mini_virus_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 508536513c0465242b8b1a227ba93c0c, type: 3}
+  - id: d2_chain_probability
+    displayName: d2_chain_probability
+    description: d2_chain_probability
+    stat: 0
+    maxLevel: 5
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 4
+    effect: 14
+    minTotalPurchases: 0
+    position: {x: 660, y: -120}
+    requires:
+    - d1_chain_unlock
+    unlockIds:
+    - d1_chain_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 2dd99624c0eb4e145acba875764c9fd7, type: 3}
+  - id: d3_chain_range
+    displayName: d3_chain_range
+    description: d3_chain_range
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 4
+    effect: 15
+    minTotalPurchases: 0
+    position: {x: 660, y: -330}
+    requires:
+    - d1_chain_unlock
+    unlockIds:
+    - d1_chain_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: aebea0fbb87bc6646b5fbfd2d73f416d, type: 3}
+  - id: d4_chain_depth
+    displayName: d4_chain_depth
+    description: d4_chain_depth
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 4
+    effect: 16
+    minTotalPurchases: 0
+    position: {x: 940, y: -90}
+    requires:
+    - d1_chain_unlock
+    unlockIds:
+    - d1_chain_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: a6e07c0cadabdbc4e99590f0721eff99, type: 3}
+  - id: d5_chain_branching
+    displayName: d5_chain_branching
+    description: d5_chain_branching
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 4
+    effect: 17
+    minTotalPurchases: 0
+    position: {x: 940, y: -330}
+    requires:
+    - d1_chain_unlock
+    unlockIds:
+    - d1_chain_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: eac538487641bde439ace93e8675677f, type: 3}
+  - id: e1_overload_unlock
+    displayName: e1_overload_unlock
+    description: e1_overload_unlock
+    stat: 0
+    maxLevel: 1
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 5
+    effect: 18
+    minTotalPurchases: 50
+    position: {x: 40, y: -530}
+    requires:
+    - d1_chain_unlock
+    unlockIds:
+    - d1_chain_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 86ef65bda75cef24ca31f7485fc0e21b, type: 3}
+  - id: e2_overload_charge
+    displayName: e2_overload_charge
+    description: e2_overload_charge
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 5
+    effect: 19
+    minTotalPurchases: 0
+    position: {x: 300, y: -530}
+    requires:
+    - e1_overload_unlock
+    unlockIds:
+    - e1_overload_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: a6e07c0cadabdbc4e99590f0721eff99, type: 3}
+  - id: e3_overload_duration
+    displayName: e3_overload_duration
+    description: e3_overload_duration
+    stat: 0
+    maxLevel: 3
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 5
+    effect: 20
+    minTotalPurchases: 0
+    position: {x: 40, y: -750}
+    requires:
+    - e1_overload_unlock
+    unlockIds:
+    - e1_overload_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 6e2f482753bb3c94d9c9757e710d1604, type: 3}
+  - id: e4_overload_power
+    displayName: e4_overload_power
+    description: e4_overload_power
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 5
+    effect: 21
+    minTotalPurchases: 0
+    position: {x: 300, y: -750}
+    requires:
+    - e1_overload_unlock
+    unlockIds:
+    - e1_overload_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 9df792ccdb8634341a8becd09dbbe577, type: 3}
+  - id: f1_infected_unlock
+    displayName: f1_infected_unlock
+    description: f1_infected_unlock
+    stat: 0
+    maxLevel: 1
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 6
+    effect: 22
+    minTotalPurchases: 70
+    position: {x: -280, y: -470}
+    requires:
+    - e1_overload_unlock
+    unlockIds:
+    - e1_overload_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 508536513c0465242b8b1a227ba93c0c, type: 3}
+  - id: f2_passive_production
+    displayName: f2_passive_production
+    description: f2_passive_production
+    stat: 0
+    maxLevel: 5
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 6
+    effect: 23
+    minTotalPurchases: 0
+    position: {x: -540, y: -470}
+    requires:
+    - f1_infected_unlock
+    unlockIds:
+    - f1_infected_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 9e6ac86b410c2f64fbe345e68ba9a466, type: 3}
+  - id: f3_infected_capacity
+    displayName: f3_infected_capacity
+    description: f3_infected_capacity
+    stat: 0
+    maxLevel: 3
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 6
+    effect: 24
+    minTotalPurchases: 0
+    position: {x: -280, y: -690}
+    requires:
+    - f1_infected_unlock
+    unlockIds:
+    - f1_infected_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: eac538487641bde439ace93e8675677f, type: 3}
+  - id: f4_infected_spread
+    displayName: f4_infected_spread
+    description: f4_infected_spread
+    stat: 0
+    maxLevel: 3
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 6
+    effect: 25
+    minTotalPurchases: 0
+    position: {x: -540, y: -690}
+    requires:
+    - f1_infected_unlock
+    unlockIds:
+    - f1_infected_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: aebea0fbb87bc6646b5fbfd2d73f416d, type: 3}
+  - id: g1_fragment_unlock
+    displayName: g1_fragment_unlock
+    description: g1_fragment_unlock
+    stat: 0
+    maxLevel: 1
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 7
+    effect: 26
+    minTotalPurchases: 88
+    position: {x: 620, y: -560}
+    requires:
+    - f1_infected_unlock
+    unlockIds:
+    - f1_infected_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 1e2276b017068e64f9c52ccefaa75d71, type: 3}
+  - id: g2_fragment_chance
+    displayName: g2_fragment_chance
+    description: g2_fragment_chance
+    stat: 0
+    maxLevel: 3
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 7
+    effect: 27
+    minTotalPurchases: 0
+    position: {x: 880, y: -560}
+    requires:
+    - g1_fragment_unlock
+    unlockIds:
+    - g1_fragment_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 1e2276b017068e64f9c52ccefaa75d71, type: 3}
+  - id: g3_fragment_count
+    displayName: g3_fragment_count
+    description: g3_fragment_count
+    stat: 0
+    maxLevel: 3
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 7
+    effect: 28
+    minTotalPurchases: 0
+    position: {x: 620, y: -780}
+    requires:
+    - g1_fragment_unlock
+    unlockIds:
+    - g1_fragment_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 86ef65bda75cef24ca31f7485fc0e21b, type: 3}
+  - id: g4_fragment_value
+    displayName: g4_fragment_value
+    description: g4_fragment_value
+    stat: 0
+    maxLevel: 3
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 0
+    anchor: 0
+    category: 7
+    effect: 29
+    minTotalPurchases: 0
+    position: {x: 880, y: -780}
+    requires:
+    - g1_fragment_unlock
+    unlockIds:
+    - g1_fragment_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 9e6ac86b410c2f64fbe345e68ba9a466, type: 3}
+  - id: h1_manual_mini
+    displayName: h1_manual_mini
+    description: h1_manual_mini
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 8
+    effect: 30
+    minTotalPurchases: 102
+    position: {x: 0, y: 450}
+    requires:
+    - a1_download_speed
+    - c1_mini_virus_unlock
+    unlockIds:
+    - c1_mini_virus_unlock
+    unlockLevels: 01000000
+    icon: {fileID: 21300000, guid: 2dd99624c0eb4e145acba875764c9fd7, type: 3}
+  - id: h2_mini_chain
+    displayName: h2_mini_chain
+    description: h2_mini_chain
+    stat: 0
+    maxLevel: 4
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 8
+    effect: 31
+    minTotalPurchases: 102
+    position: {x: 380, y: 40}
+    requires:
+    - c1_mini_virus_unlock
+    - d1_chain_unlock
+    unlockIds:
+    - c1_mini_virus_unlock
+    - d1_chain_unlock
+    unlockLevels: 0100000001000000
+    icon: {fileID: 21300000, guid: 508536513c0465242b8b1a227ba93c0c, type: 3}
+  - id: h3_cascade_overload
+    displayName: h3_cascade_overload
+    description: h3_cascade_overload
+    stat: 0
+    maxLevel: 3
+    startsOwned: 0
+    comingSoon: 0
+    requiresAllMaxed: 0
+    major: 1
+    anchor: 0
+    category: 8
+    effect: 32
+    minTotalPurchases: 102
+    position: {x: 160, y: -370}
+    requires:
+    - d1_chain_unlock
+    - e1_overload_unlock
+    unlockIds:
+    - d1_chain_unlock
+    - e1_overload_unlock
+    unlockLevels: 0100000001000000
+    icon: {fileID: 21300000, guid: 5947ab353f2ac49489580b4c82608463, type: 3}

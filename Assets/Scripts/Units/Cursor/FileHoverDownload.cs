@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,9 +17,12 @@ public class FileHoverDownload : MonoBehaviour
     [SerializeField] private string chargedFileName;
 
     public float DownloadCharge => downloadCharge;
+    public HoverDownloadFeel Feel => feel;
 
+    private readonly List<DesktopIcon> secondary = new();
+    private readonly List<Linger> lingering = new();
+    private DesktopIcon primary;
     private Camera cam;
-    private DesktopIcon charged;
     private SpriteRenderer busy;
     private SpriteRenderer busyShadow;
     private Sprite[] busyFrames;
@@ -76,67 +81,218 @@ public class FileHoverDownload : MonoBehaviour
 
         Vector2 cursor = MonitorScreen.ToWorld(cam);
         DesktopIcon under = FindUnderCursor(cursor);
-
-        if (charged != null && (charged.IsFlashing || charged.FlashReadyToFly))
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame && under != null)
         {
-            UpdateBusy(cursor, under == charged);
-            downloadCharge = charged.DownloadProgress;
-            if (charged.FlashReadyToFly && virus != null)
+            under.WantsInfect = true;
+        }
+
+        bool downloading = under != null && under.IsFree;
+        UpdateBusy(cursor, downloading || primary != null);
+        if (RunDirector.Instance != null && RunDirector.Instance.BurstMultiplier > 1.01f && busy != null && busy.enabled)
+        {
+            busy.color = new Color(1f, 0.78f, 0.35f, 1f);
+        }
+        else if (busy != null)
+        {
+            busy.color = Color.white;
+        }
+
+        float dt = Time.deltaTime;
+        if (under != primary)
+        {
+            Hold(primary);
+            if (primary != null)
             {
-                Launch(charged);
+                primary.ClearHoverPose();
             }
 
-            return;
+            primary = downloading ? under : null;
         }
 
-        UpdateBusy(cursor, under != null && !under.IsConsumed && under.IsFree);
-
-        if (under == null || !under.IsFree)
+        if (primary != null && primary.IsFree)
         {
-            PauseHover();
-            return;
+            float rate = GameplayQuery.ManualPrimaryRate();
+            primary.AddWork(rate * dt, Highlight(), CompletionSource.Manual);
+            downloadCharge = primary.DownloadProgress;
+            chargedFileName = primary.name;
+            primary.SetHoverPose(downloadCharge, Time.time, feel);
+            Remember(primary, rate);
         }
-
-        if (under != charged)
+        else
         {
-            if (charged != null)
+            Hold(primary);
+            if (primary != null)
             {
-                charged.ClearHoverPose();
+                primary.ClearHoverPose();
             }
 
-            charged = under;
+            primary = null;
+            downloadCharge = 0f;
+            chargedFileName = string.Empty;
         }
 
-        charged.AddDownloadTime(Time.deltaTime, feel.downloadSeconds, feel.downloadHighlight);
-        downloadCharge = charged.DownloadProgress;
-        chargedFileName = charged.name;
-        charged.SetHoverPose(downloadCharge, Time.time, feel);
-
-        if (downloadCharge < 1f || virus == null)
+        int extra = Mathf.Max(0, GameplayQuery.DownloadSlots() - 1);
+        for (int i = secondary.Count - 1; i >= 0; i--)
         {
-            return;
+            DesktopIcon icon = secondary[i];
+            if (icon == null || !icon.IsFree || icon == primary)
+            {
+                Hold(icon);
+                secondary.RemoveAt(i);
+            }
         }
 
-        charged.ClearHoverPose();
-        charged.BeginDownloadFlash(feel.flashSeconds);
+        if (primary == null)
+        {
+            for (int i = 0; i < secondary.Count; i++)
+            {
+                Hold(secondary[i]);
+                secondary[i].ClearHoverPose();
+            }
+
+            secondary.Clear();
+        }
+        else
+        {
+            while (secondary.Count < extra)
+            {
+                DesktopIcon next = FindNearest(cursor, ProgressionConfig.MultithreadRadius);
+                if (next == null)
+                {
+                    break;
+                }
+
+                secondary.Add(next);
+            }
+
+            float sideRate = GameplayQuery.ManualPrimaryRate() * ProgressionConfig.SecondarySpeedFactor;
+            for (int i = 0; i < secondary.Count; i++)
+            {
+                secondary[i].AddWork(sideRate * dt, Highlight(), CompletionSource.Manual);
+                Remember(secondary[i], sideRate);
+            }
+        }
+
+        for (int i = lingering.Count - 1; i >= 0; i--)
+        {
+            Linger linger = lingering[i];
+            if (linger.Icon == null || !linger.Icon.IsFree || linger.Left <= 0f)
+            {
+                lingering.RemoveAt(i);
+                continue;
+            }
+
+            linger.Left -= dt;
+            linger.Icon.AddWork(linger.Rate * dt, Highlight(), CompletionSource.Manual);
+        }
     }
 
-    private void Launch(DesktopIcon icon)
+    private Color Highlight()
     {
-        charged = null;
-        downloadCharge = 0f;
-        chargedFileName = string.Empty;
-        icon.BeginDelivery(virus.GetAbsorbPoint(), feel, () => virus.Absorb(icon));
+        Color color = feel.downloadHighlight;
+        if (RunDirector.Instance != null && RunDirector.Instance.BurstMultiplier > 1.01f)
+        {
+            color = Color.Lerp(color, new Color(1f, 0.85f, 0.3f, 1f), 0.65f);
+        }
+
+        return color;
+    }
+
+    private void Hold(DesktopIcon icon)
+    {
+        if (icon == null || !icon.IsFree)
+        {
+            return;
+        }
+
+        float seconds = GameplayQuery.BufferSeconds();
+        if (seconds <= 0f)
+        {
+            return;
+        }
+
+        for (int i = 0; i < lingering.Count; i++)
+        {
+            if (lingering[i].Icon == icon)
+            {
+                lingering[i].Left = seconds;
+                return;
+            }
+        }
+
+        lingering.Add(new Linger { Icon = icon, Left = seconds, Rate = RateOf(icon) });
+    }
+
+    private void Remember(DesktopIcon icon, float rate)
+    {
+        for (int i = 0; i < lingering.Count; i++)
+        {
+            if (lingering[i].Icon == icon)
+            {
+                lingering[i].Rate = rate;
+                lingering.RemoveAt(i);
+                break;
+            }
+        }
+
+        for (int i = 0; i < lingering.Count; i++)
+        {
+            if (lingering[i].Icon == icon)
+            {
+                lingering[i].Rate = rate;
+            }
+        }
+    }
+
+    private float RateOf(DesktopIcon icon)
+    {
+        return icon == primary
+            ? GameplayQuery.ManualPrimaryRate()
+            : GameplayQuery.ManualPrimaryRate() * ProgressionConfig.SecondarySpeedFactor;
+    }
+
+    private DesktopIcon FindNearest(Vector2 cursor, float radius)
+    {
+        float best = radius * radius;
+        DesktopIcon found = null;
+        for (int i = 0; i < DesktopIcon.Active.Count; i++)
+        {
+            DesktopIcon icon = DesktopIcon.Active[i];
+            if (icon == null || !icon.IsFree || icon == primary || secondary.Contains(icon))
+            {
+                continue;
+            }
+
+            float distance = ((Vector2)icon.transform.position - cursor).sqrMagnitude;
+            if (distance < best)
+            {
+                best = distance;
+                found = icon;
+            }
+        }
+
+        return found;
     }
 
     private void PauseHover()
     {
-        if (charged != null)
+        Hold(primary);
+        if (primary != null)
         {
-            charged.ClearHoverPose();
-            charged = null;
+            primary.ClearHoverPose();
+            primary = null;
         }
 
+        for (int i = 0; i < secondary.Count; i++)
+        {
+            Hold(secondary[i]);
+            if (secondary[i] != null)
+            {
+                secondary[i].ClearHoverPose();
+            }
+        }
+
+        secondary.Clear();
         downloadCharge = 0f;
         chargedFileName = string.Empty;
     }
@@ -144,6 +300,14 @@ public class FileHoverDownload : MonoBehaviour
     private void ReleaseCharge()
     {
         PauseHover();
+        lingering.Clear();
+    }
+
+    private sealed class Linger
+    {
+        public DesktopIcon Icon;
+        public float Left;
+        public float Rate;
     }
 
     private static DesktopIcon FindUnderCursor(Vector2 cursor)

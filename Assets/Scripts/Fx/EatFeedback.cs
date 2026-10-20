@@ -113,7 +113,7 @@ public class EatFeedback : MonoBehaviour
         Emit(ringSprite, position, Vector2.zero, 0.4f, size * 0.3f, size, color);
     }
 
-    private void OnFileScored(Vector3 iconPosition, uint value, bool golden)
+    private void OnFileScored(Vector3 iconPosition, long value, bool golden)
     {
         Vector2 center = virus.GetAbsorbPoint();
         float virusSize = virus.GetVisualBounds().size.y;
@@ -121,7 +121,7 @@ public class EatFeedback : MonoBehaviour
 
         Burst(center, color, golden ? 26 : 10, golden ? 7f : 4f);
         Ring(center, color, virusSize * (golden ? 2.2f : 1.5f));
-        ShowPopup(center + Vector2.up * (virusSize * 0.5f), golden ? $"+{value} MB!" : $"+{value}", color, golden ? 1.5f : 1f);
+        ShowPopup(center + Vector2.up * (virusSize * 0.5f), golden ? $"+{NumberFormat.Mb(value)} MB!" : $"+{NumberFormat.Mb(value)}", color, golden ? 1.5f : 1f);
 
         if (golden)
         {

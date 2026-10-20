@@ -1,0 +1,15 @@
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\bin\Release\net8.0\BalanceRunner.exe
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\bin\Release\net8.0\BalanceRunner.deps.json
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\bin\Release\net8.0\BalanceRunner.runtimeconfig.json
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\bin\Release\net8.0\BalanceRunner.dll
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\bin\Release\net8.0\BalanceRunner.pdb
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.AssemblyInfoInputs.cache
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.AssemblyInfo.cs
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.csproj.CoreCompileInputs.cache
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.sourcelink.json
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.dll
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\refint\BalanceRunner.dll
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.pdb
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\BalanceRunner.genruntimeconfig.cache
+E:\Projects\BaseProject\Final Scratch\old-tech-game\Tools\BalanceRunner\obj\Release\net8.0\ref\BalanceRunner.dll

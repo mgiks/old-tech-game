@@ -25,6 +25,7 @@ public class VirusSatellites : MonoBehaviour
 
     void Update()
     {
+        return;
         int count = virusRenderer.enabled ? Mathf.RoundToInt(skillTree.GetStat(SkillStat.Satellites)) : 0;
         EnsureCount(count);
         if (count == 0 || GamePause.IsPaused)

@@ -132,7 +132,7 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         int level = skillTree.GetLevel(node);
         nameLabel.text = SkillTreeDefinition.GetName(node);
-        levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
+        levelLabel.text = node.comingSoon ? Loc.T("tree.soon") : node.anchor || node.startsOwned ? string.Empty : $"{level}/{node.maxLevel}";
 
         stateColor = GetStateColor();
         int tier = skillTree.RevealTier(node);
@@ -187,7 +187,8 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         scaleVelocity += (target - scale) * springStiffness * dt;
         scaleVelocity *= Mathf.Exp(-springDamping * dt);
         scale += scaleVelocity * dt;
-        transform.localScale = new Vector3(scale, scale, 1f);
+        float size = node.major ? 1.12f : 1f;
+        transform.localScale = new Vector3(scale * size, scale * size, 1f);
 
         flash *= Mathf.Exp(-5f * dt);
 
@@ -282,16 +283,16 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return;
         }
 
-        uint cost = skillTree.GetCost(node);
+        long price = skillTree.GetCost(node);
         if (!skillTree.TryBuy(node))
         {
             return;
         }
 
-        scaleVelocity += purchasePunch;
+        scaleVelocity += purchasePunch * (node.major ? 1.35f : 1f);
         flash = 1f;
         GameAudio.Play(GameSfx.LevelUp);
-        fx.PlayPurchase(rect, stateColor, skillTree.IsMaxed(node), cost);
+        fx.PlayPurchase(rect, stateColor, skillTree.IsMaxed(node) || (node.major && skillTree.GetLevel(node) == 1), price);
     }
 
     private Color GetStateColor()
@@ -301,14 +302,19 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return lockedColor;
         }
 
-        if (node.comingSoon)
+        if (node.anchor || node.startsOwned)
         {
-            return comingSoonColor;
+            return ownedColor;
         }
 
-        if (node.startsOwned || skillTree.IsMaxed(node))
+        if (skillTree.IsMaxed(node))
         {
-            return skillTree.IsMaxed(node) ? maxedColor : ownedColor;
+            return maxedColor;
+        }
+
+        if (skillTree.GetLevel(node) > 0)
+        {
+            return ownedColor;
         }
 
         if (skillTree.CanBuy(node))
@@ -316,6 +322,11 @@ public class SkillNodeView : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return affordableColor;
         }
 
-        return unaffordableColor;
+        if (skillTree.GetVisibility(node) == SkillVisibility.Available)
+        {
+            return unaffordableColor;
+        }
+
+        return lockedColor;
     }
 }

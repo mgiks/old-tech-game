@@ -94,7 +94,7 @@ public class SkillTreeFx : MonoBehaviour
         }
     }
 
-    public void PlayPurchase(RectTransform node, Color color, bool maxed, uint cost)
+    public void PlayPurchase(RectTransform node, Color color, bool maxed, long cost)
     {
         Vector2 p = ToFx(node);
 
@@ -118,7 +118,7 @@ public class SkillTreeFx : MonoBehaviour
             EmitRing(p, 10f, 1800f, 1f, color);
         }
 
-        ShowPopup(p + Vector2.up * 70f, $"-{cost} MB", costColor, 1f);
+        ShowPopup(p + Vector2.up * 70f, "-" + NumberFormat.Mb(cost) + " MB", costColor, 1f);
         ShowPopup(p + Vector2.up * 125f, maxed ? "MAX!" : "LEVEL UP", color, maxed ? 1.5f : 1.15f);
 
         shake?.Add(maxed ? 26f : 14f);

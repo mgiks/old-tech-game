@@ -342,7 +342,7 @@ public class GameEnding : MonoBehaviour
 
     private static string BuildStatsText()
     {
-        return Loc.F("ending.stats", RunStats.RunNumber, GameProgress.TotalMB, RunStats.TotalFiles, RunStats.TotalClicks);
+        return Loc.F("ending.stats", RunStats.RunNumber, NumberFormat.Mb(GameProgress.TotalMB), RunStats.TotalFiles, RunStats.TotalClicks);
     }
 
     private IEnumerator AnimateVirus(RectTransform virusRect, Image glow)

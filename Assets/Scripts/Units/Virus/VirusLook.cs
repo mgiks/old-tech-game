@@ -43,6 +43,13 @@ public class VirusLook : MonoBehaviour
         }
     }
 
+        float overload;
+
+    public void SetOverload(float amount)
+    {
+        overload = Mathf.Clamp01(amount);
+    }
+
     public void PlayEat()
     {
         eat = 1f;
@@ -73,12 +80,12 @@ public class VirusLook : MonoBehaviour
         click = Mathf.Max(0f, click - dt * 3.5f);
         WatchClick();
 
-        float pulse = 0.65f + 0.35f * Mathf.Sin(Time.time * 5f);
+        float pulse = 0.65f + 0.35f * Mathf.Sin(Time.time * (5f + overload * 8f));
         if (glow != null)
         {
             Color glowColor = deny > 0.01f
                 ? new Color(0.95f, 0.25f, 0.22f, 0.2f + deny * 0.45f)
-                : new Color(0.3f, 0.9f, 0.45f, 0.14f + pulse * 0.12f + eat * 0.4f + click * 0.25f);
+                : new Color(0.3f + overload * 0.6f, 0.9f, 0.45f, 0.14f + pulse * 0.12f + eat * 0.4f + click * 0.25f + overload * 0.35f);
             glow.color = glowColor;
             float grow = 1.4f + eat * 0.25f + click * 0.12f;
             glow.transform.localScale = new Vector3(grow, grow, 1f);

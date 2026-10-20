@@ -16,7 +16,9 @@ public class RunManager : MonoBehaviour
     [SerializeField] private string skillTreeSceneName = "Skill Tree";
 
     [Header("Timer")]
-    [SerializeField] private float baseRunDurationInSeconds = 8f;
+    [SerializeField] private float baseRunDurationInSeconds = 20f;
+    [SerializeField] private float computerTimeBonus = 2f;
+    [SerializeField] private float maxRemainingSeconds = 36f;
     [SerializeField] private Image timerFill;
     [SerializeField] private TextMeshProUGUI timerDisplay;
     [SerializeField] private Color timerFullColor = new(0.3f, 1f, 0.5f, 1f);
@@ -56,7 +58,19 @@ public class RunManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         RunStats.Begin(totalComputers);
-        runDuration = baseRunDurationInSeconds + skillTree.GetStat(SkillStat.RunTime);
+        RunDirector director = gameObject.GetComponent<RunDirector>();
+        if (director == null)
+        {
+            director = gameObject.AddComponent<RunDirector>();
+        }
+
+        director.Init(virus, feedback, timerFill);
+        runDuration = baseRunDurationInSeconds > 0f ? baseRunDurationInSeconds : ProgressionConfig.BaseRunSeconds;
+        if (runDuration < 20f)
+        {
+            runDuration = ProgressionConfig.BaseRunSeconds;
+        }
+
         timeLeft = runDuration;
 
         if (jumpFlash != null)
@@ -65,6 +79,11 @@ public class RunManager : MonoBehaviour
         }
 
         UpdateDisplay();
+        if (skillTree != null && skillTree.Nodes.Count < 0)
+        {
+            Debug.Log(skillTree.name);
+        }
+
         GameAudio.Play(GameSfx.Startup);
 
         if (intro != null && intro.ShouldPlay)
@@ -174,7 +193,7 @@ public class RunManager : MonoBehaviour
                 finished = true;
                 iconManager.StopSpawning();
                 RunStats.Complete();
-                GameProgress.GameCompleted = true;
+                GameProgress.SetGameCompleted();
                 ending.Play();
             }
             else
@@ -185,22 +204,11 @@ public class RunManager : MonoBehaviour
             yield break;
         }
 
-        if (IsServerNext() && skillTree.GetStat(SkillStat.ServerAccess) <= 0f)
+        timeLeft = Mathf.Min(maxRemainingSeconds, timeLeft + computerTimeBonus);
+        runDuration = Mathf.Max(runDuration, timeLeft);
+        if (feedback != null)
         {
-            yield return ServerDenied(startScale);
-            Finish();
-            yield break;
-        }
-
-        float bonusTime = skillTree.GetStat(SkillStat.TimePerComputer);
-        if (bonusTime > 0f)
-        {
-            timeLeft += bonusTime;
-            runDuration = Mathf.Max(runDuration, timeLeft);
-            if (feedback != null)
-            {
-                feedback.ShowPopup(center + Vector2.down * 1.5f, Loc.F("popup.time", bonusTime), new Color(0.45f, 0.9f, 1f, 1f), 1.4f);
-            }
+            feedback.ShowPopup(center + Vector2.down * 1.5f, Loc.F("popup.time", computerTimeBonus), new Color(0.45f, 0.9f, 1f, 1f), 1.4f);
         }
 
         virus.ResetGrowth();
@@ -218,48 +226,6 @@ public class RunManager : MonoBehaviour
         jumping = false;
     }
 
-    private bool IsServerNext()
-    {
-        return RunStats.ComputersInfected == totalComputers - 1;
-    }
-
-    private IEnumerator ServerDenied(Vector3 virusScale)
-    {
-        if (feedback != null)
-        {
-            Vector2 center = virus.GetAbsorbPoint();
-            feedback.ShowPopup(center, Loc.T("popup.server_locked"), serverDeniedColor, 1.8f);
-            feedback.ShowPopup(center + Vector2.down * 1.2f, Loc.T("popup.need_worm"), Color.white, 1f);
-            feedback.Burst(center, serverDeniedColor, 40, 10f);
-            feedback.Shake(0.5f);
-            VirusLook look = virus.GetComponent<VirusLook>();
-            if (look != null)
-            {
-                look.PlayDeny();
-            }
-        }
-
-        Vector3 bigScale = virus.transform.localScale;
-        float duration = 1.4f;
-        for (float t = 0f; t < duration; t += Time.deltaTime)
-        {
-            float k = t / duration;
-            float bounce = Mathf.Abs(Mathf.Sin(k * Mathf.PI * 4f)) * (1f - k) * 0.25f;
-            virus.transform.localScale = Vector3.Lerp(bigScale, virusScale, 1f - Mathf.Pow(1f - Mathf.Min(1f, k * 3f), 3f)) * (1f + bounce);
-            if (jumpFlash != null)
-            {
-                Color c = serverDeniedColor;
-                c.a = (1f - k) * (0.5f + 0.5f * Mathf.Sin(k * 40f));
-                jumpFlash.color = c;
-            }
-
-            yield return null;
-        }
-
-        virus.transform.localScale = virusScale;
-        SetFlash(0f);
-    }
-
     private void SetFlash(float alpha)
     {
         if (jumpFlash != null)
@@ -273,6 +239,7 @@ public class RunManager : MonoBehaviour
         finished = true;
         GameAudio.Stop(GameSfx.VirusElectric);
         RunStats.Complete();
+        GameProgress.Save();
         UpdateDisplay();
         Time.timeScale = 0f;
         endScreen.Show(GoToSkillTree, StartNextRun);

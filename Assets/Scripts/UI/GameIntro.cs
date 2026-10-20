@@ -101,7 +101,7 @@ public class GameIntro : MonoBehaviour
         }
 
         virus.transform.localScale = virusScale;
-        GameProgress.IntroDone = true;
+        GameProgress.SetIntroDone();
         onFinished?.Invoke();
 
         SetHint("intro.feed");

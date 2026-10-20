@@ -211,7 +211,7 @@ public class Taskbar : MonoBehaviour
             return;
         }
 
-        mbLabel.text = Loc.F("menu.mb", GameProgress.MB);
+        mbLabel.text = Loc.F("menu.mb", NumberFormat.Mb(GameProgress.MB));
         runLabel.text = Loc.F("menu.run", Mathf.Max(1, RunStats.RunNumber));
     }
 
