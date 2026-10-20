@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4122a63bedb5ae146afc14545f8d1fcf, type: 3}
+  m_Name: Hover Download Feel
+  m_EditorClassIdentifier: Assembly-CSharp::HoverDownloadFeel
+  metric: "DownloadCharge \u2014 \u0447\u0438\u0441\u043B\u043E \u043E\u0442 0 \u0434\u043E
+    1 \u043D\u0430 \u043A\u0430\u0436\u0434\u043E\u043C \u0444\u0430\u0439\u043B\u0435.
+    \u041A\u0443\u0440\u0441\u043E\u0440 \u0443\u0448\u0451\u043B \u2014 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441
+    \u0438 \u0437\u0430\u043B\u0438\u0432\u043A\u0430 \u043E\u0441\u0442\u0430\u044E\u0442\u0441\u044F.\n\u0422\u0440\u044F\u0441\u043A\u0430
+    \u0440\u0430\u0441\u0442\u0451\u0442 \u043A\u0430\u043A charge^shakeCurve \u0438
+    \u0447\u0443\u0442\u044C \u0441\u043B\u0430\u0431\u0435\u0435\u0442 \u043E\u0442
+    shakeNearDoneStart \u0434\u043E 1."
+  downloadSeconds: 3
+  swayDegreesAtZero: 2.5
+  swayDegreesAtOne: 8
+  swayHertz: 1.8
+  shakeDegreesAtOne: 11
+  shakeHertz: 14
+  shakeCurve: 2.2
+  slideAtOne: 0.035
+  shakeNearDoneStart: 0.78
+  shakeNearDoneScale: 0.72
+  flySeconds: 0.42
+  flyArc: 0.18
+  flashSeconds: 0.18
+  downloadHighlight: {r: 1, g: 0.7, b: 0.22, a: 0.85}
+  busyFrames:
+  - {fileID: 8115644005664255767, guid: 8c6a32f396c9ed54e9ca7b571ad84540, type: 3}
+  - {fileID: -1974267942269126528, guid: 8e6cc8d25900ab046b60d0853911e821, type: 3}
+  - {fileID: 2536910936557558875, guid: c3c41dce4f95b6e4aa1b2f00163027c3, type: 3}
+  - {fileID: 1399413676680894907, guid: 74202eb6a69771a4caf099c90919a56f, type: 3}
+  - {fileID: 6636361135747025162, guid: 1b8beb39623626b48a388e510d8bdea6, type: 3}
+  - {fileID: -3229540774608315921, guid: 0affc22966dc3fe4dbcd77b12d231bba, type: 3}
+  - {fileID: -8556153337439913670, guid: 99c1f1d46245ad84ea8b35eaa7e7d683, type: 3}
+  - {fileID: 6806514638545688161, guid: 9fdfce865fb21804aa6d962c0e614249, type: 3}
+  - {fileID: 9129153061814148694, guid: 668100158cafc0748b0e36deda5e3bd3, type: 3}
+  - {fileID: -5081542999072728518, guid: 455c7cecc6726cc438302d79304258a8, type: 3}
+  - {fileID: 4520904317959053790, guid: 1d2bd6d1d015b1f43a3f2bb65fc303cb, type: 3}
+  - {fileID: 2322682147697601876, guid: d44eb79cd51b7364aa25b430723a6c14, type: 3}
+  - {fileID: 3821608149902857604, guid: b007f24dbcfca7c4f8ae3ff77849d203, type: 3}
+  - {fileID: 7591575736208656583, guid: cd3d74f55c3c02e4facc938077463495, type: 3}
+  - {fileID: -1307551117688303750, guid: 93613c0f6d5bbf24da18fa48da7651f3, type: 3}
+  - {fileID: 462379283006482115, guid: c536949e74fd896469a35bdeb6910651, type: 3}
+  - {fileID: 3161044957347714238, guid: 59d3a89144e2659409bdf2aba86618ec, type: 3}
+  - {fileID: -8312946514707724896, guid: 5d39206d081fb1c42affc5138dc32221, type: 3}
+  busyFrameSeconds: 0.033333
+  busyOffsetPixels: {x: 18, y: 12}
+  busyDiameterPixels: 28

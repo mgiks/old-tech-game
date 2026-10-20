@@ -1,0 +1,97 @@
+{
+  "source": "Windows 7 Busy.ani",
+  "frame_count": 18,
+  "steps": [
+    {
+      "frame": "frame_001.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_002.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_003.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_004.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_005.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_006.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_007.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_008.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_009.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_010.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_011.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_012.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_013.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_014.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_015.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_016.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_017.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    },
+    {
+      "frame": "frame_018.png",
+      "duration_seconds": 0.033333,
+      "duration_jiffies": 2
+    }
+  ],
+  "hotspot_note": "Hotspot is embedded in CUR records; Unity hotspot may require manual configuration."
+}
