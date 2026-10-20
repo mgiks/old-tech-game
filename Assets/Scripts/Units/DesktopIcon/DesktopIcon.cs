@@ -30,8 +30,14 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     private Vector3 offset;
     private Camera cam;
     private SpriteRenderer spriteRenderer;
+    private SpriteRenderer outline;
     private Vector3 baseScale;
     private float age;
+    private bool hovered;
+    private float hoverBlend;
+    private bool chainedTint;
+    private const float HoverScale = 1.05f;
+    private const float HoverBlendSeconds = 0.07f;
 
     private bool posing;
     private bool releasing;
@@ -75,28 +81,36 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         ApplyFillMaterial();
         CacheFillBounds();
         ApplyDownloadVisual(0f);
+        BuildOutline();
     }
 
     void Update()
     {
         age += Time.deltaTime;
 
+        float pop = 1f;
         if (age < popInDuration)
         {
             float t = age / popInDuration;
-            float overshoot = 1f + Mathf.Sin(t * Mathf.PI) * 0.35f;
-            transform.localScale = baseScale * (t * overshoot);
-        }
-        else if (transform.localScale != baseScale)
-        {
-            transform.localScale = baseScale;
+            pop = t * (1f + Mathf.Sin(t * Mathf.PI) * 0.35f);
         }
 
+        float hoverTarget = hovered && !IsDelivering ? 1f : 0f;
+        hoverBlend = Mathf.MoveTowards(hoverBlend, hoverTarget, Time.deltaTime / HoverBlendSeconds);
+        transform.localScale = baseScale * pop * Mathf.Lerp(1f, HoverScale, hoverBlend);
+
+        Color tint = Color.white;
         if (IsGolden)
         {
             float shimmer = 0.5f + 0.5f * Mathf.Sin(age * 8f);
-            spriteRenderer.color = Color.Lerp(goldenColor, Color.white, shimmer * 0.45f);
+            tint = Color.Lerp(goldenColor, Color.white, shimmer * 0.45f);
         }
+        else if (chainedTint)
+        {
+            tint = chainedColor;
+        }
+
+        spriteRenderer.color = Color.Lerp(tint, Color.Lerp(tint, Color.white, 0.22f), hoverBlend);
     }
 
     void LateUpdate()
@@ -177,6 +191,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
         posing = true;
         releasing = false;
+        hovered = true;
         poseCharge = charge;
         poseTime = time;
         poseFeel = feel;
@@ -184,6 +199,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void ClearHoverPose()
     {
+        hovered = false;
         if (IsDragged || IsDelivering)
         {
             posing = false;
@@ -204,6 +220,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         posing = false;
         releasing = false;
+        hovered = false;
         IsFlashing = false;
         FlashReadyToFly = false;
         IsDragged = false;
@@ -227,7 +244,7 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {
         if (!IsGolden)
         {
-            spriteRenderer.color = chainedColor;
+            chainedTint = true;
         }
     }
 
@@ -369,6 +386,24 @@ public class DesktopIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         IsFlashing = false;
         FlashReadyToFly = true;
         ApplyDownloadVisual(0f);
+    }
+
+    private void BuildOutline()
+    {
+        if (spriteRenderer == null || spriteRenderer.sprite == null)
+        {
+            return;
+        }
+
+        GameObject go = new("Outline");
+        go.transform.SetParent(transform, false);
+        outline = go.AddComponent<SpriteRenderer>();
+        outline.sprite = spriteRenderer.sprite;
+        outline.color = new Color(0.02f, 0.03f, 0.06f, 0.85f);
+        outline.sortingLayerID = spriteRenderer.sortingLayerID;
+        outline.sortingOrder = spriteRenderer.sortingOrder - 1;
+        float height = Mathf.Max(1f, spriteRenderer.sprite.rect.height);
+        outline.transform.localScale = Vector3.one * (1f + 2f / height);
     }
 
     private void ApplyFillMaterial()

@@ -19,6 +19,7 @@ public class FileHoverDownload : MonoBehaviour
     private Camera cam;
     private DesktopIcon charged;
     private SpriteRenderer busy;
+    private SpriteRenderer busyShadow;
     private Sprite[] busyFrames;
     private float busyFrameTime;
 
@@ -45,6 +46,11 @@ public class FileHoverDownload : MonoBehaviour
         if (busy != null)
         {
             busy.enabled = false;
+        }
+
+        if (busyShadow != null)
+        {
+            busyShadow.enabled = false;
         }
     }
 
@@ -173,6 +179,11 @@ public class FileHoverDownload : MonoBehaviour
         busy.enabled = visible && busyFrames != null && busyFrames.Length > 0;
         if (!busy.enabled)
         {
+            if (busyShadow != null)
+            {
+                busyShadow.enabled = false;
+            }
+
             return;
         }
 
@@ -183,10 +194,22 @@ public class FileHoverDownload : MonoBehaviour
         if (frame == null)
         {
             busy.enabled = false;
+            if (busyShadow != null)
+            {
+                busyShadow.enabled = false;
+            }
+
             return;
         }
 
         busy.sprite = frame;
+        if (busyShadow != null)
+        {
+            busyShadow.sprite = frame;
+            busyShadow.enabled = true;
+            float height = Mathf.Max(1f, frame.rect.height);
+            busyShadow.transform.localScale = Vector3.one * (1f + 2f / height);
+        }
 
         float worldPerPixel = cam.orthographicSize * 2f / Mathf.Max(1, cam.pixelHeight);
         Vector2 offset = feel.busyOffsetPixels * worldPerPixel;
@@ -204,6 +227,11 @@ public class FileHoverDownload : MonoBehaviour
             busy.enabled = false;
         }
 
+        if (busyShadow != null)
+        {
+            busyShadow.enabled = false;
+        }
+
         busyFrameTime = 0f;
     }
 
@@ -214,6 +242,13 @@ public class FileHoverDownload : MonoBehaviour
         busy = go.AddComponent<SpriteRenderer>();
         busy.sortingOrder = 80;
         busy.enabled = false;
+
+        GameObject shadow = new("Busy Shadow");
+        shadow.transform.SetParent(go.transform, false);
+        busyShadow = shadow.AddComponent<SpriteRenderer>();
+        busyShadow.color = new Color(0.02f, 0.03f, 0.06f, 0.85f);
+        busyShadow.sortingOrder = 79;
+        busyShadow.enabled = false;
     }
 
     private static Sprite[] ResolveBusyFrames(HoverDownloadFeel feelAsset)
